@@ -16,9 +16,7 @@ function App() {
 				<Route path="/members" exact component={Members} />
 				<Route component={NotFound} />
 			</Switch>
-		
 		</BrowserRouter>
-
 	);
 }
 

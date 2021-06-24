@@ -3,11 +3,7 @@ import React from 'react';
 export default function NotFound() {
 
     return (
-        <div>
-            Bonjour NotFound
-        </div>
-        
-
+        <h1>ERROR 404</h1>
     )
 
 }
