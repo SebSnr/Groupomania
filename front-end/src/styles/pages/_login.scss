@@ -1,0 +1,23 @@
+
+body {
+    // background-image: url("../../assets/logoTransparent.png");
+    background-image: url("../../assets/icon.svg");
+    background-repeat: no-repeat;
+    background-size: 120vh;
+    background-position: top -30vh right -30vw;
+
+}
+
+.loginContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 1rem 1rem;
+
+    & img {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

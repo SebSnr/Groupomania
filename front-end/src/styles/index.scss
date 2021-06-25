@@ -1,3 +1,9 @@
-@import "./settings";
 @import "./normalize/normalize";
-// @import "./components/navigation";
+@import "./settings";
+
+// pages
+@import "./pages/login";
+
+
+// components
+@import "./components/card";

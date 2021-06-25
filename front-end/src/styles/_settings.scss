@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+$font-1 : "poppins", sans-serif;
+
+$color-1: #fd2d01;
+$color-2: #036bfc;
+$color-3: #ffd7d7;
+$color-4: #252525;
+$color-5: #616161;
+$color-6: #ffffff;
+
+* {
+    font-family: $font-1;
+    color: #252525;
+}
+
+body {
+    margin: 0.4rem auto;
+    max-width: 1200px;
+    color: $color-4;
+    padding: 14px;
+}
+
+a:hover, button:hover {
+    cursor: pointer;
+}
+
+a:visited {
+    $color-5: #616161;
+}

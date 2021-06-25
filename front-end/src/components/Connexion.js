@@ -13,7 +13,6 @@ export default function Connexion() {
                     case "signUp" :
                         return (
                             <div>
-                                <p>Hello sign-up</p>
                                 <SignUpForm /> 
                                 <button onClick= {()=> setConnexionContent("login")}>Se connecter</button>
                             </div>
@@ -21,7 +20,6 @@ export default function Connexion() {
                     case "login" :
                         return (
                             <div>
-                                <p>Hello login</p>
                                 <LoginForm />
                                 <button onClick= {()=> setConnexionContent("signUp")}>S'inscrire</button>
                             </div>
