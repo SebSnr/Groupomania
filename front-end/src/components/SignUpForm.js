@@ -4,18 +4,18 @@ import * as Yup from "yup"
 
 export default function LoginForm() {
 	const SignupSchema = Yup.object().shape({
-		firstName: Yup.string().min(2, "Too Short!").max(50, "Too Long!").required("Required"),
-		lastName: Yup.string().min(2, "Too Short!").max(50, "Too Long!").required("Required"),
-		email: Yup.string().email("Invalid email").required("Required"),
+		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long!").required("obligatoire*"),
+		lastName: Yup.string().min(2, "trop court*").max(50, "Trop long!").required("obligatoire*"),
+		email: Yup.string().email("adresse mail invalide").required("obligatoire*"),
 		photo: Yup.mixed()
-			.test("fileSize", "File Size is too large", (value) => value === null || (value && value.size <= 2000000))
-			.test("fileType", "Unsupported File Format", (value) => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type))
-			.required("required"),
+			.test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
+			.test("fileType", "formats autorisés : jpg, jpeg, png", (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type))
+			.required("obligatoire*"),
 	})
 
 	return (
-		<div>
-			<h2>S'inscrire'</h2>
+		<div className="log-signup">
+			<h2>S'inscrire</h2>
 			<Formik
 				initialValues={{
 					firstName: "",
@@ -30,22 +30,21 @@ export default function LoginForm() {
 				}}
 			>
 				<Form>
-					<label htmlFor="firstName">Prénom</label>
-					<Field name="firstName" type="text" placeholder="Marie" />
-					<ErrorMessage name="firstName" />
+					<Field name="firstName" type="text" placeholder="Prénom" />
+					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
-					<label htmlFor="lastName">Nom</label>
-					<Field name="lastName" type="text" placeholder="Dupont" />
-					<ErrorMessage name="lastName" />
+					<Field name="lastName" type="text" placeholder="Nom" />
+					<ErrorMessage name="lastName" component="div" className="errorInput" />
 
-					<label htmlFor="email">Email</label>
-					<Field name="email" type="email" placeholder="marie.dupont@gmail.com" />
-					<ErrorMessage name="email" />
+					<Field name="email" type="email" placeholder="adresse mail" />
+					<ErrorMessage name="email" component="div" className="errorInput" />
 
-					<label htmlFor="photo">Photo de profil</label>
 					<Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
+					<ErrorMessage name="photo" component="div" className="errorInput" />
 
-					<button type="submit">M'inscrire</button>
+					<button type="submit" className="submitButton">
+						Valider
+					</button>
 				</Form>
 			</Formik>
 		</div>

@@ -3,16 +3,16 @@ import {Formik, Form, Field, ErrorMessage} from "formik"
 
 export default function LoginForm() {
 	return (
-		<div>
+		<div className="log-signup">
 			<h2>Se connecter</h2>
 			<Formik
 				initialValues={{email: "", password: ""}}
 				validate={(values) => {
 					const errors = {}
 					if (!values.email) {
-						errors.email = "Required"
+						errors.email = "obligatoire*"
 					} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-						errors.email = "Invalid email address"
+						errors.email = "adresse mail invalide*"
 					}
 					return errors
 				}}
@@ -25,15 +25,15 @@ export default function LoginForm() {
 			>
 				{({handleSubmit, isSubmitting}) => (
 					<Form onSubmit={handleSubmit}>
-						<label htmlFor="email">Email</label>
-						<Field name="email" type="email" placeholder="" />
-						<ErrorMessage name="email" />
+						<Field name="email" type="email" placeholder="Mail" />
+						<ErrorMessage name="email" component="div" className="errorInput" />
 
-						<label htmlFor="password">Mot de passe</label>
-						<Field name="password" type="password" placeholder="" />
-						<ErrorMessage name="password" />
+						<Field name="password" type="password" placeholder="Mot de passe" />
+						<ErrorMessage name="password" component="div" className="errorInput" />
 
-						<button type="submit" disabled={isSubmitting}>Envoyer</button>
+						<button type="submit" disabled={isSubmitting}>
+							Envoyer
+						</button>
 					</Form>
 				)}
 			</Formik>

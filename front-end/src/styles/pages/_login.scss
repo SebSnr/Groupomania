@@ -1,23 +1,51 @@
-
 body {
-    // background-image: url("../../assets/logoTransparent.png");
-    background-image: url("../../assets/icon.svg");
-    background-repeat: no-repeat;
-    background-size: 120vh;
-    background-position: top -30vh right -30vw;
-
+	// background-image: url("../../assets/logoTransparent.png");
+	background-image: url("../../assets/icon.svg");
+	background-repeat: no-repeat;
+	background-size: 120vh;
+	background-position: top -30vh right -30vw;
 }
 
 .loginContainer {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    padding: 1rem 1rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	padding: 2rem 2rem;
 
-    & img {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+	img {
+		max-width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 3rem;
+	}
+}
+
+.connexionContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 5rem;
+
+	&__forwardButton {
+		font-size: 1rem;
+		background-color: darken($color: $color-2, $amount: 15%);
+	}
+
+	& > span {
+		margin: 9rem 0;
+	}
+}
+
+.log-signup {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 3rem;
+	button {
+		// border: solid 1px red;
+		display: block;
+		margin: auto;
+		margin-top: 3rem;
+	}
 }
