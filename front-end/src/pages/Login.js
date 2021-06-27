@@ -4,7 +4,7 @@ import SocialBar from "../components/SocialBar"
 
 export default function Login() {
 	return (
-		<div className="loginContainer card">
+		<div className="loginContainer container card">
 			<div className="loginContainer__header">
 				{/* <img src="/img/icon-left-font.svg" alt="Logo Groupomania" /> */}
 				<h1>Bienvenue à la communauté</h1>

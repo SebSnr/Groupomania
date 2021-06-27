@@ -19,6 +19,10 @@ button:active {
 	box-shadow: #00093d86 0px 4px 8px 0px;
 }
 
-a:visited {
-	$color-5: #616161;
+a {
+	text-decoration: none;
+	
+	&:visited {
+		$color-5: #616161;
+	}
 }

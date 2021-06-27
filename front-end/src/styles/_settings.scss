@@ -17,12 +17,21 @@ $border-radius: 0.8rem;
 }
 
 body {
-	margin: 0.4rem auto;
-	max-width: 1200px;
 	color: $color-4;
-	padding: 14px;
+}
+
+.container {
+	padding-left: 14px;
+	padding-right: 14px;
+	max-width: 1200px;
+	// margin: 0.4rem auto;
+
 }
 
 li {
 	list-style: none;
+}
+
+.bg-img{
+	position: right;	
 }

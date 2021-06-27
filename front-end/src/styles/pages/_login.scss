@@ -3,7 +3,9 @@ body {
 	background-image: url("../../assets/icon.svg");
 	background-repeat: no-repeat;
 	background-size: 120vh;
-	background-position: top -30vh right -30vw;
+	background-position: top -20vh right -30vw;
+	background-attachment:fixed;
+
 }
 
 .loginContainer {

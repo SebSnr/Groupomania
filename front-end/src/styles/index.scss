@@ -3,9 +3,12 @@
 
 // pages
 @import "./pages/login";
+@import "./pages/home";
 
 
 // components
+@import "./components/header";
+@import "./components/footer";
 @import "./components/card";
 @import "./components/button-link";
 @import "./components/input";

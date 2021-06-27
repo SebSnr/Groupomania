@@ -8,6 +8,7 @@ export default function Home() {
 
     return (
         <div className="homeContainer">
+            {/* <img src="/img/logoTransparent.png" className="bg-img/" /> */}
             <Header />
             <HomeContent />
             <Footer />
