@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Card() {
     return (
-        <div className="card post-card">
+        <div className="card post-card shadow">
             <div className="post-header">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum expedita quasi, sapiente reiciendis quia ullam nihil repellat sunt excepturi cum ex sint error alias laudantium itaque laboriosam facere odio hic?
