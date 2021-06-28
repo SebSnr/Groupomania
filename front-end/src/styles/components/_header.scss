@@ -1,9 +1,9 @@
 .header {
-	position: fixed;
 	width: 100%;
 	background-color: $color-2;
 	margin: 0;
 	height: 70px;
+    margin-bottom: 20px;
 
 	.navigation {
 		position: relative;
@@ -83,6 +83,7 @@
 @media screen and (min-width: 500px) {
 	.header {
 		height: 80px;
+        margin-bottom: 40px;
 
 		.menu-content {
 			// border: palevioletred 1px solid;
