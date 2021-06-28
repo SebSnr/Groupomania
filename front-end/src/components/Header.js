@@ -6,9 +6,9 @@ export default function Header() {
 			<div className="header__content container">
 				<nav className="navigation">
 
-					<img src="/img/icon.png" alt="Bouton retour accueil" />
+					<a href="/" ><img src="/img/icon.png" alt="Bouton retour accueil" /></a>
 
-					<div>
+					<div className="menu-content">
 						<input type="checkbox" id="menu-checkbox" class="menu-checkbox" />
 						<label for="menu-checkbox" class="menu-toggle">
 							<span></span>
