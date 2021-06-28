@@ -42,7 +42,7 @@ export default function LoginForm() {
 					<Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
 					<ErrorMessage name="photo" component="div" className="errorInput" />
 
-					<button type="submit" className="submitButton">
+					<button type="submit" className="btn-lg btn-primary">
 						Valider
 					</button>
 				</Form>

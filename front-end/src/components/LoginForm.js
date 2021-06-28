@@ -31,7 +31,7 @@ export default function LoginForm() {
 						<Field name="password" type="password" placeholder="Mot de passe" />
 						<ErrorMessage name="password" component="div" className="errorInput" />
 
-						<button type="submit" disabled={isSubmitting}>
+						<button type="submit" disabled={isSubmitting} className="btn-lg btn-primary">
 							Envoyer
 						</button>
 					</Form>

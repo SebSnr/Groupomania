@@ -4,13 +4,13 @@ import {SocialIcon} from "react-social-icons"
 export default function SocialBar() {
 	return (
 		<div className="socialBar">
-			<button>
+			<button type="button" className="btn">
 				<SocialIcon network="facebook" />
 			</button>
-			<button>
+			<button type="button" className="btn">
 				<SocialIcon network="youtube" />
 			</button>
-			<button>
+			<button type="button" className="btn ">
 				<SocialIcon network="twitter" />
 			</button>
 		</div>

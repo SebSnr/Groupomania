@@ -17,7 +17,7 @@ export default function Connexion() {
 								Déjà un compte ?
 								<br />
 								<br />
-								<button className="connexionContent__forwardButton" onClick={() => setConnexionContent("login")}>
+								<button className="btn btn-secondary " onClick={() => setConnexionContent("login")}>
 									Se connecter
 								</button>
 							</div>
@@ -30,7 +30,7 @@ export default function Connexion() {
 								Créer un compte
 								<br />
 								<br />
-								<button className="connexionContent__forwardButton" onClick={() => setConnexionContent("signUp")}>
+								<button className="btn btn-secondary" onClick={() => setConnexionContent("signUp")}>
 									S'inscrire
 								</button>
 							</div>
@@ -38,12 +38,12 @@ export default function Connexion() {
 					default:
 						return (
 							<div className="connexionContent">
-								<button onClick={() => setConnexionContent("signUp")}>S'inscrire</button>
+								<button onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary">S'inscrire</button>
 								<br></br>
 								ou
 								<br></br>
 								<br></br>
-								<button onClick={() => setConnexionContent("login")}>Se connecter</button>
+								<button onClick={() => setConnexionContent("login")} className="btn-lg btn-primary">Se connecter</button>
 							</div>
 						)
 				}

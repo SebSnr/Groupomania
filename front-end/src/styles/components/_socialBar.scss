@@ -1,9 +1,14 @@
-
 .socialBar{
     display: flex;
     justify-content: center;
     
-    button {
-        background-color: transparent;
+    // button {
+    //     background-color: transparent;
+    // }
+
+    .btn-iconed:hover {
+        // background-color: blue;
+        background-color: $btn-link-hover-color;
+        border-radius: 50%;
     }
 }
