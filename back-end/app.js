@@ -2,6 +2,12 @@ const express = require("express")
 
 const app = express()
 
+const db = require("./models/index")
+db.sequelize.sync()
+
+// drop the table if already exists
+// db.sequelize.sync({ force: true }).then(() => {console.log("Drop and re-sync db.");});
+
 // allow different access control
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*")
@@ -12,28 +18,11 @@ app.use((req, res, next) => {
 
 // Parsers for POST data
 app.use(express.json({limit: "20mb"}))
-app.use(express.urlencoded({extended: false, limit: "20mb"}))
+app.use(express.urlencoded({extended: true}))
 
-app.use("/", (req, res, next) => {
-	const stuff = [
-		{
-			_id: "oeihfzeoi",
-			title: "Mon premier objet",
-			description: "Les infos de mon premier objet",
-			imageUrl: "https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg",
-			price: 4900,
-			userId: "qsomihvqios",
-		},
-		{
-			_id: "oeihfzeomoihi",
-			title: "Mon deuxième objet",
-			description: "Les infos de mon deuxième objet",
-			imageUrl: "https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg",
-			price: 2900,
-			userId: "qsomihvqios",
-		},
-	]
-	res.status(200).json(stuff)
-})
+
+// article route
+require("./routes/article-routes")(app)
 
 module.exports = app
+
