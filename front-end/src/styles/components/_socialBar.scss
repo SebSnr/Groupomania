@@ -7,8 +7,9 @@
     // }
 
     .btn-iconed:hover {
-        // background-color: blue;
         background-color: $btn-link-hover-color;
         border-radius: 50%;
+        box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+
     }
 }

@@ -6,7 +6,7 @@ export default function Header() {
 			<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 				<div class="container">
 					<button class="navbar-brand" href="/">
-						{/* <img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo" /> */}
+						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo " />
 					</button>
 					<button
 						class="navbar-toggler"
