@@ -34,11 +34,9 @@ exports.create = (req, res) => {
 // Retrieve all Articles from the database.
     exports.findAll = (req, res) => {
 
-        const article = req.query.text;
-      
         Article.findAll()
           .then(data => {
-            res.send("bonjour");
+            res.send(data);
           })
           .catch(err => {
             res.status(500).send({

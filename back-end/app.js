@@ -3,10 +3,10 @@ const express = require("express")
 const app = express()
 
 const db = require("./models/index")
-// db.sequelize.sync()
+db.sequelize.sync() 
 
 // drop the table if already exists
-db.sequelize.sync({ force: true }).then(() => {console.log("Drop and re-sync db.");});
+// db.sequelize.sync({ force: true }).then(() => {console.log("Drop and re-sync db.");});
 
 // allow different access control
 app.use((req, res, next) => {
