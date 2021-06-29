@@ -1,20 +1,15 @@
 
-  .post-card {
-    max-width: 500px;
+.post-card {
     height: 300px;
-    margin-bottom: 40px;
+    padding: 0.7rem;
 }
 
 
 @media screen and (min-width: 500px) {
-    .home-content {
+    .articles-content {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
-        align-content: space-between;
-
-        
-    }
-    
-  
+        align-content: space-between;       
+    }  
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 
-export default function Card() {
+export default function ArticleCard() {
 
 
     useEffect(() => {getArticles()}, [])
@@ -18,12 +18,12 @@ export default function Card() {
 
 
     return (
-        <div className="card post-card shadow">
-            <div className="post-header">
-                <img src="./img/Montgolfiere.jpg" alt="post multimedia content"/>
+        <div className="card post-card shadow col-12 col-md-5 mb-3 mb-md-5">
+            <div className="overflow-hidden">
+                <img src="./img/Montgolfiere.jpg" className="card-img-top " alt="article multimédia"/>
             </div>
-            <div className="post-body">
-                <p>
+            <div className="card-body">
+                <p className="card-text">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum expedita quasi, sapiente reiciendis quia ullam nihil repellat sunt excepturi cum ex sint error alias laudantium itaque laboriosam facere odio hic?
                 </p>
             </div>

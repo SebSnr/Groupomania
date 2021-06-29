@@ -1,5 +1,11 @@
 .header{
 	// height: 80px;
+	background-color: $color-2;
+	a {
+		font-size: 1.5rem;
+		color: white;
+		margin-right: 40px;
+	}
 }
 
 .navbar-brand {

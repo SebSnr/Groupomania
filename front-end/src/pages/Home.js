@@ -6,8 +6,7 @@ import HomeContent from '../components/HomeContent'
 export default function Home() {
 
     return (
-        <div className="home-container">
-            {/* <Navigation /> */}
+        <div className="">
             <Header />
             <HomeContent />
             <Footer />

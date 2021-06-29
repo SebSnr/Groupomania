@@ -1,17 +1,20 @@
 import React from 'react'
-import Card from "./Card"
+import ArticleCard from "./ArticleCard"
+import ArticleForm from "./ArticleForm"
 
 export default function HomeContent() {
     return (
-        <div className="container home-content">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-
+        <div className="container home-con">
+            <ArticleForm />
+            <div className="articles-content row">
+                <ArticleCard />
+                <ArticleCard />
+                <ArticleCard />
+                <ArticleCard />
+                <ArticleCard />
+                <ArticleCard />
+                <ArticleCard />
+            </div>
         </div>
     )
 }

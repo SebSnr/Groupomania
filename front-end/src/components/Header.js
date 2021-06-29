@@ -3,7 +3,7 @@ import React from "react"
 export default function Header() {
 	return (
 		<header className="header">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<nav class="navbar navbar-expand-lg navbar-dark mb-5">
 				<div class="container">
 					<button class="navbar-brand" href="/">
 						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo " />
@@ -21,7 +21,7 @@ export default function Header() {
 					</button>
 					<div class="collapse navbar-collapse" id="navbarResponsive">
 						<ul class="navbar-nav ml-auto">
-							<li class="nav-item active">
+							<li class="nav-item">
 								<a class="nav-link" href="b">
 									Membres
 								</a>
