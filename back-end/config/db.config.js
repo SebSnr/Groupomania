@@ -1,8 +1,8 @@
 module.exports = {
     HOST : "localhost",
-    USER: "user",
-    PASSWORD: "userPassword",
-    DB: "test",
+    USER: "dataManager1",
+    PASSWORD: "123456",
+    DB: "groupomania",
     dialect: "mysql",
     pool: {
         max:5,
