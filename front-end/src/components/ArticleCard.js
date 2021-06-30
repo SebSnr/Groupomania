@@ -1,21 +1,6 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
 
-export default function ArticleCard() {
-
-
-    useEffect(() => {getArticles()}, [])
-
-
-
-    const getArticles = () => {
-        
-        axios.get("http://4000/articles")
-            .then((res) => console.log(res))
-
-    }    
-
-
+export default function ArticleCard (article) {
 
     return (
         <div className="card post-card shadow col-12 col-md-5 mb-3 mb-md-5">
@@ -24,7 +9,7 @@ export default function ArticleCard() {
             </div>
             <div className="card-body">
                 <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum expedita quasi, sapiente reiciendis quia ullam nihil repellat sunt excepturi cum ex sint error alias laudantium itaque laboriosam facere odio hic?
+                    {article.article.text}
                 </p>
             </div>
         </div>

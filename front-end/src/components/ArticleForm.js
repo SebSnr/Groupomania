@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as Yup from "yup"
 import axios from "axios"
+import { ApiUrl } from "../variables-config"
 
 export default function ArticleForm() {
 	const SignupSchema = Yup.object().shape({
@@ -18,13 +19,12 @@ export default function ArticleForm() {
 		console.log(e)
 		console.log(articleBody)
 
-		axios.post("http://localhost:3200/API/articles", {
+		axios.post(`${ApiUrl}/articles`, {
 				articleBody
 			})
 			.then(() => console.log("Post créé"))
-			.catch((err) => console.log(err))
 
-		window.location.reload()
+		// window.location.reload()
 	}
 
 	return (
