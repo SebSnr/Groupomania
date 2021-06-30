@@ -1,34 +1,30 @@
-import React from "react"
+import React, { useState } from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as Yup from "yup"
 import axios from "axios"
 
 export default function ArticleForm() {
 	const SignupSchema = Yup.object().shape({
-		articleBody: Yup.string().min(2, "trop court*").max(300, "Maximum 300 charactères*").required("obligatoire*"),
-		articlePicture: Yup.mixed(),
+		// articleBody: Yup.string().min(2, "trop court*").max(300, "Maximum 300 charactères*").required("obligatoire*"),
+		// articlePicture: Yup.mixed(),
 		// .test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
 		// .test("fileType", "formats autorisés : jpg, jpeg, png", (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type))
 		// .required("obligatoire*"),
 	})
 
-	function handleEditArticle(values) {
-		// values.preventDefault()
-		
-		let articleBody = values.articleBody
-		// let articlePicture = values.articlePicture
+	const [articleBody, setArticleBody] = useState("")
 
-		
-		console.log(values)
+	function handleEditArticle(e) {
+		console.log(e)
+		console.log(articleBody)
 
-		axios
-			.post("http://localhost:3002/articles", {
+		axios.post("http://localhost:3200/API/articles", {
 				articleBody
 			})
 			.then(() => console.log("Post créé"))
 			.catch((err) => console.log(err))
 
-		// window.location.reload()
+		window.location.reload()
 	}
 
 	return (
@@ -36,20 +32,20 @@ export default function ArticleForm() {
 			<Formik
 				initialValues={{
 					articleBody: "",
-					articlePicture: null,
+					articlePicture: undefined,
 				}}
 				validationSchema={SignupSchema}
-				onSubmit={(values) => {
-					handleEditArticle(values)
-					console.log(values.articleBody)
+				onSubmit={(e) => {
+					handleEditArticle(e)
+					console.log(e)
 				}}
 			>
 				<Form>
-					<Field name="articleBody" type="text-area" placeholder="Votre post" />
+					<Field name="articleBody" onChange={(e) => setArticleBody(e.target.value)} value={articleBody} type="text-area" placeholder="Votre post" />
 					<ErrorMessage name="articleBody" component="div" className="errorInput" />
 
-					<Field name="articlePicture" type="file" accept=".jpg, .jpeg, .png" />
-					<ErrorMessage name="articlePicture" component="div" className="errorInput" />
+					{/* <Field name="articlePicture" type="file" accept=".jpg, .jpeg, .png" />
+					<ErrorMessage name="articlePicture" component="div" className="errorInput" /> */}
 
 					<button type="submit" className="btn-lg btn-primary  mb-3 my-3">
 						Envoyer

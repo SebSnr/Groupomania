@@ -5,16 +5,16 @@ const Op = db.Sequelize.Op
 // Create a new Article
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.text) {
-		res.status(400).send({
-			message: "Content can not be empty!",
-		})
-		return
-	}
+	// if (!req.body.articleBody) {
+	// 	res.status(400).send({
+	// 		message: "Content can not be empty!",
+	// 	})
+	// 	return
+	// }
 
 	// Create a Tutorial
 	const article = {
-		text: req.body.text,
+		text: req.body.articleBody,
 	}
 
 	// Save Tutorial in the database
