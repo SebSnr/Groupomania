@@ -22,7 +22,7 @@ exports.create = (req, res) => {
 
 	// Save Tutorial in the database
 	Article.create(article)
-		.then((data) => {
+		.then((data) => { 
 			res.send(data) 
 		})
 		.catch((err) => {
