@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
-import * as Yup from "yup"
+// import * as Yup from "yup"
 import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import ProfilePicture from "./ProfilePicture"
@@ -18,16 +18,15 @@ export default function ArticleForm() {
 	const [article, setArticle] = useState({
 		text: "",
 		author: "robert",
-		imageUrl: "",
+		pictureUrl: "Salut",
+		youtubeUrl:""
 	})
 
 	//set state of welcome message text input
 	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf")
 
 	// personalize the welcome message text input with the user's name
-	useEffect(() => {
-		setplaceHolderText(`Quoi de neuf ${userName}`)
-	}, [])
+	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName}`)}, [])
 	let userName = "michel" //provisoire
 
 	// set state of media input choice
@@ -36,12 +35,11 @@ export default function ArticleForm() {
 	// submit the form and request
 	function handleEditArticle(e) {
 		console.log(e)
-		console.log(article.author)
+		console.log(article)
 
 		axios
 			.post(`${ApiUrl}/articles`, {
-				// articleBody
-				article,
+				article
 			})
 			.then(() => console.log("Post créé"))
 
@@ -76,7 +74,6 @@ export default function ArticleForm() {
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture />
-						{/* <Field name="articleBody" onChange={(e) => setArticleBody(e.target.value)} value={articleBody} type="text-area" placeholder="Votre post" /> */}
 						<Field name="text" onChange={inputChangeHandler} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3" />
 						<ErrorMessage name="articleBody" component="div" className="errorInput" />
 					</div>
@@ -88,8 +85,8 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo :</span>
 										<div className="d-inline">
-											<Field name="picture" type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
-											<ErrorMessage name="picture" component="div" className="errorInput" />
+											<Field name="pictureUrl" onChange={inputChangeHandler} value={article.pictureUrl} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<ErrorMessage name="pictureUrl" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
 											Ou joindre un lien Youtube
@@ -99,10 +96,10 @@ export default function ArticleForm() {
 							case "youtube":
 								return (
 									<div className="d-flex align-items-center flex-wrap">
-										<span className="mb-3">lien youtube :</span>
+										<span className="mb-3">Lien youtube :</span>
 										<div className="d-inline">
-											<Field name="ytUrl" className="ytInput mb-3" />
-											<ErrorMessage name="ytUrl" component="div" className="errorInput" />
+											<Field name="youtubeUrl" onChange={inputChangeHandler} value={article.youtubeUrl} placeholder="Votre lien Youtube" className="ytInput mb-3" />
+											<ErrorMessage name="youtubeUrl" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">
 											Ou Joindre une image

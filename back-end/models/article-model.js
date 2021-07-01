@@ -6,6 +6,12 @@ module.exports = (sequelize, Sequelize) => {
         author : {
             type: Sequelize.STRING 
         },
+        pictureUrl : {
+            type: Sequelize.STRING
+        },
+        youtubeUrl : {
+            type: Sequelize.STRING
+        }
     })
     return Article
 }
