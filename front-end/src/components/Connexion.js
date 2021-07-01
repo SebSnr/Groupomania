@@ -38,12 +38,12 @@ export default function Connexion() {
 					default:
 						return (
 							<div className="connexionContent">
-								<button onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary">S'inscrire</button>
+								<button type="button" onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary">S'inscrire</button>
 								<br></br>
 								ou
 								<br></br>
 								<br></br>
-								<button onClick={() => setConnexionContent("login")} className="btn-lg btn-primary">Se connecter</button>
+								<button type="button" onClick={() => setConnexionContent("login")} className="btn-lg btn-primary">Se connecter</button>
 							</div>
 						)
 				}

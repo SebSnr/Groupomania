@@ -25,7 +25,9 @@ export default function ArticleForm() {
 	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf")
 
 	// personalize the welcome message text input with the user's name
-	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName}`)}, [])
+	useEffect(() => {
+		setplaceHolderText(`Quoi de neuf ${userName}`)
+	}, [])
 	let userName = "michel" //provisoire
 
 	// set state of media input choice
@@ -55,7 +57,7 @@ export default function ArticleForm() {
 	}
 
 	return (
-		<div className="card row articleForm mb-5 p-2">
+		<div className="card row articleForm mb-5 p-3">
 			<Formik
 				initialValues={
 					{
@@ -72,10 +74,10 @@ export default function ArticleForm() {
 				}}
 			>
 				<Form>
-					<div className="d-flex align-items-center justify-content-between">
+					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture />
 						{/* <Field name="articleBody" onChange={(e) => setArticleBody(e.target.value)} value={articleBody} type="text-area" placeholder="Votre post" /> */}
-						<Field name="text" onChange={inputChangeHandler} value={article.text} type="text-area" placeholder={placeHolderText} />
+						<Field name="text" onChange={inputChangeHandler} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3" />
 						<ErrorMessage name="articleBody" component="div" className="errorInput" />
 					</div>
 
@@ -83,33 +85,46 @@ export default function ArticleForm() {
 						switch (media) {
 							case "localImg":
 								return (
-									<div>
-										<Field name="articlePicture" type="file" accept=".jpg, .jpeg, .png" />
-										<ErrorMessage name="articlePicture" component="div" className="errorInput" />
+									<div className="d-flex align-items-center flex-wrap">
+										<span className="mb-3">Joindre une photo :</span>
+										<div className="d-inline">
+											<Field name="picture" type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<ErrorMessage name="picture" component="div" className="errorInput" />
+										</div>
+										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
+											Ou joindre un lien Youtube
+										</button>
 									</div>
 								)
 							case "youtube":
 								return (
-									<div>
-										<Field name="articlePicture" type="file" accept=".jpg, .jpeg, .png" />
-										<ErrorMessage name="articlePicture" component="div" className="errorInput" />
+									<div className="d-flex align-items-center flex-wrap">
+										<span className="mb-3">lien youtube :</span>
+										<div className="d-inline">
+											<Field name="ytUrl" className="ytInput mb-3" />
+											<ErrorMessage name="ytUrl" component="div" className="errorInput" />
+										</div>
+										<button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">
+											Ou Joindre une image
+										</button>
 									</div>
 								)
 							default:
 								return (
-									<div>
-										<button onclick={() => setMedia("localImg")} className="btn btn-secondary">
-											Image ordi
+									<div className="d-flex flex-wrap">
+										{/* <span className="w-100 mb-3">Souhaitez-vous joindre une photo ? Ou un lien youtube ?</span> */}
+										<button type="button" onClick={() => setMedia("localImg")} className="btn btn-secondary mb-3 ">
+											Joindre une photo personnelle ?
 										</button>
-										<button onclick={() => setMedia("youtube")} className="btn btn-secondary">
-											Youtube
+										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-secondary mb-3">
+											Joindre un lien Youtube ?
 										</button>
 									</div>
 								)
 						}
 					})()}
 
-					<button type="submit" className="btn-lg btn-primary  mb-3 my-3">
+					<button type="submit" className="btn-lg btn-primary  mb-3">
 						Envoyer
 					</button>
 				</Form>

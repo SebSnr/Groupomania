@@ -3,15 +3,24 @@
 
     border-radius: 20px;
 
-    input {
+    .textInput {
         width: 100%;
-        border: $color-3 solid 1px;
         border-radius: 20px;
         min-height: 120px;
+        border: $color-3 solid 1px;
     }
     
     button {
         display: block;
         margin: auto;
+        
+    }   
+
+    .ytInput {
+        margin-left: 15px;
+        margin-right: 55px;
+        border-radius: 20px;
+        border: solid 1px $color-3;
+        width: 100%;
     }
 }
