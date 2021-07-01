@@ -2,7 +2,7 @@ import React from "react"
 import Connexion from "../components/Connexion"
 import SocialBar from "../components/SocialBar"
 
-export default function Login() {
+export default function LoginPage () {
 	return (
 		// <div className="loginContainer container card">
 		<div className ="card shadow container loginContainer col-12">

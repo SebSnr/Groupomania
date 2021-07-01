@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Members from "./pages/Members";
-import NotFound from "./pages/NotFound";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import MembersPage from "./pages/MembersPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/login" exact component={Login} />
-				<Route path="/profile" exact component={Profile} />
-				<Route path="/members" exact component={Members} />
-				<Route component={NotFound} />
+				<Route path="/" exact component={HomePage} />
+				<Route path="/login" exact component={LoginPage} />
+				<Route path="/profile" exact component={ProfilePage} />
+				<Route path="/members" exact component={MembersPage} />
+				<Route component={NotFoundPage} />
 			</Switch>
 		</BrowserRouter>
 	);
