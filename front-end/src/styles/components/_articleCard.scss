@@ -1,0 +1,28 @@
+.card-article {
+	height: 300px;
+	padding: 0.7rem;
+
+	&--date {
+		font-size: 0.9rem;
+		font-style: italic;
+	}
+}
+
+.profile-picture {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	height: 2.5rem;
+	width: 2.5rem;
+	border-radius: 50%;
+	border: solid 3px $color-3;
+	margin-right: 15px;
+
+	&__clipped {
+		width: 2.5rem;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

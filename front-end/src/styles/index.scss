@@ -3,9 +3,8 @@
 @import "./settings";
 
 // pages
-@import "./pages/login";
-@import "./pages/home";
-
+@import "./pages/loginPage";
+@import "./pages/homePage";
 
 // components
 @import "./components/header";
@@ -14,4 +13,5 @@
 @import "./components/input";
 @import "./components/socialBar";
 @import "./components/articleForm";
+@import "./components/articleCard";
 
