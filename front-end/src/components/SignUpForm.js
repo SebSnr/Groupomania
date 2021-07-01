@@ -29,9 +29,10 @@ export default function LoginForm() {
 					console.log(values)
 				}}
 			>
-				<Form>
+				<Form className="d-flex flex-column align-items-center">
+					
 					<Field name="firstName" type="text" placeholder="Prénom" />
-					<ErrorMessage name="firstName" component="div" className="errorInput" />
+					<ErrorMessage name="firstName" component="div" className="errorInput align-self-center" />
 
 					<Field name="lastName" type="text" placeholder="Nom" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />

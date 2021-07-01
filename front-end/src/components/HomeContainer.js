@@ -29,7 +29,7 @@ export default function HomeContent() {
             
             <ArticleForm />
 
-            <div className="row d-lg-flex justify-content-lg-evenly">
+            <div className="row d-lg-flex justify-content-lg-around">
                 {articlesData
                     .map((article) => (
                         <ArticleCard key={article.id} article={article} />

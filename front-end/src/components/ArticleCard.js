@@ -1,13 +1,12 @@
 import React from "react"
+import ProfilePicture from "./ProfilePicture"
 
 export default function ArticleCard(article) {
 	return (
 		<div className="card card-article shadow col-12 col-lg-5 mb-3 mb-lg-5">
 			<div className="card-body align-items-center">
 				<div className="d-flex align-items-end mb-1">
-                    <div className="profile-picture">
-                        <img src="./img/pile-face3.jpg" alt="auteur" className="profile-picture__clipped" />
-                    </div>
+                    <ProfilePicture />
                     <span className="h5">{article.article.author}   </span>
 				</div>
                 <div className="row justify-content-end card-article--date">

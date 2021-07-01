@@ -1,32 +1,5 @@
 
-input {
-	margin: 35px 25px 5px 25px;
-	max-width: 400px;
-	min-width: 200px;
-	width: 80%;
-	display: block;
-	border: none;
-	height: 3rem;
-	padding: 10px 0;
-	border-bottom: solid 1px $color-2;
-	transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color-2 4%);
-	&:focus,
-	&:valid {
-		box-shadow: none;
-		outline: none;
-		background-position: 0 0;
-		&::placeholder {
-			color: $color-2;
-			font-size: 16px;
-			transform: translateY(-13px);
-			visibility: visible !important;
-		}
-	}
-}
-
 .errorInput {
-	margin-left: 25px;
 	color: red;
 	font-size: 0.7rem;
 }

@@ -1,7 +1,14 @@
 
 .articleForm {
 
+    border-radius: 20px;
 
+    input {
+        width: 100%;
+        border: $color-3 solid 1px;
+        border-radius: 20px;
+        min-height: 120px;
+    }
     
     button {
         display: block;

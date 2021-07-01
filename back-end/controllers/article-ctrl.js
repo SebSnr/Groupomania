@@ -14,13 +14,14 @@ exports.create = (req, res) => {
 
 	// Create a Tutorial
 	const article = {
-		text: req.body.articleBody,
+		text: req.body.article.text,
+		author: req.body.article.author, 
 	}
 
 	// Save Tutorial in the database
 	Article.create(article)
 		.then((data) => {
-			res.send(data)
+			res.send(data) 
 		})
 		.catch((err) => {
 			err.status(500).send({
