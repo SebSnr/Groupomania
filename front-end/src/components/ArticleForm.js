@@ -18,15 +18,15 @@ export default function ArticleForm() {
 	const [article, setArticle] = useState({
 		text: "",
 		author: "robert",
-		pictureUrl: "Salut",
+		pictureUrl: "",
 		youtubeUrl:""
 	})
 
 	//set state of welcome message text input
-	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf")
+	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf ?")
 
 	// personalize the welcome message text input with the user's name
-	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName}`)}, [])
+	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName} ?`)}, [])
 	let userName = "michel" //provisoire
 
 	// set state of media input choice
@@ -54,6 +54,20 @@ export default function ArticleForm() {
 		}))
 	}
 
+	const [selectedFile, setSelectedFile] = useState()
+
+	const inputFileHandler = (event) => {
+		console.log(event.target.files[0])
+		setSelectedFile(event.target.files[0])
+		console.log(selectedFile)
+	}
+
+	useEffect(() => {
+		console.log(selectedFile)}
+		, [selectedFile]
+		)
+
+
 	return (
 		<div className="card row articleForm mb-5 p-3">
 			<Formik
@@ -75,7 +89,7 @@ export default function ArticleForm() {
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture />
 						<Field name="text" onChange={inputChangeHandler} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3" />
-						<ErrorMessage name="articleBody" component="div" className="errorInput" />
+						<ErrorMessage name="text" component="div" className="errorInput" />
 					</div>
 
 					{(() => {
@@ -85,8 +99,8 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo :</span>
 										<div className="d-inline">
-											<Field name="pictureUrl" onChange={inputChangeHandler} value={article.pictureUrl} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
-											<ErrorMessage name="pictureUrl" component="div" className="errorInput" />
+											<Field name="pictureUrl" onChange={inputFileHandler} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<ErrorMessage name="PictureUrl" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
 											Ou joindre un lien Youtube

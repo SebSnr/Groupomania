@@ -12,15 +12,15 @@ exports.create = (req, res) => {
 	// 	return
 	// }
 
-	// Create a Tutorial
+	// Create a article
 	const article = {
 		text: req.body.article.text,
 		author: req.body.article.author, 
-		pictureUrl: req.body.article.pictureUrl,
+		pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 		youtubeUrl: req.body.article.youtubeUrl 
 	}
 
-	// Save Tutorial in the database
+	// Save article in the database
 	Article.create(article)
 		.then((data) => { 
 			res.send(data) 

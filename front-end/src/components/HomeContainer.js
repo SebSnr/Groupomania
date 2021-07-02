@@ -13,8 +13,7 @@ export default function HomeContent() {
 
 
 
-    const getArticles = async () => {
-        
+    const getArticles = () => {
         axios.get(`${ApiUrl}/articles`)
             .then((res) => {
                 setArticlesData(res.data)
