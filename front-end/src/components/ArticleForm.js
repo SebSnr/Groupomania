@@ -18,55 +18,41 @@ export default function ArticleForm() {
 	const [article, setArticle] = useState({
 		text: "",
 		author: "robert",
-		pictureUrl: "",
+		picture: {},
 		youtubeUrl:""
 	})
 
-	//set state of welcome message text input
+	//state of welcome message text input
 	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf ?")
 
 	// personalize the welcome message text input with the user's name
-	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName} ?`)}, [])
 	let userName = "michel" //provisoire
+	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName} ?`)}, [userName])
 
-	// set state of media input choice
+	// state of media input choice
 	const [media, setMedia] = useState("")
 
 	// submit the form and request
 	function handleEditArticle(e) {
-		console.log(e)
 		console.log(article)
-
 		axios
 			.post(`${ApiUrl}/articles`, {
 				article
 			})
 			.then(() => console.log("Post créé"))
-
-		// window.location.reload()
 	}
 
 	// update state of article with input data
 	function inputChangeHandler(e) {
+
+		console.log( e.target.files[0])
+
 		setArticle((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
+			"picture": e.target.files[0]          //>>>>>>>>>>> fonctionne, renvoie bien l'objet "file". Mais pose problème de la saisie des autres inputs car e.target.name /= objet. Mettre un "if" quelque part ? 
 		}))
 	}
-
-	const [selectedFile, setSelectedFile] = useState()
-
-	const inputFileHandler = (event) => {
-		console.log(event.target.files[0])
-		setSelectedFile(event.target.files[0])
-		console.log(selectedFile)
-	}
-
-	useEffect(() => {
-		console.log(selectedFile)}
-		, [selectedFile]
-		)
-
 
 	return (
 		<div className="card row articleForm mb-5 p-3">
@@ -99,8 +85,8 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo :</span>
 										<div className="d-inline">
-											<Field name="pictureUrl" onChange={inputFileHandler} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
-											<ErrorMessage name="PictureUrl" component="div" className="errorInput" />
+											<Field name="picture" onChange={inputChangeHandler} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
 											Ou joindre un lien Youtube
