@@ -15,6 +15,7 @@ export default function ArticleForm() {
 	// })
 
 	// set state of article
+	
 	const [article, setArticle] = useState({
 		text: "",
 		author: "robert",
@@ -34,10 +35,15 @@ export default function ArticleForm() {
 
 	// submit the form and request
 	function handleEditArticle(e) {
+
+		let formData = new FormData()
+		formData.append("file", article.picture)
+		console.log(formData)
+
 		console.log(article)
 		axios
 			.post(`${ApiUrl}/articles`, {
-				article
+				formData
 			})
 			.then(() => console.log("Post créé"))
 	}
@@ -45,14 +51,37 @@ export default function ArticleForm() {
 	// update state of article with input data
 	function inputChangeHandler(e) {
 
-		console.log( e.target.files[0])
+		// console.log(e.target.files[0])
+
+		// if (e.target.file){	
+		// 		setArticle((prevState) => ({
+		// 		...prevState,
+		// 		// [e.target.name]: e.target.value,
+		// 		"picture": e.target.file[0]       //>>>>>>>>>>> fonctionne, renvoie bien l'objet "file". Mais pose problème de la saisie des autres inputs car e.target.name /= objet. Mettre un "if" quelque part ? 
+		// 		}))
+		// 	} else {
+				setArticle((prevState) => ({
+					...prevState,
+					[e.target.name]: e.target.value,
+					// "picture": e.target.files[0]          //>>>>>>>>>>> fonctionne, renvoie bien l'objet "file". Mais pose problème de la saisie des autres inputs car e.target.name /= objet. Mettre un "if" quelque part ? 
+				}))
+			
+				
+			}
+	// }
+
+	function inputFileHandler(e) {
 
 		setArticle((prevState) => ({
 			...prevState,
-			[e.target.name]: e.target.value,
-			"picture": e.target.files[0]          //>>>>>>>>>>> fonctionne, renvoie bien l'objet "file". Mais pose problème de la saisie des autres inputs car e.target.name /= objet. Mettre un "if" quelque part ? 
+			"picture": e.target.files[0]
 		}))
 	}
+
+
+
+
+
 
 	return (
 		<div className="card row articleForm mb-5 p-3">
@@ -85,7 +114,7 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo :</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={inputChangeHandler} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<Field name="picture" onChange={inputFileHandler} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
 											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">

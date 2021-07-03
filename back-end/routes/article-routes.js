@@ -1,17 +1,14 @@
-
-
 module.exports = app => {
 
     const router = require("express").Router()
-    
-    
+    const articlesCtrl = require("../controllers/article-ctrl")
     const multer = require('../middleware/multer-config')
-    const articles = require("../controllers/article-ctrl")
+    
+    app.use("/api/articles", router)
 
-
-    router.post("/", multer, articles.create)
-    router.get("/", articles.findAll)
-
-    app.use('/api/articles', router)
-
+    router.post("/", multer, articlesCtrl.create)
+    router.get("/", articlesCtrl.getAll)
+    router.get("/:id", articlesCtrl.getOne)
+    router.delete("/:id", articlesCtrl.delete)
+    router.put("/:id", articlesCtrl.modify)
 }

@@ -26,5 +26,8 @@ app.use(express.urlencoded({extended: true}))
 require("./routes/article-routes")(app)
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// user routes
+require("./routes/user-routes")(app)
+
 module.exports = app 
 
