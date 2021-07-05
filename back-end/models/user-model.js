@@ -6,15 +6,15 @@ module.exports = (sequelize, Sequelize) => {
         lastname : {
             type: Sequelize.STRING
         },
-        mail : {
-            type: Sequelize.STRING
-        },
+        // mail : {
+        //     type: Sequelize.STRING
+        // },
         photo : {
             type: Sequelize.STRING
         },
-        isAdmin : {
-            type: Sequelize.BOOLEAN
-        },
+        // isAdmin : {
+        //     type: Sequelize.BOOLEAN
+        // },
     })
     return User
 }
