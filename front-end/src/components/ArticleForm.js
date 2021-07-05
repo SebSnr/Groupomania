@@ -19,8 +19,7 @@ export default function ArticleForm() {
 	const [article, setArticle] = useState({
 		text: "",
 		author: "robert",
-		picture: {},
-		youtubeUrl:""
+		youtubeUrl:"",
 	})
 
 	//state of welcome message text input
@@ -33,55 +32,45 @@ export default function ArticleForm() {
 	// state of media input choice
 	const [media, setMedia] = useState("")
 
+	// state of uploaded file
+	const [selectedFile, setSelectedFile] = useState()
+
+
 	// submit the form and request
 	function handleEditArticle(e) {
 
-		let formData = new FormData()
-		formData.append("file", article.picture)
+		const formData = new FormData();
+		formData.append("text", article.text)
+		formData.append("author", article.author)
+		formData.append("picture", selectedFile);
+		formData.append("youtubeUrl", article.youtubeUrl)
+		
 		console.log(formData)
 
-		console.log(article)
-		axios
-			.post(`${ApiUrl}/articles`, {
-				formData
-			})
+		for (var pair of formData.entries()) {
+			console.log(pair[0]+ ', ' + pair[1]); 
+		}
+
+		axios({
+			method: "post",
+			url: `${ApiUrl}/articles`,
+			data: formData,
+			headers: { "Content-Type": "multipart/form-data" },
+		  })
 			.then(() => console.log("Post créé"))
 	}
 
 	// update state of article with input data
 	function inputChangeHandler(e) {
 
-		// console.log(e.target.files[0])
-
-		// if (e.target.file){	
-		// 		setArticle((prevState) => ({
-		// 		...prevState,
-		// 		// [e.target.name]: e.target.value,
-		// 		"picture": e.target.file[0]       //>>>>>>>>>>> fonctionne, renvoie bien l'objet "file". Mais pose problème de la saisie des autres inputs car e.target.name /= objet. Mettre un "if" quelque part ? 
-		// 		}))
-		// 	} else {
-				setArticle((prevState) => ({
-					...prevState,
-					[e.target.name]: e.target.value,
-					// "picture": e.target.files[0]          //>>>>>>>>>>> fonctionne, renvoie bien l'objet "file". Mais pose problème de la saisie des autres inputs car e.target.name /= objet. Mettre un "if" quelque part ? 
-				}))
-			
-				
-			}
-	// }
-
-	function inputFileHandler(e) {
 
 		setArticle((prevState) => ({
 			...prevState,
-			"picture": e.target.files[0]
+			[e.target.name]: e.target.value,
 		}))
+		console.log(article)
+
 	}
-
-
-
-
-
 
 	return (
 		<div className="card row articleForm mb-5 p-3">
@@ -114,7 +103,7 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo :</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={inputFileHandler} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
 											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">

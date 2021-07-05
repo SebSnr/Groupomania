@@ -5,20 +5,29 @@ const Op = db.Sequelize.Op
 // Create a new Article
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.articleBody) {
-		res.status(403).send({
-			message: "Content can not be empty!",
-		})
-		return
-	}
+	// if (!req.body.articleBody) {
+	// 	res.status(403).send({
+	// 		message: "Content can not be empty!",
+	// 	})
+	// 	return
+	// }
+
 
 	// Create a article
 	const article = {
-		text: req.body.article.text,
-		author: req.body.article.author, 
+		text: req.body.text,
+		author: req.body.author, 
 		pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-		youtubeUrl: req.body.article.youtubeUrl 
+		pictureUrl:"c'est une super url",
+		youtubeUrl: req.body.youtubeUrl 
 	}
+
+	// const article = {
+	// 	text: req.params["text"],
+	// 	author: req.params["author"], 
+	// 	pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+	// 	youtubeUrl: params["youtubeUrl"] 
+	// }
 
 	// Save article in the database
 	Article.create(article)

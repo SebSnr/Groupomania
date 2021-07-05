@@ -21,7 +21,6 @@ app.use((req, res, next) => {
 app.use(express.json({limit: "20mb"}))
 app.use(express.urlencoded({extended: true}))
 
-
 // article routes
 require("./routes/article-routes")(app)
 app.use('/images', express.static(path.join(__dirname, 'images')));
