@@ -8,8 +8,7 @@ import axios from "axios"
 import { ApiUrl } from "../variables-config"
 
 
-
-export default function LoginForm() {
+export default function SignUpForm() {
 	// validate input values
 	const SignupSchema = Yup.object().shape({
 		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long!").required("obligatoire*"),
@@ -45,7 +44,7 @@ export default function LoginForm() {
 
 	const handleFormSubmit = (e) => {
 
-		// to disable t
+		// set state of user
 		setUser({
 			...user,
 			isSubmitting: true,
@@ -63,8 +62,9 @@ export default function LoginForm() {
 				// console.log("Utilsateur créé")})
 				dispatch({
 					type: "LOGIN",
-					payload: res
+					payload: res.data
 				})
+				window.location = ("/")
 			})
 			.catch(error => {
 				setUser({

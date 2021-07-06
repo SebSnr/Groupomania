@@ -9,7 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage"
 export const AuthContext = React.createContext()
 
 const initialState = {
-	isAuthentificated: false,
+	isAuthenticated: false,
 	user: null,
 	token: null,
 }
@@ -17,14 +17,15 @@ const initialState = {
 const reducer = (state, action) => {
 	switch (action.type) {
 		case "LOGIN":
-			// localStorage.setItem("user", JSON.stringify(action.payload.user))
-			// localStorage.setItem("token", JSON.stringify(action.payload.token))
+			localStorage.setItem("user", JSON.stringify(action.payload.user))
+			localStorage.setItem("token", JSON.stringify(action.payload.token))
 			console.log("ca login dans la app")
+			console.log(action.payload)
 			return {
 				...state,
-				isAuthentificated: true,
-				// user: action.payload.user, 
-				// token: action.payload.token,
+				isAuthenticated: true,
+				user: action.payload.user, 
+				token: action.payload.token,
 			}
 		case "LOGOUT":
 			localStorage.clear()

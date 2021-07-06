@@ -11,15 +11,18 @@ export default function HomeContent() {
 
     useEffect(() => {getArticles()}, [])
 
-
+    const token = JSON.parse(localStorage.getItem("token"))
 
     const getArticles = () => {
-        axios.get(`${ApiUrl}/articles`)
+            axios({
+                method: "get",
+                url: `${ApiUrl}/articles`,
+                headers: {"Authorization" : `Bearer ${token}`}
+              })
             .then((res) => {
                 setArticlesData(res.data)
                 console.log(res.data)
             })
-            // console.log(articlesData)
     }    
 
 

@@ -1,6 +1,20 @@
-import React from "react"
+import React, { useContext } from "react"
+import { AuthContext } from "../App"
 
 export default function Navigation() {
+
+	// useContext
+	const { dispatch } = useContext(AuthContext)
+
+	const handleDeconnect = () => {
+		dispatch({
+			type: "LOGOUT",
+		})
+		window.location = ("/login")
+	}
+
+
+
 	return (
 		<header className="header">
 			<nav className="navbar navbar-expand-lg navbar-dark mb-5">
@@ -30,6 +44,11 @@ export default function Navigation() {
 								<a className="nav-link" href="a">
 									Profil
 								</a>
+							</li>
+							<li className="nav-item">
+								<button onClick={handleDeconnect} className="nav-link" href="/login">
+									Déconnexion
+								</button>
 							</li>
 						</ul>
 					</div>

@@ -17,25 +17,44 @@ exports.signup = (req, res) => {
             }
 
             User.create(user)
-                .then((data) => { 
-                    res.send(data) 
-                }) 
-            .catch((error) => res.status(403).json({error}))
+                .then((valid) => {
+                    if (!valid) { 
+                        return res.status(401).json({error: "Mot de passe incorrect !"})
+                    }
+                    res.status(200).json({
+                        userId: user.id,
+                        token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "24h"}),
+                    })
+                })
+                .catch((error) => res.status(403).json({error}))
         })
                 
 }
 
 exports.login= (req, res) => {
-    User.findOne({email: req.body.email})
+    User.findOne({ where: { email: req.body.email } })
         .then((user) => {
+            console.log(user)
+            console.log(req.body.password)
             if (!user) {
 				return res.status(401).json({error: "Utilisateur non trouvé !"})
 			}
-             
-
-
+            bcrypt
+				.compare(req.body.password, user.password)
+				.then((valid) => {
+					if (!valid) { 
+						return res.status(401).json({error: "Mot de passe incorrect !"})
+					}
+					res.status(200).json({
+						userId: user.id,
+						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "24h"}),
+					})
+				})
+				.catch((error) => res.status(500).json({error}))
 
         })
+		.catch((error) => res.status(500).json({error})) 
+
 }
 
 
