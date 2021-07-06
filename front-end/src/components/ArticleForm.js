@@ -42,8 +42,8 @@ export default function ArticleForm() {
 		const formData = new FormData();
 		formData.append("text", article.text)
 		formData.append("author", article.author)
-		formData.append("picture", selectedFile);
 		formData.append("youtubeUrl", article.youtubeUrl)
+		// formData.append("picture", selectedFile);
 		
 		console.log(formData)
 
@@ -57,15 +57,13 @@ export default function ArticleForm() {
 			data: formData,
 			headers: { "Content-Type": "multipart/form-data" },
 		  })
-			.then(() => console.log("Post créé"))
+			.then((res) => console.log("Post créé"))
 	}
 
 	// update state of article with input data
-	function inputChangeHandler(e) {
-
-
-		setArticle((prevState) => ({
-			...prevState,
+	function handleInputChange(e) {
+		setArticle(() => ({
+			...article,
 			[e.target.name]: e.target.value,
 		}))
 		console.log(article)
@@ -84,15 +82,15 @@ export default function ArticleForm() {
 					}
 				}
 				// validationSchema={SignupSchema}
-				onSubmit={(e) => {
-					handleEditArticle(e)
-					console.log(e)
+				onSubmit={(values) => {
+					handleEditArticle(values)
+					console.log(values)
 				}}
 			>
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture />
-						<Field name="text" onChange={inputChangeHandler} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3" />
+						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3" />
 						<ErrorMessage name="text" component="div" className="errorInput" />
 					</div>
 
@@ -116,7 +114,7 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Lien youtube :</span>
 										<div className="d-inline">
-											<Field name="youtubeUrl" onChange={inputChangeHandler} value={article.youtubeUrl} placeholder="Votre lien Youtube" className="ytInput mb-3" />
+											<Field name="youtubeUrl" onChange={handleInputChange} value={article.youtubeUrl} placeholder="Votre lien Youtube" className="ytInput mb-3" />
 											<ErrorMessage name="youtubeUrl" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">

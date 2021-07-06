@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import HomeContainer from '../components/HomeContainer'
-import initialState, { AuthContext } from '../App'
+import { AuthContext } from '../App'
 
 export default function HomePage() {
 

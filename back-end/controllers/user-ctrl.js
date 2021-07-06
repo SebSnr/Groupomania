@@ -2,10 +2,13 @@ const db = require("../models")
 const User = db.users
 
 exports.create = (req, res) => {
+    
     const user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        // photo: req.body.mail,
+        email: req.body.email,
+        password: req.body.password,
+        // photo: req.body.photo,
         // isAdmin: req.body.isAdmin,
     }
 

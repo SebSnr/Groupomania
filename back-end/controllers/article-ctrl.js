@@ -1,6 +1,6 @@
 const db = require("../models")
 const Article = db.articles
-const Op = db.Sequelize.Op
+// const Op = db.Sequelize.Op
 
 // Create a new Article
 exports.create = (req, res) => {
@@ -17,8 +17,7 @@ exports.create = (req, res) => {
 	const article = {
 		text: req.body.text,
 		author: req.body.author, 
-		pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-		pictureUrl:"c'est une super url",
+		// pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
 		youtubeUrl: req.body.youtubeUrl 
 	}
 

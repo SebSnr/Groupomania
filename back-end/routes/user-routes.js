@@ -2,8 +2,8 @@ module.exports = app => {
 
     const router = require("express").Router()
     const userCtrl = require("../controllers/user-ctrl")
-
-    app.use(("/api/users", router))
+    
+    app.use("/api/users", router)
 
     router.post("/", userCtrl.create)
     router.get("/:id", userCtrl.getOne)
