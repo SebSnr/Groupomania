@@ -22,7 +22,7 @@ export default function LoginForm() {
 	})
 
 	// useContext
-	const dispatch = useContext(AuthContext)
+	const { dispatch } = useContext(AuthContext)
 	const initialState = {
 		firstName: "",
 		lastName: "",
@@ -30,8 +30,8 @@ export default function LoginForm() {
 		password: "",
 		// photo: null,
 		// isAdmin: false,
-		// isSubmitting: false,
-		// errorMessage: null
+		isSubmitting: false,
+		errorMessage: null
 	}
 
 	const [user, setUser] = useState(initialState)
@@ -44,20 +44,35 @@ export default function LoginForm() {
 	}
 
 	const handleFormSubmit = (e) => {
-		// setUser({
-		// 	...user,
-		// 	isSubmitting: true,
-		// 	errorMessage: null,
-		// })
+
+		// to disable t
+		setUser({
+			...user,
+			isSubmitting: true,
+			errorMessage: null,
+		})
 
 		console.log(user)
 
 		axios({
 			method: "post",
 			url: `${ApiUrl}/users`,
-			data: user,
+			body: user,
+		})
+			.then((res) => {
+				// console.log("Utilsateur créé")})
+				dispatch({
+					type: "LOGIN",
+					payload: res
+				})
 			})
-			.then((res) => console.log("Utilsateur créé"))
+			.catch(error => {
+				setUser({
+				  ...user,
+				  isSubmitting: false,
+				  errorMessage: error.message || error.statusText
+				})
+			})
 	}
 
 	return (
@@ -87,9 +102,13 @@ export default function LoginForm() {
 					{/* <Field name="photo" type="file" onChange={handleInputChange} value={user.photo} accept=".jpg, .jpeg, .png" />
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
-					<button type="submit" className="btn-lg btn-primary">
-					{/* {user.isSubmitting ? ("Loading...") : ("Login")} */}
-						envoyer
+					{/* screen the error message if sign-up probleme */}
+					{user.errorMessage && (
+						<span className="form-error">{user.errorMessage}</span>
+					)}
+
+					<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
+						{user.isSubmitting ? ("Loading...") : ("S'incrire")}
 					</button>
 				</Form>
 			</Formik>
