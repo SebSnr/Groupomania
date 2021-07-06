@@ -56,8 +56,8 @@ export default function LoginForm() {
 
 		axios({
 			method: "post",
-			url: `${ApiUrl}/users`,
-			body: user,
+			url: `${ApiUrl}/auth/signup`,
+			data: user,
 		})
 			.then((res) => {
 				// console.log("Utilsateur créé")})

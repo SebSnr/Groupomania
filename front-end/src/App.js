@@ -9,10 +9,9 @@ import NotFoundPage from "./pages/NotFoundPage"
 export const AuthContext = React.createContext()
 
 const initialState = {
-	isAuthentificated: true,
+	isAuthentificated: false,
 	user: null,
 	token: null,
-	test: "le test fonctionne",
 }
 
 const reducer = (state, action) => {
@@ -23,8 +22,8 @@ const reducer = (state, action) => {
 			console.log("ca login dans la app")
 			return {
 				...state,
-				isAuthenticated: true,
-				// user: action.payload.user,
+				isAuthentificated: true,
+				// user: action.payload.user, 
 				// token: action.payload.token,
 			}
 		case "LOGOUT":
