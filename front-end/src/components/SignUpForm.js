@@ -61,33 +61,37 @@ export default function SignUpForm() {
 			data: user,
 		})
 			.then((res) => {
+
 				console.log("Utilsateur créé")
 
-				//now, log with user data
-				axios({
-					method: "post",
-					url: `${ApiUrl}/auth/login`,
-					data: user,
-				})
-					.then((res) => {
-		
-						console.log(res.data)
-		
-						// send db response and action to the global reducer
-						dispatch({
-							type: "LOGIN",
-							payload: res.data,
-						})
-						// window.location = ("/")
-		
+				if (res.status === 200) {
+					//now, log with user data
+					axios({
+						method: "post",
+						url: `${ApiUrl}/auth/login`,
+						data: user,
 					})
-					.catch(error => {
-						setUser({
-						  ...user,
-						  isSubmitting: false,
-						  errorMessage: error.message || error.statusText
+						.then((res) => {
+			
+							console.log(res.data)
+			
+							// send db response and action to the global reducer
+							dispatch({
+								type: "LOGIN",
+								payload: res.data,
+							})
+							// window.location = ("/")
+			
 						})
-					})
+						.catch(error => {
+							setUser({
+							...user,
+							isSubmitting: false,
+							errorMessage: error.message || error.statusText
+							})
+							console.log("Login error")
+						})
+				} else console.log("Error with signup then login")
 			})
 			.catch(error => {
 				setUser({
