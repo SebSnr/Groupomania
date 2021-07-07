@@ -32,10 +32,10 @@ export default function ArticleForm() {
 	const [article, setArticle] = useState(initialArticle)
 
 	//state of welcome message text input
-	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf ?")
+	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
 
 	// personalize the welcome message text input with user name
-	useEffect(() => {setplaceHolderText(`Quoi de neuf ${AuthState.userFirstName} ?`)}, [AuthState])
+	useEffect(() => {setPlaceHolderText(`Quoi de neuf ${AuthState.userFirstName} ?`)}, [AuthState])
 
 	// state of media input choice
 	const [media, setMedia] = useState("")
@@ -43,9 +43,12 @@ export default function ArticleForm() {
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()   // supprimer selectedFile ? 
 
+	useEffect(() => {console.log(selectedFile)}, [selectedFile])
+
 
 	// submit the form and request
 	function handleEditArticle(e) {
+
 
 		const formData = new FormData();
 		formData.append("text", article.text)
@@ -71,7 +74,10 @@ export default function ArticleForm() {
 			data: formData,
 			headers: { "Content-Type": "multipart/form-data", "Authorization" : `Bearer ${token}` },
 		  })
-			.then((res) => console.log("Post créé"))
+			.then((res) => {
+				setArticle(initialArticle)
+				console.log("Post créé")
+			})
 			.catch((err) => console.log(`Error post article - ${err}`))
 	}
 
@@ -92,7 +98,6 @@ export default function ArticleForm() {
 				// validationSchema={SignupSchema}
 				onSubmit={(values) => {
 					handleEditArticle(values)
-					setArticle(initialArticle)
 				}}
 			>
 				<Form>
@@ -112,7 +117,13 @@ export default function ArticleForm() {
 											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
 											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
-										<button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
+										{/* <button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
+											Ou joindre un lien Youtube
+										</button> */}
+										<button type="button" onClick={() => {
+											setMedia("youtube")
+											setSelectedFile()
+										}} className="btn-sm btn-secondary mb-3">
 											Ou joindre un lien Youtube
 										</button>
 									</div>
@@ -125,7 +136,15 @@ export default function ArticleForm() {
 											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-3" />
 											<ErrorMessage name="youtube" component="div" className="errorInput" />
 										</div>
-										<button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">
+										{/* <button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">
+											Ou Joindre une image
+										</button> */}
+										<button type="button" onClick={() => {
+											setMedia("localImg")
+											setArticle(() => ({
+												...article,
+												"youtube": "",
+											}))}} className="btn-sm btn-secondary mb-3">
 											Ou Joindre une image
 										</button>
 									</div>
