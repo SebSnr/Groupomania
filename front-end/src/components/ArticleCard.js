@@ -14,10 +14,9 @@ export default function ArticleCard(article) {
 				<div className="row justify-content-end card-article--date">{article.article.createdAt}</div>
 				<p className="card-text">{article.article.text}</p>
 			</div>
-			<div className="">
-				<img src={article.article.pictureUrl} className="card-img-top " alt="article multimédia" />
-				<ReactPlayer url={article.article.youtubeUrl} width="100%" />
-				
+			<div className="overflow-hidden media-content" >
+				{article.article.picture ? <img src={article.article.picture} className="card-img-top" alt="article multimédia" />
+				: <ReactPlayer url={article.article.youtube} width="100%" className="card-img-top"/> }
 			</div>
 		</div>
 	)

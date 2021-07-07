@@ -1,6 +1,9 @@
 import React from "react"
+// import { AuthContext } from "../App"
 
 export default function ProfilePicture() {
+
+	// const { state } = useContext(AuthContext) 
 
 	return (
 		<div className="profile-picture">

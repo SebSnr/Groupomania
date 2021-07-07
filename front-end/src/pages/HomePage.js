@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
 import HomeContainer from '../components/HomeContainer'
 import { AuthContext } from "../App"
 

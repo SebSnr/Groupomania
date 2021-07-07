@@ -18,10 +18,10 @@ export default function SignUpForm() {
 	})
 
 	// useContext
-	const { dispatch } = useContext(AuthContext)
+	const { dispatchAuthState } = useContext(AuthContext)
 
 	// init the state user
-	const initialState = {
+	const initialUser = {
 		firstName: "",
 		lastName: "",
 		email: "",
@@ -33,7 +33,7 @@ export default function SignUpForm() {
 	}
 
 	// state user
-	const [user, setUser] = useState(initialState)
+	const [user, setUser] = useState(initialUser)
 
 	// set user state when input change
 	const handleInputChange = (e) => {
@@ -76,10 +76,11 @@ export default function SignUpForm() {
 							console.log(res.data)
 			
 							// send db response and action to the global reducer
-							dispatch({
+							dispatchAuthState({
 								type: "LOGIN",
 								payload: res.data,
 							})
+							setUser(initialUser)
 							// window.location = ("/")
 			
 						})
@@ -106,7 +107,7 @@ export default function SignUpForm() {
 		<div className="log-signup">
 			<h2>S'inscrire</h2>
 			<Formik
-				initialValues={initialState}
+				initialValues={initialUser}
 				// validationSchema={SignupSchema}
 				onSubmit={(values) => {
 					handleFormSubmit(values)

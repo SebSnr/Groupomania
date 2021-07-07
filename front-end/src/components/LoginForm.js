@@ -7,10 +7,10 @@ import { ApiUrl } from "../variables-config"
 export default function LoginForm() {
 
 	// useContext
-	const { state, dispatch } = useContext(AuthContext)
+	const { dispatchAuthState } = useContext(AuthContext)
 
 	// init the state user
-	const initialState = {
+	const initialUser = {
 		email: "",
 		password: "",
 		isSubmitting: false,
@@ -18,7 +18,7 @@ export default function LoginForm() {
 	}
 
 	// state user
-	const [user, setUser] = useState(initialState)
+	const [user, setUser] = useState(initialUser)
 
 	// set user state when input change
 	const handleInputChange = (e) => {
@@ -50,10 +50,12 @@ export default function LoginForm() {
 				console.log(res.data)
 
 				// send db response and action to the global reducer
-				dispatch({
+				dispatchAuthState({
 					type: "LOGIN",
 					payload: res.data,
 				})
+
+				setUser(initialUser)
 				// window.location = ("/")
 
 			})
@@ -71,7 +73,7 @@ export default function LoginForm() {
 		<div className="log-signup">
 			<h2>Se connecter</h2>
 			<Formik
-				initialValues={initialState}
+				initialValues={initialUser}
 				// validate={(values) => {
 				// 	const errors = {}
 				// 	if (!values.email) {

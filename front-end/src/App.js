@@ -9,24 +9,27 @@ import NotFoundPage from "./pages/NotFoundPage"
 // Create a useContext for handle the authentification data
 export const AuthContext = React.createContext()
 
-// Init initialState case if already a user in local storage or not
-let initialState = {}
+// Init initialAuth case if already a user in local storage or not
+let initialAuth = {}
 
 if (localStorage.getItem("user")) {
 
 	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
 	
-	initialState = {
+	initialAuth = {
 		isAuthenticated: true, 
 		user: JSON.parse(localStorage.getItem("user")),
-		token: JSON.parse(localStorage.getItem("token"))
+		token: JSON.parse(localStorage.getItem("token")),
+		userFirstName: JSON.parse(localStorage.getItem("userFirstName")),
+		userLastName: JSON.parse(localStorage.getItem("userLastName")),
+		userPicture: JSON.parse(localStorage.getItem("userPicture")),
 	}
 
 } else {
 
 	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
 	
-	initialState = {
+	initialAuth = {
 		isAuthenticated: false, 
 		user: null,
 		token: null,
@@ -34,15 +37,18 @@ if (localStorage.getItem("user")) {
 }
 
 // Action to do in case of 
-const reducer = (state, action) => {
+const AuthReducer = (authState, action) => {
 	switch (action.type) {
 		case "LOGIN":
 			localStorage.setItem("user", JSON.stringify(action.payload.userId))
 			localStorage.setItem("token", JSON.stringify(action.payload.token))
+			localStorage.setItem("userFirstName", JSON.stringify(action.payload.userFirstName))
+			localStorage.setItem("userLastName", JSON.stringify(action.payload.userLastName))
+			localStorage.setItem("userPicture", JSON.stringify(action.payload.userPicture))
 			console.log("ca login dans la app")
 			console.log(action.payload)
 			return {
-				...state,
+				...authState,
 				isAuthenticated: true,
 				user: action.payload.userId, 
 				token: action.payload.token,
@@ -50,24 +56,24 @@ const reducer = (state, action) => {
 		case "LOGOUT":
 			localStorage.clear()
 			return {
-				...state,
+				...authState,
 				isAuthenticated: false,
 				user: null,
 			}
 		default:
-			return state
+			return authState
 	}
 }
 
 function App() {
 	
-	const [state, dispatch] = React.useReducer(reducer, initialState)
+	const [state, dispatchAuthState] = React.useReducer(AuthReducer, initialAuth)
 
 	return (
 		<AuthContext.Provider
 			value={{
 				state,
-				dispatch,
+				dispatchAuthState,
 			}}
 		>
 			<BrowserRouter>

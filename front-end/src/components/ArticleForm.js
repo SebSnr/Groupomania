@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState, useContext} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 // import * as Yup from "yup"
 import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import ProfilePicture from "./ProfilePicture"
+import { AuthContext } from "../App"
+
 
 export default function ArticleForm() {
 	// const SignupSchema = Yup.object().shape({
@@ -14,26 +16,32 @@ export default function ArticleForm() {
 	// 	.required("obligatoire*"),
 	// })
 
+	// use global state of authContext
+	const { state } = useContext(AuthContext) 
+
+
 	// set state of article
-	
-	const [article, setArticle] = useState({
+	const initialArticle = {
 		text: "",
-		author: "robert",
-		youtubeUrl:"",
-	})
+		author: (state.userFirstName).concat(' ',state.userLastName), //a check ? state.userId
+		picture: "",
+		youtube:"",
+
+	}
+	
+	const [article, setArticle] = useState(initialArticle)
 
 	//state of welcome message text input
 	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf ?")
 
-	// personalize the welcome message text input with the user's name
-	let userName = "michel" //provisoire
-	useEffect(() => {setplaceHolderText(`Quoi de neuf ${userName} ?`)}, [userName])
+	// personalize the welcome message text input with user name
+	useEffect(() => {setplaceHolderText(`Quoi de neuf ${state.userFirstName} ?`)}, [state])
 
 	// state of media input choice
 	const [media, setMedia] = useState("")
 
 	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState()
+	const [selectedFile, setSelectedFile] = useState()   // supprimer selectedFile ? 
 
 
 	// submit the form and request
@@ -42,8 +50,11 @@ export default function ArticleForm() {
 		const formData = new FormData();
 		formData.append("text", article.text)
 		formData.append("author", article.author)
-		formData.append("youtubeUrl", article.youtubeUrl)
-		// formData.append("picture", selectedFile);
+		formData.append("youtube", article.youtube)
+		if (selectedFile) {
+			formData.append("picture", selectedFile) 
+		}
+		// selectedFile ? formData.append("picture", selectedFile) : return 0
 		
 		console.log(formData)
 
@@ -51,13 +62,17 @@ export default function ArticleForm() {
 			console.log(pair[0]+ ', ' + pair[1]); 
 		}
 
+		// get user token by the local storage
+		const token = JSON.parse(localStorage.getItem("token"))
+
 		axios({
 			method: "post",
 			url: `${ApiUrl}/articles`,
 			data: formData,
-			headers: { "Content-Type": "multipart/form-data" },
+			headers: { "Content-Type": "multipart/form-data", "Authorization" : `Bearer ${token}` },
 		  })
 			.then((res) => console.log("Post créé"))
+			.catch((err) => console.log(`Error post article - ${err}`))
 	}
 
 	// update state of article with input data
@@ -73,18 +88,11 @@ export default function ArticleForm() {
 	return (
 		<div className="card row articleForm mb-5 p-3">
 			<Formik
-				initialValues={
-					{
-						// text: "",
-						// author: "29",
-						// imageUrl: undefined
-						// articleAuthor: "Auteur inconnu"
-					}
-				}
+				initialValues={initialArticle				}
 				// validationSchema={SignupSchema}
 				onSubmit={(values) => {
 					handleEditArticle(values)
-					console.log(values)
+					setArticle(initialArticle)
 				}}
 			>
 				<Form>
@@ -114,8 +122,8 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Lien youtube :</span>
 										<div className="d-inline">
-											<Field name="youtubeUrl" onChange={handleInputChange} value={article.youtubeUrl} placeholder="Votre lien Youtube" className="ytInput mb-3" />
-											<ErrorMessage name="youtubeUrl" component="div" className="errorInput" />
+											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-3" />
+											<ErrorMessage name="youtube" component="div" className="errorInput" />
 										</div>
 										<button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">
 											Ou Joindre une image

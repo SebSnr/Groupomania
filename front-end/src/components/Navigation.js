@@ -4,10 +4,10 @@ import { AuthContext } from "../App"
 export default function Navigation() {
 
 	// useContext
-	const { dispatch } = useContext(AuthContext)
+	const { dispatchAuthState } = useContext(AuthContext)
 
 	const handleDeconnect = () => {
-		dispatch({
+		dispatchAuthState({
 			type: "LOGOUT",
 		})
 		window.location = ("/login")

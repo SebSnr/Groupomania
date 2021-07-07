@@ -9,24 +9,21 @@ exports.create = (req, res) => {
 	// 	res.status(403).send({
 	// 		message: "Content can not be empty!",
 	// 	})
-	// 	return
+	// 	return 
 	// }
 
-
-	// Create a article
-	const article = {
-		text: req.body.text,
-		author: req.body.author, 
-		// pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-		youtubeUrl: req.body.youtubeUrl 
+	let pictureUrl = ""
+	if (req.file){ 
+		pictureUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 	}
-
-	// const article = {
-	// 	text: req.params["text"],
-	// 	author: req.params["author"], 
-	// 	pictureUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-	// 	youtubeUrl: params["youtubeUrl"] 
-	// }
+	// Create a article 
+	const article = {
+			text: req.body.text,
+			author: req.body.author, 
+			youtube: req.body.youtube,
+			picture: pictureUrl,  
+		}
+	
 
 	// Save article in the database
 	Article.create(article)
@@ -57,7 +54,7 @@ exports.getOne = (req, res) => {
 exports.delete = (req, res) => {
 	Article.findOne({_id: res.param.id})
 		.then ((article) => {
-			const filename = article.pictureUrl.split("/images/")[1] 
+			const filename = article.picture.split("/images/")[1] 
 			// delete picture then delete article
 			fs.unlink(`images/${filename}`, () => {
 				Article.deleteOne({_id:req.params.id})
@@ -79,7 +76,7 @@ exports.modify = (req, res) => {
 			})
 		articleObject = {
 			...JSON.parse(rsq.body.article),
-			pictureUrl: `${req.protocol}://${req.get("host")}/images/${req.file.fileName}`
+			picture: `${req.protocol}://${req.get("host")}/images/${req.file.fileName}` 
 		}
 	} else {
 		articleObject = {...req.body}

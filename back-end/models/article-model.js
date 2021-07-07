@@ -1,15 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
     const Article = sequelize.define("article", {
-        text : {
+        text: {
             type: Sequelize.STRING
         }, 
-        author : {
+        author: {
             type: Sequelize.STRING 
         },
-        pictureUrl : {
+        picture: {
             type: Sequelize.STRING
         },
-        youtubeUrl : {
+        youtube: {
             type: Sequelize.STRING
         }
     })
