@@ -46,8 +46,13 @@ export default function Navigation() {
 								</a>
 							</li>
 							<li className="nav-item">
+								<a className="nav-link" href="/login">
+									Se connecter
+								</a>
+							</li>
+							<li className="nav-item">
 								<button onClick={handleDeconnect} className="nav-link" href="/login">
-									Déconnexion
+									Se déconnecter
 								</button>
 							</li>
 						</ul>

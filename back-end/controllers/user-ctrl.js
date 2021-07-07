@@ -37,7 +37,7 @@ exports.login= (req, res) => {
             console.log(user)
             console.log(req.body.password)
             if (!user) {
-				return res.status(401).json({error: "Utilisateur non trouvé !"})
+				return res.status(401).json({error: "Utilisateur non trouvé !"}) 
 			}
             bcrypt
 				.compare(req.body.password, user.password)
@@ -51,7 +51,6 @@ exports.login= (req, res) => {
 					})
 				})
 				.catch((error) => res.status(500).json({error}))
-
         })
 		.catch((error) => res.status(500).json({error})) 
 

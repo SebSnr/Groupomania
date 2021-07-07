@@ -6,25 +6,39 @@ import ProfilePage from "./pages/ProfilePage"
 import MembersPage from "./pages/MembersPage"
 import NotFoundPage from "./pages/NotFoundPage"
 
+// Create a useContext for handle the authentification data
 export const AuthContext = React.createContext()
 
-const initialState = {
-	isAuthenticated: false,
-	user: null,
-	token: null,
+// Init initialState case if already a user in local storage or not
+let initialState = {}
+
+if (localStorage.getItem("user")) {
+	initialState = {
+		isAuthenticated: true, 
+		user: JSON.parse(localStorage.getItem("user")),
+		token: JSON.parse(localStorage.getItem("token"))
+	}
+
+} else {
+	initialState = {
+		isAuthenticated: false, 
+		user: null,
+		token: null,
+	}
 }
 
+// Action to do in case of 
 const reducer = (state, action) => {
 	switch (action.type) {
 		case "LOGIN":
-			localStorage.setItem("user", JSON.stringify(action.payload.user))
+			localStorage.setItem("user", JSON.stringify(action.payload.userId))
 			localStorage.setItem("token", JSON.stringify(action.payload.token))
 			console.log("ca login dans la app")
 			console.log(action.payload)
 			return {
 				...state,
 				isAuthenticated: true,
-				user: action.payload.user, 
+				user: action.payload.userId, 
 				token: action.payload.token,
 			}
 		case "LOGOUT":
@@ -40,6 +54,7 @@ const reducer = (state, action) => {
 }
 
 function App() {
+	
 	const [state, dispatch] = React.useReducer(reducer, initialState)
 
 	return (

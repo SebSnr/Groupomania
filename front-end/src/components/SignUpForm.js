@@ -1,12 +1,9 @@
 import React, { useState, useContext } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
-
-// pour authentifier
 import { AuthContext } from "../App"
 import axios from "axios"
 import { ApiUrl } from "../variables-config"
-
 
 export default function SignUpForm() {
 	// validate input values
@@ -22,6 +19,8 @@ export default function SignUpForm() {
 
 	// useContext
 	const { dispatch } = useContext(AuthContext)
+
+	// init the state user
 	const initialState = {
 		firstName: "",
 		lastName: "",
@@ -33,8 +32,10 @@ export default function SignUpForm() {
 		errorMessage: null
 	}
 
+	// state user
 	const [user, setUser] = useState(initialState)
 
+	// set user state when input change
 	const handleInputChange = (e) => {
 		setUser({
 			...user,
@@ -42,6 +43,7 @@ export default function SignUpForm() {
 		})
 	}
 
+	// send form data when form submit
 	const handleFormSubmit = (e) => {
 
 		// set state of user
@@ -59,7 +61,9 @@ export default function SignUpForm() {
 			data: user,
 		})
 			.then((res) => {
-				// console.log("Utilsateur créé")})
+				console.log("Utilsateur créé")
+
+				// send db response and action to the global reducer
 				dispatch({
 					type: "LOGIN",
 					payload: res.data
@@ -102,14 +106,14 @@ export default function SignUpForm() {
 					{/* <Field name="photo" type="file" onChange={handleInputChange} value={user.photo} accept=".jpg, .jpeg, .png" />
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
+					<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
+						{user.isSubmitting ? ("Loading...") : ("S'incrire")}
+					</button>
+					
 					{/* screen the error message if sign-up probleme */}
 					{user.errorMessage && (
 						<span className="form-error">{user.errorMessage}</span>
 					)}
-
-					<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
-						{user.isSubmitting ? ("Loading...") : ("S'incrire")}
-					</button>
 				</Form>
 			</Formik>
 		</div>

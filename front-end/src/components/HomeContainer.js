@@ -6,13 +6,16 @@ import ArticleForm from "./ArticleForm"
 
 export default function HomeContent() {
 
-
+    // state articles data
     const [articlesData, setArticlesData] = useState([])
 
+    // event: get article at the loading page
     useEffect(() => {getArticles()}, [])
 
+    // get user token by the local storage
     const token = JSON.parse(localStorage.getItem("token"))
 
+    // get articles
     const getArticles = () => {
             axios({
                 method: "get",
@@ -30,7 +33,7 @@ export default function HomeContent() {
         <div className="container">
             
             <ArticleForm />
-
+            
             <div className="row d-lg-flex justify-content-lg-around">
                 {articlesData
                     .map((article) => (

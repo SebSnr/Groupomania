@@ -1,8 +1,5 @@
 import React, { useState, useContext } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
-
-// pour authentifier
 import { AuthContext } from "../App"
 import axios from "axios"
 import { ApiUrl } from "../variables-config"
@@ -10,8 +7,9 @@ import { ApiUrl } from "../variables-config"
 export default function LoginForm() {
 
 	// useContext
-	const { dispatch } = useContext(AuthContext)
+	const { state, dispatch } = useContext(AuthContext)
 
+	// init the state user
 	const initialState = {
 		email: "",
 		password: "",
@@ -19,8 +17,10 @@ export default function LoginForm() {
 		errorMessage: null
 	}
 
+	// state user
 	const [user, setUser] = useState(initialState)
 
+	// set user state when input change
 	const handleInputChange = (e) => {
 		setUser({
 			...user,
@@ -28,9 +28,10 @@ export default function LoginForm() {
 		})
 	}
 
+	// send form data when form submit
 	const handleFormSubmit = (e) => {
 
-		// set state of user
+		// set user state
 		setUser({
 			...user,
 			isSubmitting: true,
@@ -45,12 +46,15 @@ export default function LoginForm() {
 			data: user,
 		})
 			.then((res) => {
-				// console.log(res.user)})
+
+				console.log(res.data)
+
+				// send db response and action to the global reducer
 				dispatch({
 					type: "LOGIN",
-					payload: res.data
+					payload: res.data,
 				})
-				window.location = ("/")
+				// window.location = ("/")
 
 			})
 			.catch(error => {
@@ -61,7 +65,7 @@ export default function LoginForm() {
 				})
 			})
 	}
-
+	
 
 	return (
 		<div className="log-signup">
@@ -89,13 +93,13 @@ export default function LoginForm() {
 						<Field name="password" type="password" onChange={handleInputChange} value={user.password} placeholder="mot de passe" />
 						<ErrorMessage name="password" component="div" className="errorInput" />
 
+						<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
+							{user.isSubmitting ? ("Loading...") : ("Se connecter")}
+							
 						{/* screen the error message if login probleme */}
 						{user.errorMessage && (
 							<span className="form-error">{user.errorMessage}</span>
 						)}
-
-						<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
-							{user.isSubmitting ? ("Loading...") : ("Se connecter")}
 						</button>
 					</Form>
 			</Formik>
