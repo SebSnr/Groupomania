@@ -36,6 +36,10 @@ export default function HomeContent() {
             
             <div className="row d-lg-flex justify-content-lg-around">
                 {articlesData
+                    .sort(function(a, b) {
+                        let dateA = new Date(a.createdAt), dateB = new Date(b.createdAt);
+                        return dateB - dateA;
+                    })
                     .map((article) => (
                         <ArticleCard key={article.id} article={article} />
                     ))

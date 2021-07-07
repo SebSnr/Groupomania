@@ -109,7 +109,7 @@ export default function ArticleForm() {
 
 					{(() => {
 						switch (media) {
-							case "localImg":
+							case "upload":
 								return (
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo :</span>
@@ -136,11 +136,11 @@ export default function ArticleForm() {
 											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-3" />
 											<ErrorMessage name="youtube" component="div" className="errorInput" />
 										</div>
-										{/* <button type="button" onClick={() => setMedia("localImg")} className="btn-sm btn-secondary mb-3">
+										{/* <button type="button" onClick={() => setMedia("upload")} className="btn-sm btn-secondary mb-3">
 											Ou Joindre une image
 										</button> */}
 										<button type="button" onClick={() => {
-											setMedia("localImg")
+											setMedia("upload")
 											setArticle(() => ({
 												...article,
 												"youtube": "",
@@ -153,7 +153,7 @@ export default function ArticleForm() {
 								return (
 									<div className="d-flex flex-wrap">
 										{/* <span className="w-100 mb-3">Souhaitez-vous joindre une photo ? Ou un lien youtube ?</span> */}
-										<button type="button" onClick={() => setMedia("localImg")} className="btn btn-secondary mb-3 ">
+										<button type="button" onClick={() => setMedia("upload")} className="btn btn-secondary mb-3 ">
 											Joindre une photo personnelle ?
 										</button>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-secondary mb-3">
