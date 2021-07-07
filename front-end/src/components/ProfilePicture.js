@@ -3,7 +3,7 @@ import React from "react"
 
 export default function ProfilePicture() {
 
-	// const { state } = useContext(AuthContext) 
+	// const { AuthState } = useContext(AuthContext) 
 
 	return (
 		<div className="profile-picture">

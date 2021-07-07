@@ -6,7 +6,7 @@ import { ApiUrl } from "../variables-config"
 
 export default function LoginForm() {
 
-	// useContext
+	// dispatch action and state of authenfication context
 	const { dispatchAuthState } = useContext(AuthContext)
 
 	// init the state user

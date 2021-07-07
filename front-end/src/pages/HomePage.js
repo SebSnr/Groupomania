@@ -5,12 +5,12 @@ import { AuthContext } from "../App"
 
 export default function HomePage() {
 
-	const { state } = useContext(AuthContext) 
+	const { AuthState } = useContext(AuthContext) 
 
     return (
         <div className="">
             <Navigation />
-            { state.isAuthenticated ? <HomeContainer /> : "Veuillez vous connecter pour accéder au contenu de cette page" }
+            { AuthState.isAuthenticated ? <HomeContainer /> : "Veuillez vous connecter pour accéder au contenu de cette page" }
         </div>
     )
 

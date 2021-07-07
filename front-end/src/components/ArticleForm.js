@@ -17,13 +17,13 @@ export default function ArticleForm() {
 	// })
 
 	// use global state of authContext
-	const { state } = useContext(AuthContext) 
+	const { AuthState } = useContext(AuthContext) 
 
 
 	// set state of article
 	const initialArticle = {
 		text: "",
-		author: (state.userFirstName).concat(' ',state.userLastName), //a check ? state.userId
+		author: (AuthState.userFirstName).concat(' ',AuthState.userLastName), //a check ? AuthState.userId
 		picture: "",
 		youtube:"",
 
@@ -35,7 +35,7 @@ export default function ArticleForm() {
 	const [placeHolderText, setplaceHolderText] = useState("Quoi de neuf ?")
 
 	// personalize the welcome message text input with user name
-	useEffect(() => {setplaceHolderText(`Quoi de neuf ${state.userFirstName} ?`)}, [state])
+	useEffect(() => {setplaceHolderText(`Quoi de neuf ${AuthState.userFirstName} ?`)}, [AuthState])
 
 	// state of media input choice
 	const [media, setMedia] = useState("")

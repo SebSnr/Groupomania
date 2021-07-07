@@ -3,7 +3,7 @@ import { AuthContext } from "../App"
 
 export default function Navigation() {
 
-	// useContext
+	// dispatch action and state of authenfication context
 	const { dispatchAuthState } = useContext(AuthContext)
 
 	const handleDeconnect = () => {

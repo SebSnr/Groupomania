@@ -6,7 +6,7 @@ import ProfilePage from "./pages/ProfilePage"
 import MembersPage from "./pages/MembersPage"
 import NotFoundPage from "./pages/NotFoundPage"
 
-// Create a useContext for handle the authentification data
+// Create a useContext of authentication data
 export const AuthContext = React.createContext()
 
 // Init initialAuth case if already a user in local storage or not
@@ -67,12 +67,12 @@ const AuthReducer = (authState, action) => {
 
 function App() {
 	
-	const [state, dispatchAuthState] = React.useReducer(AuthReducer, initialAuth)
+	const [AuthState, dispatchAuthState] = React.useReducer(AuthReducer, initialAuth)
 
 	return (
 		<AuthContext.Provider
 			value={{
-				state,
+				AuthState,
 				dispatchAuthState,
 			}}
 		>
