@@ -22,9 +22,9 @@ exports.signup = (req, res) => {
                         return res.status(401).json({error: "Mot de passe incorrect !"})
                     }
                     res.status(200).json({
-                        userId: user.id,
-                        token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "24h"}),
-                    })
+						// userId: user.id,
+						// token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "24h"}),
+					})
                 })
                 .catch((error) => res.status(403).json({error}))
         })

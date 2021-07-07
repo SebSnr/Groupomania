@@ -63,12 +63,31 @@ export default function SignUpForm() {
 			.then((res) => {
 				console.log("Utilsateur créé")
 
-				// send db response and action to the global reducer
-				dispatch({
-					type: "LOGIN",
-					payload: res.data
+				//now, log with user data
+				axios({
+					method: "post",
+					url: `${ApiUrl}/auth/login`,
+					data: user,
 				})
-				window.location = ("/")
+					.then((res) => {
+		
+						console.log(res.data)
+		
+						// send db response and action to the global reducer
+						dispatch({
+							type: "LOGIN",
+							payload: res.data,
+						})
+						// window.location = ("/")
+		
+					})
+					.catch(error => {
+						setUser({
+						  ...user,
+						  isSubmitting: false,
+						  errorMessage: error.message || error.statusText
+						})
+					})
 			})
 			.catch(error => {
 				setUser({
@@ -109,7 +128,7 @@ export default function SignUpForm() {
 					<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
 						{user.isSubmitting ? ("Loading...") : ("S'incrire")}
 					</button>
-					
+
 					{/* screen the error message if sign-up probleme */}
 					{user.errorMessage && (
 						<span className="form-error">{user.errorMessage}</span>

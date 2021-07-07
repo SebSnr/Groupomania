@@ -13,6 +13,9 @@ export const AuthContext = React.createContext()
 let initialState = {}
 
 if (localStorage.getItem("user")) {
+
+	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
+	
 	initialState = {
 		isAuthenticated: true, 
 		user: JSON.parse(localStorage.getItem("user")),
@@ -20,6 +23,9 @@ if (localStorage.getItem("user")) {
 	}
 
 } else {
+
+	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
+	
 	initialState = {
 		isAuthenticated: false, 
 		user: null,
