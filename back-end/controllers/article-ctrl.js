@@ -1,6 +1,8 @@
 const db = require("../models")
 const Article = db.articles
 // const Op = db.Sequelize.Op
+const fs = require("fs")
+
 
 // Create a new Article
 exports.create = (req, res) => {
@@ -23,7 +25,6 @@ exports.create = (req, res) => {
 			youtube: req.body.youtube,
 			picture: pictureUrl,  
 		}
-	
 
 	// Save article in the database
 	Article.create(article)
@@ -45,27 +46,24 @@ exports.getAll = (req, res) => {
 
 // Get one article
 exports.getOne = (req, res) => {
-	Article.findOne({_id: req.params.id})
-		.then((article) => {res.status(200).json(sauce)})
-		.catch((error) => {res.status(403).json({error})})
+	Article.findOne({id: req.params.id})
+		.then((article) => {res.status(200).json(article)})
+		.catch((error) => res.status(403).json({error})) 
 }
 
 // Delete one article 
 exports.delete = (req, res) => {
-
-	
 	Article.findOne({id: req.params.id})
 		.then ((article) => { 
-
-			console.log("article trouvé")
+			console.log("article trouvé")  // a supprimer
 			const filename = article.picture.split("/images/")[1] 
 			console.log(filename)
 			// delete picture then delete article
-			// fs.unlink(`uploads/${filename}`, () => {
+			fs.unlink(`./uploads/${filename}`, () => {
 				Article.destroy({where : {id: req.params.id}})
 					.then(() => res.status(200).json("Article supprimé")) 
 					.catch((error) => res.status(403).json({error})) 
-			// })
+			})
 		})
 		.catch((error) => res.status(403).json({error})) 
 }

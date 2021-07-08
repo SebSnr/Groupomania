@@ -29,7 +29,7 @@ export default function ArticleCard(article) {
 			.then((res) => 
 				alert("Post supprimé")
 			)
-			.catch((err) => console.log(`Error during deleting post process ${err}`))
+			.catch((err) => console.log(`Error during deleting process ${err}`))
 		
 	}
 
