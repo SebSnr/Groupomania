@@ -87,4 +87,11 @@ exports.modify = (req, res) => {
 		.catch((error) => res.status(403).json({error}))
 }
 
+// db upload
+const path = require("path");
+
+exports.getOnePicture = (req, res) => {
+	return res.sendFile(path.join(`${__dirname}/../views/index.html`));
+}
+
 
