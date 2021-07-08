@@ -13,5 +13,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     })
+
+    // Article.associate = function() {
+    //     Article.belongsTo(User, {foreignKey: 'id'})
+    //   };
+
     return Article
 }

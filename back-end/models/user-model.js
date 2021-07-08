@@ -19,5 +19,10 @@ module.exports = (sequelize, Sequelize) => {
         //     type: Sequelize.BOOLEAN
         // }, 
     })
+
+    // User.associate = function() {
+    //     User.hasOne(Article, {foreignKey: 'author'})
+    //   };
+
     return User
 }

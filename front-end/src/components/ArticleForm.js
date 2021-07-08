@@ -23,7 +23,8 @@ export default function ArticleForm() {
 	// set state of article
 	const initialArticle = {
 		text: "",
-		author: (AuthState.userFirstName).concat(' ',AuthState.userLastName), //a check ? AuthState.userId
+		// author: (AuthState.userFirstName).concat(' ',AuthState.userLastName), //a check ? AuthState.user
+		author: AuthState.user,
 		picture: "",
 		youtube:"",
 
