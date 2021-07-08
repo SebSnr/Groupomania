@@ -52,16 +52,22 @@ exports.getOne = (req, res) => {
 
 // Delete one article 
 exports.delete = (req, res) => {
-	Article.findOne({_id: res.param.id})
-		.then ((article) => {
+
+	
+	Article.findOne({id: req.params.id})
+		.then ((article) => { 
+
+			console.log("article trouvé")
 			const filename = article.picture.split("/images/")[1] 
+			console.log(filename)
 			// delete picture then delete article
-			fs.unlink(`images/${filename}`, () => {
-				Article.deleteOne({_id:req.params.id})
-					.then(() => res.status(200).json({error}))
-			})
+			// fs.unlink(`uploads/${filename}`, () => {
+				Article.destroy({where : {id: req.params.id}})
+					.then(() => res.status(200).json("Article supprimé")) 
+					.catch((error) => res.status(403).json({error})) 
+			// })
 		})
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).json({error})) 
 }
 
 // Modify one article
