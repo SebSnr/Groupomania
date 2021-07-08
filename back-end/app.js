@@ -28,10 +28,5 @@ app.use('/images', express.static(path.join(__dirname, 'uploads')))
 // user routes
 require("./routes/user-routes")(app) 
 
-// upload routes
-global.__basedir = __dirname;
-require("./routes/upload-routes")(app)
-
-
 module.exports = app 
 
