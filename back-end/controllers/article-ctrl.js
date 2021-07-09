@@ -3,7 +3,7 @@ const Article = db.articles
 // const Op = db.Sequelize.Op
 const fs = require("fs")
 const jwt = require("jsonwebtoken")
-const User = db.users
+// const User = db.users
 
 
 // Create a new Article
@@ -42,7 +42,7 @@ exports.getAll = (req, res) => {
 		.then((data) => {
 			res.send(data)
 		})
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).json({error}))  
 }
 
 // test pour relier les tables users et articles
@@ -80,7 +80,7 @@ exports.delete = (req, res) => {
 
 			console.log("article trouvé")  // a supprimer
 
-			if (article.author == decodedId.userId) {
+			if (article.author ==  decodedId.userId) {
 				const filename = article.picture.split("/images/")[1] 
 				console.log(filename)
 				// delete picture then delete article

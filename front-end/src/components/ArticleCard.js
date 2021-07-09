@@ -36,6 +36,8 @@ export default function ArticleCard(article) {
 		
 }
 
+let articleLink = `http://localhost:3000/post/%${article.article.id}`
+
 	return (
 		<div className="card card-article shadow col-12 col-lg-5 mb-3 mb-lg-5">
 			<div className="card-body align-items-center">
@@ -51,9 +53,9 @@ export default function ArticleCard(article) {
 				: <ReactPlayer url={article.article.youtube} width="100%" className="card-img-top"/> }
 			</div>
 			<div>
-				<button type="button">Modifier</button>
-				<button type="button" onClick={() => { if (window.confirm('Êtes-vous sûr de vouloir supprimer ce post ?')) deleteArticle() } } className="btn-sm ml-5">🗑️</button>
+				<button type="button" className="deleteBtn" onClick={() => { if (window.confirm('Êtes-vous sûr de vouloir supprimer ce post ?')) deleteArticle() } } className="btn-sm ml-5">🗑️</button>
 			</div>
+			<a href={articleLink} class="stretched-link"></a>
 		</div>
 	)
 }

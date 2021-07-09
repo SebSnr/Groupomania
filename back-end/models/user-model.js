@@ -1,5 +1,12 @@
+'use strict';
+
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("user", {
+    const User = sequelize.define("user", { 
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         firstName : {
             type: Sequelize.STRING
         },
@@ -18,11 +25,20 @@ module.exports = (sequelize, Sequelize) => {
         // isAdmin : {
         //     type: Sequelize.BOOLEAN
         // }, 
-    })
+    }, 
+
+    // {
+    //     associate: function(db) {
+    //         Article.hasOne(db.Article, {foreignKey: ''}) 
+    //     }
+    // }
+    )
 
     // User.associate = function() {
-    //     User.hasOne(Article, {foreignKey: 'author'})
+    //     User.hasMany(Article, {foreignKey: 'author'})
     //   };
 
     return User
 }
+
+   
