@@ -29,9 +29,12 @@ export default function ArticleCard(article) {
 			.then((res) => 
 				alert("Post supprimé")
 			)
-			.catch((err) => console.log(`Error during deleting process ${err}`))
+			.catch((err) => {
+				console.log(`Error during deleting process ${err}`)
+				alert("Impossible de supprimer ce post.")
+			})
 		
-	}
+}
 
 	return (
 		<div className="card card-article shadow col-12 col-lg-5 mb-3 mb-lg-5">

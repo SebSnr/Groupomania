@@ -73,14 +73,14 @@ exports.delete = (req, res) => {
 	const usertoken = req.headers.authorization;
 	const token = usertoken.split(' ');
 	const decodedId = jwt.verify(token[1], "monTokenSuperSecret1984");
-	console.log(decodedId);
+	console.log(decodedId.userId);
 
-	Article.findOne({id: req.params.id} && {id:decodedId})
+	Article.findOne({where : {id: req.params.id}})
 		.then ((article) => { 
 
 			console.log("article trouvé")  // a supprimer
 
-			if (article.author === decodedId) {
+			if (article.author == decodedId.userId) {
 				const filename = article.picture.split("/images/")[1] 
 				console.log(filename)
 				// delete picture then delete article
@@ -89,7 +89,7 @@ exports.delete = (req, res) => {
 						.then(() => res.status(200).json("Article supprimé")) 
 						.catch((error) => res.status(403).json({error})) 
 				})
-			}
+			} 
 
 			console.log("post finden but authentificaton error")  // a supprimer
 			
