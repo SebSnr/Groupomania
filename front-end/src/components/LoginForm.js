@@ -56,7 +56,7 @@ export default function LoginForm() {
 				})
 
 				setUser(initialUser)
-				// window.location = ("/")
+				window.location = ("/")
 
 			})
 			.catch(error => {

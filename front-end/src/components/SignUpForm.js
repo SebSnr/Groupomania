@@ -81,7 +81,7 @@ export default function SignUpForm() {
 								payload: res.data,
 							})
 							setUser(initialUser)
-							// window.location = ("/")
+							window.location = ("/")
 			
 						})
 						.catch(error => {

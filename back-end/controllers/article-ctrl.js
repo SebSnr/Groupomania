@@ -61,8 +61,14 @@ exports.getAll = (req, res) => {
 
 // Get one article
 exports.getOne = (req, res) => {
-	Article.findOne({id: req.params.id})
-		.then((article) => {res.status(200).json(article)})
+	// Article.findOne({where : {id: req.params.id}})
+	// 	.then((article) => {res.status(200).json(article)})
+	// 	.catch((error) => res.status(403).json({error})) 
+
+	console.log(req.params.id)
+
+	Article.findOne({where : {id: req.params.id}})
+		.then ((article) => {res.send(article) })
 		.catch((error) => res.status(403).json({error})) 
 }
 

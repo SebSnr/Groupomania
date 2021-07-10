@@ -78,6 +78,7 @@ export default function ArticleForm() {
 			.then((res) => {
 				setArticle(initialArticle)
 				console.log("Post créé")
+				window.location = ("/")
 			})
 			.catch((err) => console.log(`Error post article - ${err}`))
 	}

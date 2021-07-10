@@ -19,9 +19,9 @@ export default function Navigation() {
 		<header className="header">
 			<nav className="navbar navbar-expand-lg navbar-dark mb-5">
 				<div className="container">
-					<button className="navbar-brand" href="/">
+					<a className="navbar-brand" href="http://localhost:3000">
 						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo " />
-					</button>
+					</a>
 					<button
 						className="navbar-toggler"
 						type="button"

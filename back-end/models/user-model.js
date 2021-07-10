@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", { 
@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        firstName : {
+        firstName : { 
             type: Sequelize.STRING
         },
         lastName : {
