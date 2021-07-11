@@ -41,7 +41,7 @@ export default function HomeContent() {
                         return dateB - dateA;
                     })
                     .map((article) => (
-                        <ArticleCard article={article} />
+                        <ArticleCard article={article} key={article.id} />
                     ))
                 }
             </div>

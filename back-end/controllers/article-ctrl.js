@@ -1,63 +1,63 @@
 const db = require("../models")
-const Article = db.articles
-// const Op = db.Sequelize.Op
+const Article = db.Article
 const fs = require("fs")
 const jwt = require("jsonwebtoken")
-// const User = db.users
+// const Op = db.Sequelize.Op
 
 
 // Create a new Article
 exports.create = (req, res) => {
 	// Validate request
-	// if (!req.body.articleBody) {
+	// if (!req) {
 	// 	res.status(403).send({
 	// 		message: "Content can not be empty!",
 	// 	})
 	// 	return 
-	// }
+	// } 
 
+	// Get user id from token
+	const token = req.headers.authorization.split(' ');
+	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984");
+
+	// if no picture
 	let pictureUrl = ""
 	if (req.file){ 
 		pictureUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 	}
+
 	// Create a article 
 	const article = {
 			text: req.body.text,
-			author: req.body.author, 
+			author: decodedToken.userId, 
 			youtube: req.body.youtube,
-			picture: pictureUrl,  
-		}
+			picture: pictureUrl,
+			UserId: decodedToken.userId
+		} 
+
+	console.log(article)
 
 	// Save article in the database
 	Article.create(article)
 		.then((data) => { 
-			res.send(data) 
+			res.send(data)  
 		})
 		.catch((error) => res.status(403).json({error}))
 }
 
 // Get all articles
 exports.getAll = (req, res) => {
-	Article.findAll()
+	Article.findAll({
+		order: [["createdAt", "DESC"]],
+		include: [
+			{	model: db.User,
+				attributes: ["firstName", "lastName","id"],
+			}]
+	})
 		.then((data) => {
 			res.send(data)
 		})
 		.catch((error) => res.status(403).json({error}))  
-}
-
-// test pour relier les tables users et articles
-// exports.getAll = (req, res) => {
-// 	Article.findAll({
-// 		include: [{
-// 			model: User,
-// 			where: {id: 36 }
-// 			}]
-// 		})
-// 			.then((data) => {
-// 				res.send(data)
-// 			})
-// 			.catch((error) => res.status(403).json("das une errur"))
-// }
+} 
 
 // Get one article
 exports.getOne = (req, res) => {
@@ -67,8 +67,15 @@ exports.getOne = (req, res) => {
 
 	console.log(req.params.id)
 
-	Article.findOne({where : {id: req.params.id}})
-		.then ((article) => {res.send(article) })
+	Article.findOne({
+		where : {id: req.params.id},
+		include: [
+			{	model: db.User,
+				attributes: ["firstName", "lastName","id"],
+			}]
+
+	})
+		.then ((article) => {res.send(article)})
 		.catch((error) => res.status(403).json({error})) 
 }
 
@@ -78,15 +85,15 @@ exports.delete = (req, res) => {
 	// check user id and author id
 	const usertoken = req.headers.authorization;
 	const token = usertoken.split(' ');
-	const decodedId = jwt.verify(token[1], "monTokenSuperSecret1984");
-	console.log(decodedId.userId);
+	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984");
+	console.log(decodedToken.userId);
 
 	Article.findOne({where : {id: req.params.id}})
 		.then ((article) => { 
 
 			console.log("article trouvé")  // a supprimer
 
-			if (article.author ==  decodedId.userId) {
+			if (article.author ==  decodedToken.userId) {
 				const filename = article.picture.split("/images/")[1] 
 				console.log(filename)
 				// delete picture then delete article

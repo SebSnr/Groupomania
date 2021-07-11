@@ -20,7 +20,6 @@ export default function HomePage() {
 
  function ArticleContent() {
 
-
     // get article from browser url
 	let articleId = document.location.hash.replace("#", "")
 

@@ -36,12 +36,15 @@ export default function ArticleCard(props) {
 			})
 	}
 
+	// console.log(props.article.User.firstName)
+// 	rajouter ligne 39, ne fonctionne pas toujours. problme de sync ? 
+
 	return (
 		<div className={props.class ? "card card-article shadow col-12 mb-3 mb-lg-5" : "card card-article shadow col-12 col-lg-5 mb-3 mb-lg-5"}>
 			<div className="card-body align-items-center">
 				<div className="d-flex align-items-end mb-1">
 					<ProfilePicture />
-					<span className="h5">{props.article.author}</span>
+					<span className="h5">{props.article.User.firstName}</span> 
 				</div>
 				<div className="d-flex justify-content-end align-items-center card-article--date">
 					{articleDate}
