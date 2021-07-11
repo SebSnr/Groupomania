@@ -3,34 +3,51 @@
 
     border-radius: 20px;
 
+    
+
+    .textInput, .ytInput {
+        border: $color-3 solid 1px;
+        &:focus {
+            box-shadow: none;
+			outline: none;
+			background-position: 0 0;
+            border: darken($color: $color-3, $amount: 10) solid 2.5px; 
+            &::placeholder{
+                font-size: 0rem;
+            }
+        }
+    }
+
     .textInput {
         width: 100%;
         border-radius: 20px;
         min-height: 120px;
-        border: $color-3 solid 1px;
+
+        &::placeholder {
+            color: $color-2;
+			font-size: 16px;
+			// visibility: visible;
+        }
     }
     
-    button {
-        display: block;
-        margin: auto;
-        
-    }   
-
     .ytInput {
         margin-left: 15px;
         margin-right: 55px;
         padding-left: 10px;
         border-radius: 20px;
-        border: solid 1px $color-3;
         width: 100%;
     }
 
-    input {
+    button {
+        display: block;
+        margin: auto;
         
-        &::placeholder {
-            color: $color-2;
-			font-size: 16px;
-			visibility: visible !important;
-        }
     }
 }
+
+
+// <div id="yourBtn" style="height: 50px; width: 100px;border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">Click to upload!</div>
+//   <!-- this is your file input tag, so i hide it!-->
+//   <div style='height: 0px;width:0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
+//   <!-- here you can have file submit button or you can write a simple script to upload the file automatically-->
+//   <input type="submit" value='submit' >

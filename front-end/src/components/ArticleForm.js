@@ -96,7 +96,7 @@ export default function ArticleForm() {
 	return (
 		<div className="card row articleForm mb-5 p-3">
 			<Formik
-				initialValues={initialArticle				}
+				// initialValues={initialArticle}
 				// validationSchema={SignupSchema}
 				onSubmit={(values) => {
 					handleEditArticle(values)
@@ -114,11 +114,20 @@ export default function ArticleForm() {
 							case "upload":
 								return (
 									<div className="d-flex align-items-center flex-wrap">
-										<span className="mb-3">Joindre une photo :</span>
+										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="ytInput mb-3" />
+											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="mb-3 file-input" />
 											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
+										{/* <div className="d-inline">
+											<div id="yourBtn">Click to upload!</div>
+											<div><input id="upfile" type="file"/></div>
+										</div> */}
+
+
+
+
+
 										{/* <button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
 											Ou joindre un lien Youtube
 										</button> */}
