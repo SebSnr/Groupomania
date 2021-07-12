@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { AuthContext } from "../App"
 import axios from "axios"
@@ -60,7 +60,7 @@ export default function LoginForm() {
 					console.log(values)
 				}}
 			>
-					<Form className="d-flex flex-column align-items-center">
+					<Form className="d-flex flex-column">
 
 						<Field name="email" type="email" placeholder="adresse mail" />
 						<ErrorMessage name="email" component="div" className="errorInput" />

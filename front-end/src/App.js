@@ -14,30 +14,25 @@ export const AuthContext = React.createContext()
 let initialAuth = {}
 
 if (localStorage.getItem("user")) {
-
 	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
-	
+
 	initialAuth = {
-		isAuthenticated: true, 
+		isAuthenticated: true,
 		user: JSON.parse(localStorage.getItem("user")),
 		token: JSON.parse(localStorage.getItem("token")),
 		userFirstName: JSON.parse(localStorage.getItem("userFirstName")),
 		userLastName: JSON.parse(localStorage.getItem("userLastName")),
 		userPicture: JSON.parse(localStorage.getItem("userPicture")),
 	}
-
 } else {
-
-	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
-	
 	initialAuth = {
-		isAuthenticated: false, 
+		isAuthenticated: false,
 		user: null,
 		token: null,
 	}
 }
 
-// Action to do in case of 
+// Action to do in case of
 const AuthReducer = (authState, action) => {
 	switch (action.type) {
 		case "LOGIN":
@@ -51,7 +46,7 @@ const AuthReducer = (authState, action) => {
 			return {
 				...authState,
 				isAuthenticated: true,
-				user: action.payload.userId, 
+				user: action.payload.userId,
 				token: action.payload.token,
 			}
 		case "LOGOUT":
@@ -67,7 +62,6 @@ const AuthReducer = (authState, action) => {
 }
 
 function App() {
-	
 	const [AuthState, dispatchAuthState] = React.useReducer(AuthReducer, initialAuth)
 
 	return (

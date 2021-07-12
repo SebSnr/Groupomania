@@ -5,10 +5,8 @@ import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import ArticleCard from "../components/ArticleCard"
 import ArticleForm from "../components/ArticleForm"
-import ErrorPage from "../components/ErrorPage"
 
 export default function HomePage() {
-    
 	const {AuthState} = useContext(AuthContext)
 
 	if (!AuthState.isAuthenticated) {
@@ -17,13 +15,13 @@ export default function HomePage() {
 
 	return (
 		<React.Fragment>
-            {AuthState.isAuthenticated ? 
-                <div>
+			{AuthState.isAuthenticated ? (
+				<div>
 					<Navigation />
 					<HomeContent />
 				</div>
-                : <ErrorPage />}
-        </React.Fragment>
+			) : null}
+		</React.Fragment>
 	)
 }
 

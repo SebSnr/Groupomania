@@ -15,8 +15,11 @@ exports.signup = (req, res) => {
 
 		User.create(user)
 			.then((valid) => {
-				if (!valid) return res.status(401).json({error: "Mot de passe incorrect !"})
-				res.status(200)
+				console.log(valid)
+				if (!valid) {
+					return res.status(401).json({error: "Mot de passe incorrect !"})
+				}
+				res.status(200).json({ })
 			})
 			.catch((error) => res.status(403).json({error}))
 	})

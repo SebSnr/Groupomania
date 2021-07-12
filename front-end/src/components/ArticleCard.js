@@ -9,9 +9,7 @@ import { AuthContext } from "../App"
 export default function ArticleCard(props) {
 	// Format article date
 	let options = {year: "numeric", month: "long", day: "numeric"}
-	let opt_weekday = {weekday: "long"}
 	let dbDate = new Date(props.article.createdAt)
-	// let weekday = dbDate.toLocaleDateString("fr-FR", opt_weekday)
 	let articleDate = dbDate.toLocaleDateString("fr-FR", options) + " , " + ("0" + dbDate.getHours()).slice(-2) + "h" + ("0" + dbDate.getMinutes()).slice(-2)
 
 	// get user token by the local storage

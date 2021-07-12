@@ -1,15 +1,13 @@
 import React, {useEffect, useState, useContext} from "react"
-import {Formik, Form, Field, ErrorMessage} from "formik"
+import {Formik, Form, Field} from "formik"
 import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import ProfilePicture from "./ProfilePicture"
-import { AuthContext } from "../App"
-
+import {AuthContext} from "../App"
 
 export default function ArticleForm() {
-
 	// use global state of authContext
-	const { AuthState } = useContext(AuthContext) 
+	const {AuthState} = useContext(AuthContext)
 
 	// set state of article
 	const initialArticle = {
@@ -17,43 +15,44 @@ export default function ArticleForm() {
 		// author: (AuthState.userFirstName).concat(' ',AuthState.userLastName), //a check ? AuthState.user
 		author: AuthState.user,
 		picture: "",
-		youtube:"",
-
+		youtube: "",
 	}
-	
+
 	const [article, setArticle] = useState(initialArticle)
 
 	//state of welcome message text input
 	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
 
 	// personalize the welcome message text input with user name
-	useEffect(() => {setPlaceHolderText(`Quoi de neuf ${AuthState.userFirstName} ?`)}, [AuthState])
+	useEffect(() => {
+		setPlaceHolderText(`Quoi de neuf ${AuthState.userFirstName} ?`)
+	}, [AuthState])
 
 	// state of media input choice
 	const [media, setMedia] = useState("")
 
 	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState()   // supprimer selectedFile ? 
+	const [selectedFile, setSelectedFile] = useState() // supprimer selectedFile ?
 
-	useEffect(() => {console.log(selectedFile)}, [selectedFile])
-
+	useEffect(() => {
+		console.log(selectedFile)
+	}, [selectedFile])
 
 	// submit the form and request
 	function handleEditArticle(e) {
-
-		const formData = new FormData();
+		const formData = new FormData()
 		formData.append("text", article.text)
 		formData.append("author", article.author)
 		formData.append("youtube", article.youtube)
 		if (selectedFile) {
-			formData.append("picture", selectedFile) 
+			formData.append("picture", selectedFile)
 		}
 		// selectedFile ? formData.append("picture", selectedFile) : return 0
-		
+
 		console.log(formData)
 
 		for (var pair of formData.entries()) {
-			console.log(pair[0]+ ', ' + pair[1]); 
+			console.log(pair[0] + ", " + pair[1])
 		}
 
 		// get user token by the local storage
@@ -63,12 +62,12 @@ export default function ArticleForm() {
 			method: "post",
 			url: `${ApiUrl}/articles`,
 			data: formData,
-			headers: { "Content-Type": "multipart/form-data", "Authorization" : `Bearer ${token}` },
-		  })
+			headers: {"Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}`},
+		})
 			.then((res) => {
 				setArticle(initialArticle)
 				console.log("Post créé")
-				window.location = ("/")
+				window.location = "/"
 			})
 			.catch((err) => console.log(`Error post article - ${err}`))
 	}
@@ -80,7 +79,6 @@ export default function ArticleForm() {
 			[e.target.name]: e.target.value,
 		}))
 		console.log(article)
-
 	}
 
 	return (
@@ -96,7 +94,6 @@ export default function ArticleForm() {
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture />
 						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
-						{/* <ErrorMessage name="text" component="div" className="errorInput" /> */}
 					</div>
 
 					{(() => {
@@ -107,24 +104,15 @@ export default function ArticleForm() {
 										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
 										<div className="d-inline">
 											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="mb-4 file-input" />
-											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
-										{/* <div className="d-inline">
-											<div id="yourBtn">Click to upload!</div>
-											<div><input id="upfile" type="file"/></div>
-										</div> */}
-
-
-
-
-
-										{/* <button type="button" onClick={() => setMedia("youtube")} className="btn-sm btn-secondary mb-3">
-											Ou joindre un lien Youtube
-										</button> */}
-										<button type="button" onClick={() => {
-											setMedia("youtube")
-											setSelectedFile()
-										}} className="btn-sm btn-customize1 mb-3 mb-lg-3">
+										<button
+											type="button"
+											onClick={() => {
+												setMedia("youtube")
+												setSelectedFile()
+											}}
+											className="btn-sm btn-customize1 mb-3 mb-lg-3"
+										>
 											Ou joindre une vidéo Youtube ▶️
 										</button>
 									</div>
@@ -135,25 +123,25 @@ export default function ArticleForm() {
 										<span className="mb-3">Lien youtube :</span>
 										<div className="d-inline">
 											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-4" />
-											<ErrorMessage name="youtube" component="div" className="errorInput" />
 										</div>
-										{/* <button type="button" onClick={() => setMedia("upload")} className="btn-sm btn-secondary mb-3 mb-lg-3">
-											Ou Joindre une image
-										</button> */}
-										<button type="button" onClick={() => {
-											setMedia("upload")
-											setArticle(() => ({
-												...article,
-												"youtube": "",
-											}))}} className="btn-sm btn-customize1 mb-3 mb-lg-3">
-											Ou Joindre une photo 📷
+										<button
+											type="button"
+											onClick={() => {
+												setMedia("upload")
+												setArticle(() => ({
+													...article,
+													"youtube": "",
+												}))
+											}}
+											className="btn-sm btn-customize1 mb-3 mb-lg-3"
+										>
+											Ou joindre une photo 📷
 										</button>
 									</div>
 								)
-							default: 
+							default:
 								return (
 									<div className="d-flex flex-wrap">
-										{/* <span className="w-100 mb-3">Souhaitez-vous joindre une photo ? Ou un lien youtube ?</span> */}
 										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 mb-lg-4">
 											Joindre une photo 📷
 										</button>

@@ -15,10 +15,15 @@ export default function HomePage() {
     }
 
     return (
-        <React.Fragment>
-            {AuthState.isAuthenticated ? <ArticleContent />: <ErrorPage />}
+		<React.Fragment>
+            {AuthState.isAuthenticated ? 
+                <div>
+					<Navigation />
+					<ArticleContent />
+				</div>
+                : <ErrorPage />}
         </React.Fragment>
-    )
+	)
 
 }
 
