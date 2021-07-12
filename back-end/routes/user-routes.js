@@ -9,8 +9,8 @@ module.exports = app => {
     router.post("/login", userCtrl.login)
 
 
-    // router.get("/:id", userCtrl.getOne)
     // router.get("/:id", userCtrl.getAll)
+    // router.get("/:id", userCtrl.getOne)
     // router.delete("/:id", userCtrl.delete)
     // router.put("/:id", userCtrl.modify)
 }

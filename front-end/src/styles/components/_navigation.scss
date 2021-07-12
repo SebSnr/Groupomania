@@ -1,5 +1,4 @@
 .header {
-	// height: 80px;
 	background-color: $color-2;
 
 	.nav-btn-customized {
@@ -17,7 +16,17 @@
 	}
 
 	.nav-link-customized {
-		font-size: 1.3rem;
+		&:hover,
+		&:focus,
+		&:active {
+			color: $color-3;
+			outline: none;
+			border-bottom: solid 1px $color-3;
+		}
+	}
+
+	.nav-link-customized, .nav-burger-customized {
+		font-size: 1.1rem;
 		color: white;
 		margin-left: 40px;
 		border-bottom: solid 1px $color-2;
@@ -27,7 +36,6 @@
 		&:active {
 			color: $color-3;
 			outline: none;
-			border-bottom: solid 1px $color-3;
 		}
 	}
 
@@ -46,8 +54,9 @@
 }
 
 .nav-logo {
-	height: 80px;
+	height: 50px;
 	border-radius: 50%;
+	margin-left: 10px;
 }
 
 // .header {

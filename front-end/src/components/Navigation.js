@@ -14,14 +14,12 @@ export default function Navigation() {
 		window.location = ("/login")
 	}
 
-
-
 	return (
-		<header className="header">
+		<header className="header py-0">
 			<nav className="navbar navbar-expand-lg mb-5">
 				<div className="container">
 					<NavLink className="navbar-brand" to="/">
-						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo " />
+						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo" />
 					</NavLink>
 					<button
 						className="navbar-toggler nav-btn-customized"
@@ -32,7 +30,7 @@ export default function Navigation() {
 						aria-expanded="false"
 						aria-label="Toggle navigation"
 					>
-						<span className="navbar-toggler nav-link-customized">☰ MENU</span>
+						<span className="navbar-toggler nav-burger-customized">☰ MENU</span>
 					</button>
 					<div className="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
 						<ul className="navbar-nav ml-auto">

@@ -1,31 +1,7 @@
 button {
-	font-size: 1.3rem;
 	border: none;
 	outline: none;
-	background-color: $color-2;
-	color: white;
-	border-radius: $border-radius;
-	padding: 0.4rem 1rem 0.4rem 1rem;
 }
-
-// a:hover,
-// button:hover {
-// 	cursor: pointer;
-// }
-
-// a:active,
-// button:active {
-// 	transform: translateY(2px);
-// 	box-shadow: #00093d86 0px 4px 8px 0px;
-// }
-
-// a {
-// 	text-decoration: none;
-	
-// 	&:visited {
-// 		$color-5: #616161;
-// 	}
-// }
 
 .btn-customize1 {
     background-color: darken($color: $color-3, $amount: 22)!important;
@@ -35,6 +11,8 @@ button {
     -webkit-text-shadow: 0 0 1px rgb(48, 48, 48);
     border: darken($color: $color-3, $amount: 20) solid 2px;
     // font-size: 1.2rem;
+    // box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+
 
     &:hover {
     background-color: darken($color: $color-3, $amount: 25)!important;

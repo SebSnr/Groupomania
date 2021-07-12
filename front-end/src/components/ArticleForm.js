@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useContext} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
-// import * as Yup from "yup"
 import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import ProfilePicture from "./ProfilePicture"
@@ -8,17 +7,9 @@ import { AuthContext } from "../App"
 
 
 export default function ArticleForm() {
-	// const SignupSchema = Yup.object().shape({
-	// 	articleBody: Yup.string().min(2, "trop court*").max(300, "Maximum 300 charactères*").required("obligatoire*"),
-	// 	articlePicture: Yup.mixed()
-	// 	.test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
-	// 	.test("fileType", "formats autorisés : jpg, jpeg, png", (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type))
-	// 	.required("obligatoire*"),
-	// })
 
 	// use global state of authContext
 	const { AuthState } = useContext(AuthContext) 
-
 
 	// set state of article
 	const initialArticle = {
@@ -49,7 +40,6 @@ export default function ArticleForm() {
 
 	// submit the form and request
 	function handleEditArticle(e) {
-
 
 		const formData = new FormData();
 		formData.append("text", article.text)

@@ -10,20 +10,13 @@ exports.signup = (req, res) => {
 			lastName: req.body.lastName,
 			email: req.body.email,
 			password: hash,
-			// photo: req.body.photo,
-			isAdmin: req.body.isAdmin,
+			// photo: req.body.photo, 
 		}
 
 		User.create(user)
 			.then((valid) => {
-				console.log(valid)
-				if (!valid) {
-					return res.status(401).json({error: "Mot de passe incorrect !"})
-				}
-				res.status(200).json({
-					// userId: user.id,
-					// token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "24h"}),
-				})
+				if (!valid) return res.status(401).json({error: "Mot de passe incorrect !"})
+				res.status(200)
 			})
 			.catch((error) => res.status(403).json({error}))
 	})
@@ -32,8 +25,7 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
 	User.findOne({where: {email: req.body.email}})
 		.then((user) => {
-			console.log(user)
-			console.log(req.body.password)
+			console.log(req.body.email) 
 			if (!user) {
 				return res.status(401).json({error: "Utilisateur non trouvé !"})
 			}
@@ -49,6 +41,7 @@ exports.login = (req, res) => {
 						userFirstName: user.firstName,
 						userLastName: user.lastName,
 						userPicture: "",
+						isAuthenficated: true,
 					})
 				})
 				.catch((error) => res.status(500).json({error}))
