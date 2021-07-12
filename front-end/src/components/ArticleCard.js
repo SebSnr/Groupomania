@@ -36,6 +36,7 @@ export default function ArticleCard(props) {
 			})
 	}
 
+
 	// console.log(props.article.User.firstName)
 // 	rajouter ligne 39, ne fonctionne pas toujours. problme de sync ? 
 
@@ -46,7 +47,7 @@ export default function ArticleCard(props) {
 					<ProfilePicture />
 					<span className="h5">{props.article.User.firstName}</span> 
 				</div>
-				<div className="d-flex justify-content-end align-items-center card-article--date">
+				<div className="d-flex justify-content-end align-items-center card-article--date mb-3">
 					{articleDate}
 					{props.article.author === AuthState.user ?
 						<button

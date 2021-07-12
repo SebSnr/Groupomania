@@ -1,6 +1,7 @@
 .card-article {
 	padding: 0.7rem;
 	border-radius: 20px;
+	height: 450px;
 
 	a {
 		text-decoration: none;
@@ -26,10 +27,15 @@
 	}
 
 	.media-content{
-		max-height: 350px;
+		max-height: 260px;
 		overflow: hidden;
-
+		border-radius: 10px ;
+		
+		a img {
+			transform: translateY(-25%);
+		}
 	}
+
 }
 
 .profile-picture {

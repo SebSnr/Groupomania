@@ -4,16 +4,20 @@ import { AuthContext } from "../App"
 import ArticleCard from '../components/ArticleCard'
 import axios from 'axios'
 import { ApiUrl } from '../variables-config'
+import ErrorPage from '../components/ErrorPage'
 
 export default function HomePage() {
 
-	const { AuthState } = useContext(AuthContext) 
+	const { AuthState } = useContext(AuthContext)
+
+    if (!AuthState.isAuthenticated){
+        window.location = ("/login")
+    }
 
     return (
-        <div className="">
-            <Navigation />
-            { AuthState.isAuthenticated ? <ArticleContent /> : "Veuillez vous connecter pour accéder au contenu de cette page" }
-        </div>
+        <React.Fragment>
+            {AuthState.isAuthenticated ? <ArticleContent />: <ErrorPage />}
+        </React.Fragment>
     )
 
 }

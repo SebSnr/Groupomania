@@ -97,12 +97,11 @@ export default function LoginForm() {
 
 						<button type="submit" className="btn-lg btn-primary" disabled={user.isSubmitting}>
 							{user.isSubmitting ? ("Loading...") : ("Se connecter")}
-							
+						</button>
 						{/* screen the error message if login probleme */}
 						{user.errorMessage && (
 							<span className="form-error">{user.errorMessage}</span>
 						)}
-						</button>
 					</Form>
 			</Formik>
 		</div>
