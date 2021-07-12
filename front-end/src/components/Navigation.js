@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import { AuthContext } from "../App"
+import {NavLink} from 'react-router-dom';
 
 export default function Navigation() {
 
@@ -17,13 +18,13 @@ export default function Navigation() {
 
 	return (
 		<header className="header">
-			<nav className="navbar navbar-expand-lg navbar-dark mb-5">
+			<nav className="navbar navbar-expand-lg mb-5">
 				<div className="container">
-					<a className="navbar-brand" href="http://localhost:3000">
+					<NavLink className="navbar-brand" to="/">
 						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo " />
-					</a>
+					</NavLink>
 					<button
-						className="navbar-toggler"
+						className="navbar-toggler nav-btn-customized"
 						type="button"
 						data-toggle="collapse"
 						data-target="#navbarResponsive"
@@ -31,29 +32,29 @@ export default function Navigation() {
 						aria-expanded="false"
 						aria-label="Toggle navigation"
 					>
-						<span className="navbar-toggler-icon"></span>
+						<span className="navbar-toggler nav-link-customized">☰ MENU</span>
 					</button>
-					<div className="collapse navbar-collapse" id="navbarResponsive">
+					<div className="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
 						<ul className="navbar-nav ml-auto">
 							<li className="nav-item">
-								<a className="nav-link" href="b">
+								<NavLink className="nav-link nav-link-customized" to="/members">
 									Membres
-								</a>
+								</NavLink>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="a">
+								<NavLink className="nav-link nav-link-customized" to="/profile"> 
 									Profil
-								</a>
+								</NavLink>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/login">
+								<NavLink className="nav-link nav-link-customized" to="/login">
 									Se connecter
-								</a>
+								</NavLink>
 							</li>
 							<li className="nav-item">
-								<button onClick={handleDeconnect} className="nav-link" href="/login">
+								<NavLink onClick={handleDeconnect} className="nav-link nav-link-customized" to="/login">
 									Se déconnecter
-								</button>
+								</NavLink>
 							</li>
 						</ul>
 					</div>
@@ -61,4 +62,5 @@ export default function Navigation() {
 			</nav>
 		</header>
 	)
+	
 }

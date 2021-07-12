@@ -61,7 +61,9 @@ export default function ArticleCard(props) {
 						</button>
 					: "" }
 				</div>
-				<p className="card-text">{props.article.text}</p>
+				<a href={`/articles/#${props.article.id}`}>
+					<p className="card-text">{props.article.text}</p>
+				</a>
 			</div>
 			{/* <div className="overflow-hidden media-content" > */}
 			<div className={props.class ? "" : "overflow-hidden media-content"}>

@@ -26,3 +26,29 @@ button {
 // 		$color-5: #616161;
 // 	}
 // }
+
+.btn-customize1 {
+    background-color: darken($color: $color-3, $amount: 22)!important;
+    color: white;
+    text-shadow: 0 0 1px rgb(48, 48, 48); /* horizontal-offset vertical-offset 'blur' colour */
+    -moz-text-shadow: 0 0 1px rgb(48, 48, 48);
+    -webkit-text-shadow: 0 0 1px rgb(48, 48, 48);
+    border: darken($color: $color-3, $amount: 20) solid 2px;
+    // font-size: 1.2rem;
+
+    &:hover {
+    background-color: darken($color: $color-3, $amount: 25)!important;
+    box-shadow: 0 0px 0px 1px rgba(218, 217, 217, 0.2);
+    color: white;
+
+    }
+
+    &:focus, &:active {
+        // border: solid 5px darken($color: $color-3, $amount: 25);
+        box-shadow: 0 0px 2px 4px darken($color: $color-3, $amount: 10);
+        color: white;
+
+
+    }
+
+}

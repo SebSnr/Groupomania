@@ -105,8 +105,8 @@ export default function ArticleForm() {
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture />
-						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3" />
-						<ErrorMessage name="text" component="div" className="errorInput" />
+						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
+						{/* <ErrorMessage name="text" component="div" className="errorInput" /> */}
 					</div>
 
 					{(() => {
@@ -116,7 +116,7 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="mb-3 file-input" />
+											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="mb-4 file-input" />
 											<ErrorMessage name="picture" component="div" className="errorInput" />
 										</div>
 										{/* <div className="d-inline">
@@ -134,7 +134,7 @@ export default function ArticleForm() {
 										<button type="button" onClick={() => {
 											setMedia("youtube")
 											setSelectedFile()
-										}} className="btn-sm btn-secondary mb-3">
+										}} className="btn-sm btn-customize1 mb-3 mb-lg-3">
 											Ou joindre un lien Youtube
 										</button>
 									</div>
@@ -144,10 +144,10 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Lien youtube :</span>
 										<div className="d-inline">
-											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-3" />
+											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-4" />
 											<ErrorMessage name="youtube" component="div" className="errorInput" />
 										</div>
-										{/* <button type="button" onClick={() => setMedia("upload")} className="btn-sm btn-secondary mb-3">
+										{/* <button type="button" onClick={() => setMedia("upload")} className="btn-sm btn-secondary mb-3 mb-lg-3">
 											Ou Joindre une image
 										</button> */}
 										<button type="button" onClick={() => {
@@ -155,19 +155,19 @@ export default function ArticleForm() {
 											setArticle(() => ({
 												...article,
 												"youtube": "",
-											}))}} className="btn-sm btn-secondary mb-3">
+											}))}} className="btn-sm btn-customize1 mb-3 mb-lg-3">
 											Ou Joindre une image
 										</button>
 									</div>
 								)
-							default:
+							default: 
 								return (
 									<div className="d-flex flex-wrap">
 										{/* <span className="w-100 mb-3">Souhaitez-vous joindre une photo ? Ou un lien youtube ?</span> */}
-										<button type="button" onClick={() => setMedia("upload")} className="btn btn-secondary mb-3 ">
+										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 mb-lg-4">
 											Joindre une photo personnelle ?
 										</button>
-										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-secondary mb-3">
+										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-customize1 mb-4 mb-lg-4">
 											Joindre un lien Youtube ?
 										</button>
 									</div>
@@ -175,7 +175,7 @@ export default function ArticleForm() {
 						}
 					})()}
 
-					<button type="submit" className="btn-lg btn-primary  mb-3">
+					<button type="submit" className="btn-lg btn-primary my-3 mt-lg-0">
 						Envoyer
 					</button>
 				</Form>

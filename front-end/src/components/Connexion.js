@@ -17,7 +17,7 @@ export default function Connexion() {
 								Déjà un compte ?
 								<br />
 								<br />
-								<button className="btn btn-secondary " onClick={() => setConnexionContent("login")}>
+								<button className="btn btn-customize1 " onClick={() => setConnexionContent("login")}>
 									Se connecter
 								</button>
 							</div>
@@ -30,7 +30,7 @@ export default function Connexion() {
 								Créer un compte
 								<br />
 								<br />
-								<button className="btn btn-secondary" onClick={() => setConnexionContent("signUp")}>
+								<button className="btn btn-customize1" onClick={() => setConnexionContent("signUp")}>
 									S'inscrire
 								</button>
 							</div>

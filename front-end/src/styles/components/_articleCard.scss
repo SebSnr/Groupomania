@@ -1,24 +1,35 @@
 .card-article {
-	// height: 300px;
 	padding: 0.7rem;
 	border-radius: 20px;
+
+	a {
+		text-decoration: none;
+	}
 
 	&--date {
 		font-size: 0.7rem;
 		font-style: italic;
 	}
 
-	.media-content{
-		max-height: 350px;
+	.deleteBtn {
+		background: none;
+		font-size: 1.1rem;
+		width: auto;
 	}
 
+	.card-text {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;  
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 
-}
+	.media-content{
+		max-height: 350px;
+		overflow: hidden;
 
-.deleteBtn {
-	background: none;
-	font-size: 1.1rem;
-	width: auto;
+	}
 }
 
 .profile-picture {

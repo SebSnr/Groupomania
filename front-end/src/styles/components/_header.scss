@@ -1,10 +1,42 @@
-.header{
+.header {
 	// height: 80px;
 	background-color: $color-2;
-	a {
-		font-size: 1.5rem;
+
+	.nav-btn-customized {
+		border: none;
+
+		&:focus,
+		&:active {
+			box-shadow: none;
+			color: $color-3;
+			.nav-link-customized {
+				color: $color-3;
+				border: none;
+			}
+		}
+	}
+
+	.nav-link-customized {
+		font-size: 1.3rem;
 		color: white;
-		margin-right: 40px;
+		margin-left: 40px;
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: $color-3;
+			outline: none;
+			border-bottom: solid 1px $color-3;
+		}
+	}
+
+	.nav-logo {
+		&:hover,
+		&:focus,
+		&:active {
+			border: solid 2px $color-2;
+			outline: none;
+		}
 	}
 }
 
@@ -13,36 +45,9 @@
 }
 
 .nav-logo {
-		height: 80px;
-		border-radius: 50%;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	height: 80px;
+	border-radius: 50%;
+}
 
 // .header {
 // 	width: 100%;
