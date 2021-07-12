@@ -135,7 +135,7 @@ export default function ArticleForm() {
 											setMedia("youtube")
 											setSelectedFile()
 										}} className="btn-sm btn-customize1 mb-3 mb-lg-3">
-											Ou joindre un lien Youtube ▶️
+											Ou joindre une vidéo Youtube ▶️
 										</button>
 									</div>
 								)
@@ -156,7 +156,7 @@ export default function ArticleForm() {
 												...article,
 												"youtube": "",
 											}))}} className="btn-sm btn-customize1 mb-3 mb-lg-3">
-											Ou Joindre une image 📷
+											Ou Joindre une photo 📷
 										</button>
 									</div>
 								)
@@ -165,10 +165,10 @@ export default function ArticleForm() {
 									<div className="d-flex flex-wrap">
 										{/* <span className="w-100 mb-3">Souhaitez-vous joindre une photo ? Ou un lien youtube ?</span> */}
 										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 mb-lg-4">
-											Joindre une photo personnelle ? 📷
+											Joindre une photo 📷
 										</button>
 										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-customize1 mb-4 mb-lg-4">
-											Joindre un lien Youtube ? ▶️
+											Joindre une vidéo Youtube ▶️
 										</button>
 									</div>
 								)
