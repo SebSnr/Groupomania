@@ -19,6 +19,7 @@ exports.signup = (req, res) => {
 				if (!valid) {
 					return res.status(401).json("Problème lors de la création de votre profil. veuillez réessayer plus tard")
 				}
+				
 				res.status(200).json({
 						user: user.id,
 						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),

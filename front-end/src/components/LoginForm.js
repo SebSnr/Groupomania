@@ -28,17 +28,22 @@ export default function LoginForm() {
 		})
 			.then((res) => {
 
-				console.log(res.data)
+				console.log("Utilisateur trouvé")
 
-				// send db response and action to the global reducer
-				dispatchAuthState({
-					type: "LOGIN",
-					payload : res.data,
-				})
+				if (res.status === 200) {
+			
+					console.log(res.data)
 
-				setErrorMessage (null)
-				resetForm()
-				window.location = ("/")
+					// send db response and action to the global reducer
+					dispatchAuthState({
+						type: "LOGIN",
+						payload : res.data,
+					})
+	
+					setErrorMessage (null)
+					resetForm()
+					window.location = ("/")
+				} 
 
 			})
 			.catch(error => {

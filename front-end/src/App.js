@@ -14,7 +14,7 @@ export const AuthContext = React.createContext()
 let initialAuth = {}
 
 if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
-	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
+	// console.log(JSON.parse(localStorage.getItem("user"))) // a supp
 
 	initialAuth = {
 		isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")),
@@ -43,7 +43,7 @@ const AuthReducer = (authState, action) => {
 			localStorage.setItem("picture", JSON.stringify(action.payload.picture))
 			localStorage.setItem("isAuthenticated", JSON.stringify(action.payload.isAuthenticated))
 			console.log("ca login dans la app") // a suppp
-			console.log(action.payload)  // a suppp
+			// console.log(action.payload)  // a suppp
 			return {
 				...authState,
 				isAuthenticated: true,
