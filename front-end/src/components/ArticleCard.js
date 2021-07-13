@@ -52,7 +52,7 @@ export default function ArticleCard(props) {
 						type="button"
 						className="deleteBtn btn-sm"
 						onClick={() => {
-							if (window.confirm("Êtes-vous sûr de vouloir supprimer ce post ?")) deleteArticle()
+							if (window.confirm("Supprimer ce post ?")) deleteArticle()
 						}}
 						title="Supprimer l'article"
 						>

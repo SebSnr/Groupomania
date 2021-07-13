@@ -13,16 +13,16 @@ export const AuthContext = React.createContext()
 // Init initialAuth case if already a user in local storage or not
 let initialAuth = {}
 
-if (localStorage.getItem("user")) {
+if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
 	console.log(JSON.parse(localStorage.getItem("user"))) // a supp
 
 	initialAuth = {
-		isAuthenticated: true,
+		isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")),
 		user: JSON.parse(localStorage.getItem("user")),
 		token: JSON.parse(localStorage.getItem("token")),
-		userFirstName: JSON.parse(localStorage.getItem("userFirstName")),
-		userLastName: JSON.parse(localStorage.getItem("userLastName")),
-		userPicture: JSON.parse(localStorage.getItem("userPicture")),
+		firstName: JSON.parse(localStorage.getItem("firstName")),
+		lastName: JSON.parse(localStorage.getItem("lastName")),
+		picture: JSON.parse(localStorage.getItem("picture")),
 	}
 } else {
 	initialAuth = {
@@ -36,18 +36,22 @@ if (localStorage.getItem("user")) {
 const AuthReducer = (authState, action) => {
 	switch (action.type) {
 		case "LOGIN":
-			localStorage.setItem("user", JSON.stringify(action.payload.userId))
+			localStorage.setItem("user", JSON.stringify(action.payload.user))
 			localStorage.setItem("token", JSON.stringify(action.payload.token))
-			localStorage.setItem("userFirstName", JSON.stringify(action.payload.userFirstName))
-			localStorage.setItem("userLastName", JSON.stringify(action.payload.userLastName))
-			localStorage.setItem("userPicture", JSON.stringify(action.payload.userPicture))
-			console.log("ca login dans la app")
-			console.log(action.payload)
+			localStorage.setItem("firstName", JSON.stringify(action.payload.firstName))
+			localStorage.setItem("lastName", JSON.stringify(action.payload.lastName))
+			localStorage.setItem("picture", JSON.stringify(action.payload.picture))
+			localStorage.setItem("isAuthenticated", JSON.stringify(action.payload.isAuthenticated))
+			console.log("ca login dans la app") // a suppp
+			console.log(action.payload)  // a suppp
 			return {
 				...authState,
 				isAuthenticated: true,
-				user: action.payload.userId,
+				user: action.payload.user,
 				token: action.payload.token,
+				firstName: action.payload.firstName,
+				lastName: action.payload.lastName,
+				picture: action.payload.picture,
 			}
 		case "LOGOUT":
 			localStorage.clear()

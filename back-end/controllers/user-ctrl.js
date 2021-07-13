@@ -17,11 +17,18 @@ exports.signup = (req, res) => {
 			.then((valid) => {
 				console.log(valid)
 				if (!valid) {
-					return res.status(401).json({error: "Mot de passe incorrect !"})
+					return res.status(401).json("Problème lors de la création de votre profil. veuillez réessayer plus tard")
 				}
-				res.status(200).json({ })
+				res.status(200).json({
+						user: user.id,
+						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+						firstName: user.firstName,
+						lastName: user.lastName,
+						picture: "",
+						isAuthenticated: true,
+				})
 			})
-			.catch((error) => res.status(403).json({error}))
+			.catch(() => res.status(403).json("Cet utilisateur existe déjà."))
 	})
 }
 
@@ -30,24 +37,24 @@ exports.login = (req, res) => {
 		.then((user) => {
 			console.log(req.body.email) 
 			if (!user) {
-				return res.status(401).json({error: "Utilisateur non trouvé !"})
+				return res.status(401).json("Désolé, cet utilisateur n'a pas été trouvé. ")
 			}
 			bcrypt
 				.compare(req.body.password, user.password)
 				.then((valid) => {
 					if (!valid) {
-						return res.status(401).json({error: "Mot de passe incorrect !"})
+						return res.status(401).json("Mot de passe incorrect")
 					}
 					res.status(200).json({
-						userId: user.id,
-						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "24h"}),
-						userFirstName: user.firstName,
-						userLastName: user.lastName,
-						userPicture: "",
-						isAuthenficated: true,
+						user: user.id,
+						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+						firstName: user.firstName,
+						lastName: user.lastName,
+						picture: "",
+						isAuthenticated: true,
 					})
 				})
-				.catch((error) => res.status(500).json({error}))
+				.catch((error) => res.status(402).json({error}))
 		})
 		.catch((error) => res.status(500).json({error}))
 }

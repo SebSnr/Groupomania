@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useState, useContext } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { AuthContext } from "../App"
@@ -21,22 +21,11 @@ export default function SignUpForm() {
 	// useContext
 	const { dispatchAuthState } = useContext(AuthContext)
 
-	// init the state user
-	const initialUser = {
-		firstName: "",
-		lastName: "",
-		email: "",
-		password: "",
-		// photo: null,
-		isSubmitting: false,
-		errorMessage: null
-	}
-
-	
-
+	// set error message from server
+	const [errorMessage, setErrorMessage] = useState(null)
 
 	// send form data when form submit
-	const handleFormSubmit = (values) => {
+	const handleFormSubmit = (values, resetForm) => {
 		axios({
 			method: "post",
 			url: `${ApiUrl}/auth/signup`,
@@ -44,7 +33,7 @@ export default function SignUpForm() {
 		})
 			.then((res) => {
 
-				console.log("Utilsateur créé")
+				console.log("L'utilisateur a été créé")
 
 				if (res.status === 200) {
 					//now, log with user data
@@ -62,24 +51,36 @@ export default function SignUpForm() {
 								type: "LOGIN",
 								payload: res.data,
 							})
+
+							setErrorMessage (null)
+							resetForm()
 							window.location = ("/")
 			
 						})
 						.catch(error => {console.log(error)})
 				} else console.log("Error with signup then login")
 			})
-			.catch(error => {console.log(error)})
+			.catch(error => {
+				if (error.response) setErrorMessage (error.response.data)
+				console.log(error)
+			})
 	}
 
 	return (
 		<div className="log-signup">
 			<h2>S'inscrire</h2>
 			<Formik
-				initialValues={initialUser}
+				initialValues={{
+					firstName: "",
+					lastName: "",
+					email: "",
+					password: "",
+					// photo: null,
+				}}
 				validationSchema={SignupSchema}
-				onSubmit={(values) => {
+				onSubmit={(values, {resetForm}) => {
 					console.log(values)
-					handleFormSubmit(values)
+					handleFormSubmit(values, resetForm)
 				}}
 			>
 				<Form className="d-flex flex-column">
@@ -100,6 +101,9 @@ export default function SignUpForm() {
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
 					<button type="submit" className="btn-lg btn-primary" >s'inscrire</button>
+
+					{errorMessage && <div className= "text-danger small"><br></br>{errorMessage}</div>}
+
 				</Form>
 			</Formik>
 		</div>

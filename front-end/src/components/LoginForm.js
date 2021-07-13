@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { AuthContext } from "../App"
 import axios from "axios"
@@ -15,16 +15,11 @@ export default function LoginForm() {
 	// dispatch action and state of authenfication context
 	const { dispatchAuthState } = useContext(AuthContext)
 
-	// init the state user
-	const initialUser = {
-		email: "",
-		password: "",
-		isSubmitting: false,
-		errorMessage: null
-	}
+	// set error message from server
+	const [errorMessage, setErrorMessage] = useState(null)
 
 	// send form data when form submit
-	const handleFormSubmit = (values) => {
+	const handleFormSubmit = (values, resetForm) => {
 
 		axios({
 			method: "post",
@@ -41,10 +36,14 @@ export default function LoginForm() {
 					payload : res.data,
 				})
 
-				// window.location = ("/")
+				setErrorMessage (null)
+				resetForm()
+				window.location = ("/")
 
 			})
-			.catch(error => {console.log(error)})
+			.catch(error => {
+				if (error.response) setErrorMessage (error.response.data)
+			})
 
 	}
 	
@@ -53,13 +52,17 @@ export default function LoginForm() {
 		<div className="log-signup">
 			<h2>Se connecter</h2>
 			<Formik
-				initialValues= {initialUser}
+				initialValues= {{
+					email: "",
+					password: "",
+				}}
 				validationSchema= {LoginSchema}
-				onSubmit= {(values) => {
-					handleFormSubmit(values)
+				onSubmit={(values, {resetForm}) => {
 					console.log(values)
+					handleFormSubmit(values, resetForm)
 				}}
 			>
+				{() => (
 					<Form className="d-flex flex-column">
 
 						<Field name="email" type="email" placeholder="adresse mail" />
@@ -69,7 +72,10 @@ export default function LoginForm() {
 						<ErrorMessage name="password" component="div" className="errorInput" />
 
 						<button type="submit" className="btn-lg btn-primary">Se connecter</button>
+
+						{errorMessage && <div className= "text-danger small"><br></br>{errorMessage}</div>}
 					</Form>
+				)}
 			</Formik>
 		</div>
 	)

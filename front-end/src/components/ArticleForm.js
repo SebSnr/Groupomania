@@ -12,7 +12,6 @@ export default function ArticleForm() {
 	// set state of article
 	const initialArticle = {
 		text: "",
-		// author: (AuthState.userFirstName).concat(' ',AuthState.userLastName), //a check ? AuthState.user
 		author: AuthState.user,
 		picture: "",
 		youtube: "",
@@ -25,7 +24,7 @@ export default function ArticleForm() {
 
 	// personalize the welcome message text input with user name
 	useEffect(() => {
-		setPlaceHolderText(`Quoi de neuf ${AuthState.userFirstName} ?`)
+		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
 	}, [AuthState])
 
 	// state of media input choice

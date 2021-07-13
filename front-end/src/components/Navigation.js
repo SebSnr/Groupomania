@@ -50,7 +50,10 @@ export default function Navigation() {
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink onClick={handleDeconnect} className="nav-link nav-link-customized" to="/login">
+								<NavLink onClick={() => {
+									if (window.confirm("Se déconnecter ?")) handleDeconnect()	}} 
+									className="nav-link nav-link-customized" to="/login"
+								>
 									Se déconnecter
 								</NavLink>
 							</li>

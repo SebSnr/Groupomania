@@ -5,6 +5,7 @@ import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import ArticleCard from "../components/ArticleCard"
 import ArticleForm from "../components/ArticleForm"
+import ErrorPage from "../components/ErrorPage"
 
 export default function HomePage() {
 	const {AuthState} = useContext(AuthContext)
@@ -20,7 +21,7 @@ export default function HomePage() {
 					<Navigation />
 					<HomeContent />
 				</div>
-			) : null}
+			) : <ErrorPage />}
 		</React.Fragment>
 	)
 }
