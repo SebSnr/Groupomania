@@ -53,6 +53,7 @@ exports.login = (req, res) => {
 						lastName: user.lastName,
 						picture: "",
 						isAuthenticated: true,
+						isAdmin: user.isAdmin
 					})
 				})
 				.catch((error) => res.status(402).json({error}))
