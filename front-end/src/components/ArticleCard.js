@@ -27,16 +27,14 @@ export default function ArticleCard(props) {
 			url: `${ApiUrl}/articles/${props.article.id}`,
 			headers: {"Authorization": `Bearer ${token}`},
 		})
-			.then((res) => alert("Post supprimé"), (window.location = "/"))
-			.catch((err) => {
-				console.log(`Error during deleting process ${err}`)
-				alert("Impossible de supprimer ce post.")
-			})
+			.then((res) => {if (res.status === 200) {alert("Post supprimé") (window.location = "/") }})
+			.catch(() => alert("Impossible de supprimer ce post."))
 	}
 
 
-	// console.log(props.article.User.firstName)
-// 	rajouter ligne 39, ne fonctionne pas toujours. problme de sync ? 
+	
+// console.log(props.article.User.firstName)
+// 	rajouter "props.article.User.firstName" ligne 47 sous ProfilePicture, ne fonctionne pas toujours. probleme de sync ? 
 
 	return (
 		<div className={props.class ? "card card-article shadow col-12 mb-3 mb-lg-5" : "card card-article shadow col-12 col-lg-5 mb-3 mb-lg-5"}>
@@ -47,7 +45,7 @@ export default function ArticleCard(props) {
 				</div>
 				<div className="d-flex justify-content-end align-items-center card-article--date mb-3">
 					{articleDate}
-					{props.article.author === AuthState.user ?
+					{props.article.author === AuthState.user || AuthState.isAdmin === true ?
 						<button
 						type="button"
 						className="deleteBtn btn-sm"

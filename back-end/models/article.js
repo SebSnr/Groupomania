@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 	Article.init(
 		{
 			text: {type: DataTypes.TEXT, allowNull: true},
-			author: {type: DataTypes.INTEGER,allowNull: false},
+			author: {type: DataTypes.INTEGER,allowNull: false},   //A SUPP et relancer la db
 			picture: {type: DataTypes.STRING,allowNull: true},
 			youtube: {type: DataTypes.STRING,allowNull: true,},
 		},

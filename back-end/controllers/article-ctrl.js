@@ -4,7 +4,6 @@ const fs = require("fs")
 const jwt = require("jsonwebtoken")
 // const Op = db.Sequelize.Op
 
-
 // Create a new Article
 exports.create = (req, res) => {
 	// Validate request
@@ -12,34 +11,34 @@ exports.create = (req, res) => {
 	// 	res.status(403).send({
 	// 		message: "Content can not be empty!",
 	// 	})
-	// 	return 
-	// } 
+	// 	return
+	// }
 
 	// Get user id from token
-	const token = req.headers.authorization.split(' ');
-	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984");
+	const token = req.headers.authorization.split(" ")
+	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984")
 
 	// if no picture
 	let pictureUrl = ""
-	if (req.file){ 
-		pictureUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+	if (req.file) {
+		pictureUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
 	}
 
-	// Create a article 
+	// Create a article
 	const article = {
-			text: req.body.text,
-			author: decodedToken.userId, 
-			youtube: req.body.youtube,
-			picture: pictureUrl,
-			UserId: decodedToken.userId
-		} 
+		text: req.body.text,
+		author: decodedToken.userId,
+		youtube: req.body.youtube,
+		picture: pictureUrl,
+		UserId: decodedToken.userId,
+	}
 
 	console.log(article)
 
 	// Save article in the database
 	Article.create(article)
-		.then((data) => { 
-			res.send(data)  
+		.then((data) => {
+			res.send(data)
 		})
 		.catch((error) => res.status(403).json({error}))
 }
@@ -48,81 +47,80 @@ exports.create = (req, res) => {
 exports.getAll = (req, res) => {
 	Article.findAll({
 		order: [["createdAt", "DESC"]],
-		include: [
-			{	model: db.User,
-				attributes: ["firstName", "lastName","id"],
-			}]
+		include: [{model: db.User, attributes: ["firstName", "lastName", "id"]}],
 	})
 		.then((data) => {
 			res.send(data)
 		})
-		.catch((error) => res.status(403).json({error}))  
-} 
+		.catch((error) => res.status(403).json({error}))
+}
 
 // Get one article
 exports.getOne = (req, res) => {
-	// Article.findOne({where : {id: req.params.id}})
-	// 	.then((article) => {res.status(200).json(article)})
-	// 	.catch((error) => res.status(403).json({error})) 
 
 	console.log(req.params.id)
 
 	Article.findOne({
-		where : {id: req.params.id},
-		include: [
-			{	model: db.User,
-				attributes: ["firstName", "lastName","id"],
-			}]
-
+		where: {id: req.params.id},
+		include: [{model: db.User, attributes: ["firstName", "lastName", "id"]}],
 	})
-		.then ((article) => {res.send(article)})
-		.catch((error) => res.status(403).json({error})) 
+		.then((article) => {
+			res.send(article)
+		})
+		.catch((error) => res.status(403).json({error}))
 }
 
-// Delete one article 
+// Delete one article
 exports.delete = (req, res) => {
-
 	// check user id and author id
-	const usertoken = req.headers.authorization;
-	const token = usertoken.split(' ');
-	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984");
-	console.log(decodedToken.userId);
+	const usertoken = req.headers.authorization
+	const token = usertoken.split(" ")
+	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984")
+	const decodedId = decodedToken.userId
+	console.log(decodedToken.userId)
 
-	Article.findOne({where : {id: req.params.id}})
-		.then ((article) => { 
+	// security : check if user is admin
+	let admin = false
+	const checkAdmin = () => {
+		db.User.findOne({where: {id: decodedId}}).then((user) => (admin = user.isAdmin))
+		return admin
+	}
+	checkAdmin()
 
-			console.log("article trouvé")  // a supprimer
+	Article.findOne({where: {id: req.params.id}})
+		.then((article) => {
+			console.log("article trouvé") //A SUPP
 
-			if (article.author ==  decodedToken.userId) {
-				const filename = article.picture.split("/images/")[1] 
+			//check if user is the author of the article
+			if (article.UserId === decodedToken.userId || checkAdmin()) {
+				const filename = article.picture.split("/images/")[1]
 				console.log(filename)
 				// delete picture then delete article
 				fs.unlink(`./uploads/${filename}`, () => {
-					Article.destroy({where : {id: req.params.id}})
-						.then(() => res.status(200).json("Article supprimé")) 
-						.catch((error) => res.status(403).json({error})) 
+					Article.destroy({where: {id: req.params.id}})
+						.then(() => res.status(200).json("Article supprimé"))
+						.catch((error) => res.status(403).json({error}))
 				})
-			} 
+			} else {
+				res.status(403).json("Access authorization error")
+			}
 
-			console.log("post finden but authentificaton error")  // a supprimer
-			
+			console.log("post find but error authentication") // a supprimer
 		})
-		.catch((error) => res.status(403).json({error})) 
+		.catch((error) => res.status(403).json({error}))
 }
 
 // Modify one article
 exports.modify = (req, res) => {
 	let articleObjet = 0
 	if (req.file) {
-
-		Article.findOne ({_id: req.params.id})
-			.then((article) => {
-				const fileName = sauce.imageUrl.split("/images/")[1]
-				fs.unlinkSync(`images/${fileName}`)
-			})
+		Article.findOne({_id: req.params.id}).then((article) => {
+			const fileName = sauce.imageUrl.split("/images/")[1]
+			fs.unlinkSync(`images/${fileName}`)
+		})
 		articleObject = {
 			...JSON.parse(rsq.body.article),
-			picture: `${req.protocol}://${req.get("host")}/images/${req.file.fileName}` 
+			picture: `${req.protocol}://${req.get("host")}/images/${req.file.fileName}`,
 		}
 	} else {
 		articleObject = {...req.body}
@@ -132,5 +130,3 @@ exports.modify = (req, res) => {
 		.then(() => res.status(200).json({message: "article modifié"}))
 		.catch((error) => res.status(403).json({error}))
 }
-
-

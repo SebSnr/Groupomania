@@ -11,7 +11,7 @@ import ArticlePage from "./pages/ArticlePage"
 export const AuthContext = React.createContext()
 
 // Init initialAuth case if already a user in local storage or not
-let initialAuth = {}
+ export let initialAuth = {}
 
 if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
 	// console.log(JSON.parse(localStorage.getItem("user"))) // a supp
