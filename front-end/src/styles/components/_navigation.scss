@@ -1,29 +1,5 @@
 .header {
 
-	.nav-fa {
-		// border: solid red 1px;
-			&:hover,
-				&:focus,
-				&:active {
-					color: $color-3;
-					outline: none;	
-					box-shadow: none;
-				}
-	}
-	
-	.icon {
-		path {
-			color: white;
-				&:hover,
-				&:focus,
-				&:active {
-					color: $color-3;
-					outline: none;	
-					box-shadow: none;
-
-		}
-		}
-	  }
 	background-color: $color-2;
 
 	.navbar-brand{

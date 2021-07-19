@@ -63,7 +63,7 @@ export default function Navigation() {
 									if (window.confirm("Se déconnecter ?")) handleDeconnect()	}} 
 									className="nav-link nav-link-custom" to="/login"
 								>
-									<FontAwesomeIcon icon={faSignOutAlt} className="icon fa-6rem nav-fa" size="2x" />
+									Se déconnecter
 								</NavLink>
 							</li>
 						</ul>
