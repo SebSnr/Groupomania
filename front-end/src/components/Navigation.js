@@ -1,6 +1,9 @@
 import React, { useContext } from "react"
 import { AuthContext } from "../App"
-import {NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 export default function Navigation() {
 
@@ -11,7 +14,7 @@ export default function Navigation() {
 		dispatchAuthState({
 			type: "LOGOUT",
 		})
-		window.location = ("/login")
+		window.location = ("/login") 
 	}
 
 	return (
@@ -35,6 +38,11 @@ export default function Navigation() {
 					</button>
 					<div className="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
 						<ul className="navbar-nav ml-auto">
+							<li className="nav-item d-lg-none">
+								<NavLink className="nav-link nav-link-custom " to="/">
+									Accueil
+								</NavLink>
+							</li>
 							<li className="nav-item">
 								<NavLink className="nav-link nav-link-custom" to="/members">
 									Membres
@@ -55,7 +63,7 @@ export default function Navigation() {
 									if (window.confirm("Se déconnecter ?")) handleDeconnect()	}} 
 									className="nav-link nav-link-custom" to="/login"
 								>
-									Se déconnecter
+									<FontAwesomeIcon icon={faSignOutAlt} className="icon fa-6rem nav-fa" size="2x" />
 								</NavLink>
 							</li>
 						</ul>
