@@ -54,18 +54,19 @@ export default function ArticleCard(props) {
 						onClick={() => {
 							if (window.confirm("Supprimer ce post ?")) deleteArticle()
 						}}
-						title="Supprimer l'article"
+						title="Supprimer article"
+						aria-label="Supprimer article"
 						>
 							🗑️
 						</button>
-					: "" }
+					: null }
 				</div>
 				<a href={`/articles/#${props.article.id}`}>
 					<p className="card-text">{props.article.text}</p>
 				</a>
 			</div>
 			{/* <div className="overflow-hidden media-content" > */}
-			<div className={props.class ? "" : "overflow-hidden media-content"}>
+			<div className={props.class ? null : "overflow-hidden media-content"}>
 				<a href={`/articles/#${props.article.id}`}>
 					{props.article.picture ? (
 						<img src={props.article.picture} className="card-img-top" alt="article multimédia" />

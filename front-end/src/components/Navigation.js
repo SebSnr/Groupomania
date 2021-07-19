@@ -19,40 +19,41 @@ export default function Navigation() {
 			<nav className="navbar navbar-expand-lg mb-5">
 				<div className="container">
 					<NavLink className="navbar-brand" to="/">
-						<img src="/img/icon.png" alt="Bouton retour accueil" className="nav-logo" />
+						<img src="/img/icon.png" alt="Retour accueil" className="nav-logo" />
 					</NavLink>
 					<button
-						className="navbar-toggler nav-btn-customized"
+						className="navbar-toggler nav-burger-custom"
 						type="button"
 						data-toggle="collapse"
 						data-target="#navbarResponsive"
 						aria-controls="navbarResponsive"
 						aria-expanded="false"
 						aria-label="Toggle navigation"
+						title="Toggle navigation"
 					>
-						<span className="navbar-toggler nav-burger-customized">☰ MENU</span>
+						☰ MENU
 					</button>
 					<div className="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
 						<ul className="navbar-nav ml-auto">
 							<li className="nav-item">
-								<NavLink className="nav-link nav-link-customized" to="/members">
+								<NavLink className="nav-link nav-link-custom" to="/members">
 									Membres
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link nav-link-customized" to="/profile"> 
+								<NavLink className="nav-link nav-link-custom" to="/profile"> 
 									Profil
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link nav-link-customized" to="/login">
+								<NavLink className="nav-link nav-link-custom" to="/login">
 									Se connecter
 								</NavLink>
 							</li>
 							<li className="nav-item">
 								<NavLink onClick={() => {
 									if (window.confirm("Se déconnecter ?")) handleDeconnect()	}} 
-									className="nav-link nav-link-customized" to="/login"
+									className="nav-link nav-link-custom" to="/login"
 								>
 									Se déconnecter
 								</NavLink>

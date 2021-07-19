@@ -51,10 +51,13 @@ function HomeContent() {
 	}
 
 	return (
-		<div className="container home-content">
+		<main className="container home-content">
+
+			<h1 className="d-none">Page d'accueil Groupomania</h1>
 			<ArticleForm />
 
 			<div className="row d-lg-flex justify-content-lg-evenly">
+				<h3 className="d-none">Post article</h3>
 				{articlesData
 					.sort(function (a, b) {
 						let dateA = new Date(a.createdAt),
@@ -65,6 +68,6 @@ function HomeContent() {
 						<ArticleCard article={article} key={article.id} />
 					))}
 			</div>
-		</div>
+		</main>
 	)
 }

@@ -32,7 +32,7 @@ export default function HomePage() {
     // get article from browser url
 	let articleId = document.location.hash.replace("#", "")
 
-    console.log(articleId)
+    console.log(articleId) //A SUPP
 
      // state articles data
      const [article, setArticle] = useState({})
@@ -57,9 +57,9 @@ export default function HomePage() {
 }    
 
     return (
-        <div className="container">
+        <main className="container">
             <ArticleCard article={article} class="pageCardClass"/>
-        </div>
+        </main>
     )
 
 }

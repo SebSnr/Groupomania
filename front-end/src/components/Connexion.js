@@ -17,7 +17,7 @@ export default function Connexion() {
 								Déjà un compte ?
 								<br />
 								<br />
-								<button className="btn btn-customize1 " onClick={() => setConnexionContent("login")}>
+								<button className="btn btn-customize1" onClick={() => setConnexionContent("login")}  title="Se connecter"  aria-label="Se connecter">
 									Se connecter
 								</button>
 							</div>
@@ -30,7 +30,7 @@ export default function Connexion() {
 								Créer un compte
 								<br />
 								<br />
-								<button className="btn btn-customize1" onClick={() => setConnexionContent("signUp")}>
+								<button className="btn btn-customize1" onClick={() => setConnexionContent("signUp")}  title="S'inscrire"  aria-label="S'inscrire">
 									S'inscrire
 								</button>
 							</div>
@@ -38,12 +38,12 @@ export default function Connexion() {
 					default:
 						return (
 							<div className="connexionContent">
-								<button type="button" onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary">S'inscrire</button>
+								<button type="button" onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">S'inscrire</button>
 								<br></br>
 								ou
 								<br></br>
 								<br></br>
-								<button type="button" onClick={() => setConnexionContent("login")} className="btn-lg btn-primary">Se connecter</button>
+								<button type="button" onClick={() => setConnexionContent("login")} className="btn-lg btn-primary"  title="Se connecter" aria-label="Se connecter">Se connecter</button>
 							</div>
 						)
 				}

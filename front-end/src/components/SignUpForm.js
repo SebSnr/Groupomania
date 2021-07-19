@@ -86,7 +86,7 @@ export default function SignUpForm() {
 				<Form className="d-flex flex-column">
 					
 					<Field name="firstName" type="text" placeholder="Prénom" />
-					<ErrorMessage name="firstName" component="div" className="errorInput align-self-center" />
+					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
 					<Field name="lastName" type="text" placeholder="Nom" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
@@ -95,12 +95,12 @@ export default function SignUpForm() {
 					<ErrorMessage name="email" component="div" className="errorInput" />
 
 					<Field name="password" type="password"placeholder="mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput text-start" />
+					<ErrorMessage name="password" component="div" className="errorInput" />
 
 					{/* <Field name="photo" type="file" onChange={handleInputChange} value={user.photo} accept=".jpg, .jpeg, .png" />
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
-					<button type="submit" className="btn-lg btn-primary" >s'inscrire</button>
+					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire" >s'inscrire</button>
 
 					{errorMessage && <div className= "text-danger small"><br></br>{errorMessage}</div>}
 

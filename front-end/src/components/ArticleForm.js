@@ -31,7 +31,7 @@ export default function ArticleForm() {
 	const [media, setMedia] = useState("")
 
 	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState() // supprimer selectedFile ?
+	const [selectedFile, setSelectedFile] = useState()
 
 	useEffect(() => {
 		console.log(selectedFile)
@@ -46,9 +46,8 @@ export default function ArticleForm() {
 		if (selectedFile) {
 			formData.append("picture", selectedFile)
 		}
-		// selectedFile ? formData.append("picture", selectedFile) : return 0
 
-		console.log(formData)
+		console.log(formData) // A SUPP
 
 		for (var pair of formData.entries()) {
 			console.log(pair[0] + ", " + pair[1])
@@ -82,9 +81,8 @@ export default function ArticleForm() {
 
 	return (
 		<div className="card row articleForm mb-5 p-3">
+			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
-				// initialValues={initialArticle}
-				// validationSchema={SignupSchema}
 				onSubmit={(values) => {
 					handleEditArticle(values)
 				}}
@@ -102,7 +100,7 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png" className="mb-4 file-input" />
+											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-4 file-input" />
 										</div>
 										<button
 											type="button"
@@ -111,6 +109,8 @@ export default function ArticleForm() {
 												setSelectedFile()
 											}}
 											className="btn-sm btn-customize1 mb-3 mb-lg-3"
+											title="Joindre une vidéo youtube"
+											aria-label="Joindre une vidéo youtube"
 										>
 											Ou joindre une vidéo Youtube ▶️
 										</button>
@@ -133,6 +133,8 @@ export default function ArticleForm() {
 												}))
 											}}
 											className="btn-sm btn-customize1 mb-3 mb-lg-3"
+											title="Joindre une photo"
+											aria-label="Joindre une photo"
 										>
 											Ou joindre une photo 📷
 										</button>
@@ -141,10 +143,10 @@ export default function ArticleForm() {
 							default:
 								return (
 									<div className="d-flex flex-wrap">
-										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 mb-lg-4">
+										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 mb-lg-4" title="Joindre une photo"	aria-label="Joindre une photo">
 											Joindre une photo 📷
 										</button>
-										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-customize1 mb-4 mb-lg-4">
+										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-customize1 mb-4 mb-lg-4" title="Joindre une video youtube"	aria-label="Joindre une video youtube">
 											Joindre une vidéo Youtube ▶️
 										</button>
 									</div>
@@ -152,7 +154,7 @@ export default function ArticleForm() {
 						}
 					})()}
 
-					<button type="submit" className="btn-lg btn-primary my-3 mt-lg-0">
+					<button type="submit" className="btn-lg btn-primary my-3 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
 						Envoyer
 					</button>
 				</Form>

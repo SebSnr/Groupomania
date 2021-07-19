@@ -76,7 +76,7 @@ export default function LoginForm() {
 						<Field name="password" type="password" placeholder="mot de passe" />
 						<ErrorMessage name="password" component="div" className="errorInput" />
 
-						<button type="submit" className="btn-lg btn-primary">Se connecter</button>
+						<button type="submit" className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">Se connecter</button>
 
 						{errorMessage && <div className= "text-danger small"><br></br>{errorMessage}</div>}
 					</Form>
