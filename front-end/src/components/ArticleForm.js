@@ -36,31 +36,12 @@ export default function ArticleForm() {
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
 
-	const handleFileChange = (e) => {
-		if(!e) {return}
-		let file = e.target.files[0]
-		if (file && !SUPPORTED_FORMATS.includes(file.type)) {
-			window.alert("Format autorisé : .jpg .jpeg .png .gif");
-			return false;
-		}
-		if (file && file.size > 40000000) {
-			window.alert("Fichier max : 4Mo");
-			return false;
-		} 
-		setSelectedFile(file)
-		
-	}
-
 	useEffect(() => {
 		console.log(selectedFile)
 	}, [selectedFile])
 
 	// submit the form and request
 	function handleEditArticle(e) {
-
-		if (handleFileChange()===false) {
-			return
-		}
 		const formData = new FormData()
 		formData.append("text", article.text)
 		formData.append("author", article.author)
@@ -154,7 +135,7 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={(e) => handleFileChange(e)} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-4 file-input" />
+											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-4 file-input" />
 										</div>
 										<ErrorMessage name="picture" component="div" className="errorInput" />
 
