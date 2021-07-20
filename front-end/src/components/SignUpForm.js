@@ -120,6 +120,7 @@ export default function SignUpForm() {
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
+					<ErrorMessage name="picture" component="div" className="errorInput" />
 
 
 					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire" >s'inscrire</button>

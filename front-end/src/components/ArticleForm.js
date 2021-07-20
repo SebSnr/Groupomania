@@ -1,10 +1,12 @@
 import React, {useEffect, useState, useContext} from "react"
-import {Formik, Form, Field} from "formik"
+import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
 import {ApiUrl} from "../variables-config"
 import MiniProfilePicture from "./MiniProfilePicture"
 import {AuthContext} from "../App"
 import {SocialIcon} from "react-social-icons"
+import * as Yup from "yup"
+
 
 export default function ArticleForm() {
 	// use global state of authContext
@@ -34,12 +36,31 @@ export default function ArticleForm() {
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
 
+	const handleFileChange = (e) => {
+		if(!e) {return}
+		let file = e.target.files[0]
+		if (file && !SUPPORTED_FORMATS.includes(file.type)) {
+			window.alert("Format autorisé : .jpg .jpeg .png .gif");
+			return false;
+		}
+		if (file && file.size > 40000000) {
+			window.alert("Fichier max : 4Mo");
+			return false;
+		} 
+		setSelectedFile(file)
+		
+	}
+
 	useEffect(() => {
 		console.log(selectedFile)
 	}, [selectedFile])
 
 	// submit the form and request
 	function handleEditArticle(e) {
+
+		if (handleFileChange()===false) {
+			return
+		}
 		const formData = new FormData()
 		formData.append("text", article.text)
 		formData.append("author", article.author)
@@ -80,10 +101,40 @@ export default function ArticleForm() {
 		console.log(article)
 	}
 
+	const FILE_SIZE = 160 * 1024;
+    const SUPPORTED_FORMATS = [
+      "image/jpg",
+      "image/jpeg",
+      "image/gif",
+      "image/png"
+    ];
+    const validationSchema = Yup.object().shape({
+    //   text: Yup.string().required("A text is required"),
+    //   picture: Yup
+    //     .mixed()
+    //     .required("A file is required")
+    //     .test(
+    //       "fileSize",
+    //       "File too large",
+    //       value => value && value.size <= FILE_SIZE
+    //     )
+    //     .test(
+    //       "fileFormat",
+    //       "Unsupported Format",
+    //       value => value && SUPPORTED_FORMATS.includes(value.type)
+    //     )
+	})
+
 	return (
 		<div className="card row articleForm mb-5 p-3">
 			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
+				initialValues={{
+					text: "",
+					// picture: "",
+					// youtube: "",
+				  }}
+				// validationSchema={validationSchema}
 				onSubmit={(values) => {
 					handleEditArticle(values)
 				}}
@@ -92,6 +143,8 @@ export default function ArticleForm() {
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<MiniProfilePicture photo={AuthState.photo}/>
 						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
+						<ErrorMessage name="text" component="div" className="errorInput" />
+
 					</div>
 
 					{(() => {
@@ -101,8 +154,10 @@ export default function ArticleForm() {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
 										<div className="d-inline">
-											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-4 file-input" />
+											<Field name="picture" onChange={(e) => handleFileChange(e)} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-4 file-input" />
 										</div>
+										<ErrorMessage name="picture" component="div" className="errorInput" />
+
 										<button
 											type="button"
 											onClick={() => {

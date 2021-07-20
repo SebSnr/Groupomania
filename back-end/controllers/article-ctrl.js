@@ -18,7 +18,7 @@ exports.create = (req, res) => {
 	const token = req.headers.authorization.split(" ")
 	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984")
 
-	// if no picture
+	// if picture
 	let pictureUrl = ""
 	if (req.file) {
 		pictureUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
@@ -33,7 +33,7 @@ exports.create = (req, res) => {
 		UserId: decodedToken.userId,
 	}
 
-	console.log(article)
+	console.log(article) 
 
 	// Save article in the database
 	Article.create(article)
