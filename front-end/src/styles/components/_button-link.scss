@@ -3,6 +3,12 @@ button {
 	outline: none;
 }
 
+.btn, .btn-primary, .btn-sm {
+border-radius: 20px;
+text-align: center;
+
+}
+
 .btn-customize1 {
     background-color: darken($color: $color-3, $amount: 22)!important;
     color: white;
@@ -10,6 +16,7 @@ button {
     -moz-text-shadow: 0 0 1px rgb(48, 48, 48);
     -webkit-text-shadow: 0 0 1px rgb(48, 48, 48);
     border: darken($color: $color-3, $amount: 20) solid 2px;
+    
     // font-size: 1.2rem;
     // box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
 
@@ -25,8 +32,6 @@ button {
         // border: solid 5px darken($color: $color-3, $amount: 25);
         box-shadow: 0 0px 2px 4px darken($color: $color-3, $amount: 10);
         color: white;
-
-
     }
 
 }

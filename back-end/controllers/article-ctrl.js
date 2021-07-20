@@ -47,10 +47,10 @@ exports.create = (req, res) => {
 exports.getAll = (req, res) => {
 	Article.findAll({
 		order: [["createdAt", "DESC"]],
-		include: [{model: db.User, attributes: ["firstName", "lastName", "id"]}],
+		include: [{model: db.User, attributes: ["firstName", "lastName", "id", "photo"]}],
 	})
-		.then((data) => {
-			res.send(data)
+		.then((articles) => {
+			res.send(articles)
 		})
 		.catch((error) => res.status(403).json({error}))
 }
@@ -62,7 +62,7 @@ exports.getOne = (req, res) => {
 
 	Article.findOne({
 		where: {id: req.params.id},
-		include: [{model: db.User, attributes: ["firstName", "lastName", "id"]}],
+		include: [{model: db.User, attributes: ["firstName", "lastName", "id", "photo"]}],
 	})
 		.then((article) => {
 			res.send(article)

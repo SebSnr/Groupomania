@@ -2,8 +2,9 @@ import React, {useEffect, useState, useContext} from "react"
 import {Formik, Form, Field} from "formik"
 import axios from "axios"
 import {ApiUrl} from "../variables-config"
-import ProfilePicture from "./ProfilePicture"
+import MiniProfilePicture from "./MiniProfilePicture"
 import {AuthContext} from "../App"
+import {SocialIcon} from "react-social-icons"
 
 export default function ArticleForm() {
 	// use global state of authContext
@@ -89,7 +90,7 @@ export default function ArticleForm() {
 			>
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
-						<ProfilePicture />
+						<MiniProfilePicture photo={AuthState.photo}/>
 						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
 					</div>
 
@@ -108,11 +109,12 @@ export default function ArticleForm() {
 												setMedia("youtube")
 												setSelectedFile()
 											}}
-											className="btn-sm btn-customize1 mb-3 mb-lg-3"
+											className="btn-sm btn-customize1 mb-4"
 											title="Joindre une vidéo youtube"
 											aria-label="Joindre une vidéo youtube"
 										>
-											Ou joindre une vidéo Youtube ▶️
+											Joindre une vidéo Youtube &nbsp;
+											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width:"1.8rem"}} />
 										</button>
 									</div>
 								)
@@ -132,22 +134,29 @@ export default function ArticleForm() {
 													"youtube": "",
 												}))
 											}}
-											className="btn-sm btn-customize1 mb-3 mb-lg-3"
+											className="btn-sm btn-customize1 mb-4"
 											title="Joindre une photo"
 											aria-label="Joindre une photo"
 										>
-											Ou joindre une photo 📷
+											Joindre une photo &nbsp; 📷 
 										</button>
 									</div>
 								)
 							default:
 								return (
 									<div className="d-flex flex-wrap">
-										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 mb-lg-4" title="Joindre une photo"	aria-label="Joindre une photo">
-											Joindre une photo 📷
+										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4" title="Joindre une photo" aria-label="Joindre une photo">
+											Joindre une photo &nbsp; 📷
 										</button>
-										<button type="button" onClick={() => setMedia("youtube")} className="btn btn-customize1 mb-4 mb-lg-4" title="Joindre une video youtube"	aria-label="Joindre une video youtube">
-											Joindre une vidéo Youtube ▶️
+										<button
+											type="button"
+											onClick={() => setMedia("youtube")}
+											className="btn btn-customize1 mb-4 mb-lg-4"
+											title="Joindre une video youtube"
+											aria-label="Joindre une video youtube"
+										>
+											Joindre une vidéo Youtube &nbsp;
+											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width:"1.8rem"}} />
 										</button>
 									</div>
 								)

@@ -2,9 +2,6 @@ import React, { useContext } from "react"
 import { AuthContext } from "../App"
 import {NavLink} from 'react-router-dom'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-
 export default function Navigation() {
 
 	// dispatch action and state of authenfication context

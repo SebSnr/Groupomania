@@ -56,6 +56,7 @@ function HomeContent() {
 			<h1 className="d-none">Page d'accueil Groupomania</h1>
 			<ArticleForm />
 
+
 			<div className="row d-lg-flex justify-content-lg-evenly">
 				<h3 className="d-none">Post article</h3>
 				{articlesData
@@ -71,3 +72,8 @@ function HomeContent() {
 		</main>
 	)
 }
+
+
+
+
+

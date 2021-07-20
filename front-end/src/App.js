@@ -21,7 +21,7 @@ if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
 		token: JSON.parse(localStorage.getItem("token")),
 		firstName: JSON.parse(localStorage.getItem("firstName")),
 		lastName: JSON.parse(localStorage.getItem("lastName")),
-		picture: JSON.parse(localStorage.getItem("picture")),
+		photo: JSON.parse(localStorage.getItem("photo")),
 		isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")),
 		isAdmin: JSON.parse(localStorage.getItem("isAdmin")),
 	}
@@ -34,20 +34,38 @@ if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
 	}
 }
 
+// store profile picture from db to local storage
+const toDataURL = url => fetch(url)
+.then(response => response.blob())
+.then(blob => new Promise((resolve, reject) => {
+  const reader = new FileReader()
+  reader.onloadend = () => resolve(reader.result)
+  reader.onerror = reject
+  reader.readAsDataURL(blob)
+}))
+
 // Action to do in case of
 const AuthReducer = (authState, action) => {
 	switch (action.type) {
 		case "LOGIN":
+			// save user data
 			localStorage.setItem("isAuthenticated", JSON.stringify(action.payload.isAuthenticated))
 			localStorage.setItem("isAdmin", JSON.stringify(action.payload.isAdmin))
 			localStorage.setItem("user", JSON.stringify(action.payload.user))
 			localStorage.setItem("token", JSON.stringify(action.payload.token))
 			localStorage.setItem("firstName", JSON.stringify(action.payload.firstName))
 			localStorage.setItem("lastName", JSON.stringify(action.payload.lastName))
-			localStorage.setItem("picture", JSON.stringify(action.payload.picture))
+			
+			// save profile picture
+			toDataURL(action.payload.photo)
+			.then(dataUrl => {
+				console.log('RESULT:', dataUrl)
+				localStorage.setItem("photo", JSON.stringify(dataUrl))
+				})
 			
 			console.log("ca login dans la app") // a suppp
 			// console.log(action.payload)  // a suppp
+			
 			return {
 				...authState,
 				isAuthenticated: action.payload.isAuthenticated,
@@ -56,7 +74,7 @@ const AuthReducer = (authState, action) => {
 				token: action.payload.token,
 				firstName: action.payload.firstName,
 				lastName: action.payload.lastName,
-				picture: action.payload.picture,
+				photo: action.payload.photo,
 			}
 		case "LOGOUT":
 			localStorage.clear()

@@ -10,8 +10,11 @@ exports.signup = (req, res) => {
 			lastName: req.body.lastName,
 			email: req.body.email,
 			password: hash,
-			// photo: req.body.photo, 
+			photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`, 
+			// photo: "sera l url d'une belle photo",
 		}
+
+		console.log(req.body.firstName)
 
 		User.create(user)
 			.then((valid) => {
@@ -25,7 +28,7 @@ exports.signup = (req, res) => {
 						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
 						firstName: user.firstName,
 						lastName: user.lastName,
-						picture: "",
+						photo: user.photo,
 						isAuthenticated: true,
 				})
 			})
@@ -51,7 +54,7 @@ exports.login = (req, res) => {
 						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
 						firstName: user.firstName,
 						lastName: user.lastName,
-						picture: "",
+						photo: user.photo,
 						isAuthenticated: true,
 						isAdmin: user.isAdmin
 					})

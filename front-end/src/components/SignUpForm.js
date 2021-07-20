@@ -18,6 +18,9 @@ export default function SignUpForm() {
 		// 	.required("obligatoire*"),
 	})
 
+	// state of uploaded file
+	const [selectedFile, setSelectedFile] = useState()
+
 	// useContext
 	const { dispatchAuthState } = useContext(AuthContext)
 
@@ -26,10 +29,25 @@ export default function SignUpForm() {
 
 	// send form data when form submit
 	const handleFormSubmit = (values, resetForm) => {
+
+		console.log(values)
+
+		const formData = new FormData()
+		for (let i in values){
+			formData.append(i, values[i])
+		}
+		if (selectedFile) {
+			formData.append("picture", selectedFile)
+		}
+
+		
+		console.log(formData)
+
 		axios({
 			method: "post",
 			url: `${ApiUrl}/auth/signup`,
-			data: values,
+			headers: {"Content-Type": "multipart/form-data"},
+			data: formData,
 		})
 			.then((res) => {
 
@@ -75,13 +93,14 @@ export default function SignUpForm() {
 					lastName: "",
 					email: "",
 					password: "",
-					// photo: null,
+					// photo: "",
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values, {resetForm}) => {
 					console.log(values)
 					handleFormSubmit(values, resetForm)
 				}}
+				
 			>
 				<Form className="d-flex flex-column">
 					
@@ -91,14 +110,17 @@ export default function SignUpForm() {
 					<Field name="lastName" type="text" placeholder="Nom" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
 
-					<Field name="email" type="email"placeholder="adresse mail" />
+					<Field name="email" type="email" placeholder="adresse mail" />
 					<ErrorMessage name="email" component="div" className="errorInput" />
 
-					<Field name="password" type="password"placeholder="mot de passe" />
+					<Field name="password" type="password" placeholder="mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
 
-					{/* <Field name="photo" type="file" onChange={handleInputChange} value={user.photo} accept=".jpg, .jpeg, .png" />
+					{/* <Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
+
+					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
+
 
 					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire" >s'inscrire</button>
 
