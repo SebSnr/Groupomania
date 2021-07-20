@@ -35,10 +35,12 @@ export default function ArticleCard(props) {
 // 	rajouter "props.article.User.firstName et photo" ligne 47 sous ProfilePicture, ne fonctionne pas toujours. probleme de sync ? 
 
 	return (
-		<div className={props.class ? "card card-article shadow col-12 mb-3 mb-lg-5" : "card card-article shadow col-12 col-lg-5 mb-3 mb-lg-5"}>
+		<div className="card card-article shadow col-12 col-lg-5 mb-4 mb-lg-5">
 			<div className="card-body align-items-center">
 				<div className="d-flex align-items-end mb-1">
+					{/* <MiniProfilePicture photo={props.article.User.photo} classNameDiv={"profile-picture--mini"} classNameImg={"profile-picture__clipped--mini"} /> */}
 					<MiniProfilePicture photo={props.article.User.photo} />
+
 					<span className="h5">{props.article.User.firstName}</span> 
 				</div>
 				<div className="d-flex justify-content-end align-items-center card-article--date mb-3">

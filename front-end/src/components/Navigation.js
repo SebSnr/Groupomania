@@ -45,19 +45,19 @@ export default function Navigation() {
 									Membres
 								</NavLink>
 							</li>
-							<li className="nav-item">
+							<li className="nav-item d-md-none">
 								<NavLink className="nav-link nav-link-custom" to="/profile"> 
 									Profil
 								</NavLink>
 							</li>
-							<li className="nav-item">
+							{/* <li className="nav-item">
 								<NavLink className="nav-link nav-link-custom" to="/login">
 									Se connecter
 								</NavLink>
-							</li>
+							</li> */}
 							<li className="nav-item">
 								<NavLink onClick={() => {
-									if (window.confirm("Se déconnecter ?")) handleDeconnect()	}} 
+									if (window.confirm("Se déconnecter ?")){handleDeconnect()}	}} 
 									className="nav-link nav-link-custom" to="/login"
 								>
 									Se déconnecter
