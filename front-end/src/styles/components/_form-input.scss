@@ -23,7 +23,6 @@
 		display: block;
 		border: none;
 		height: 3rem;
-		border-bottom: solid 1px $color-2;
 		transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
 		background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color-2 4%);
 		&:focus,

@@ -47,7 +47,7 @@ export default function LoginForm() {
 	}
 
 	return (
-		<div className="log-signup">
+		<div className="form-1">
 			<h2>Se connecter</h2>
 			<Formik
 				initialValues={{

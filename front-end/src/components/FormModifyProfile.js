@@ -82,8 +82,8 @@ export default function FormModifyProfile() {
 	}
 
 	return (
-		<div className="card modifyProfile form-1 p-3 ">
-			<h3 className="text-center">Modifier mon compte ?</h3>
+		<div className="card shadow form-1 p-3 h-100 flex-column justify-content-center">
+			<h3 className="text-center h4">Modifier mes informations ?</h3>
 
 			<Formik
 				initialValues={{
@@ -100,13 +100,13 @@ export default function FormModifyProfile() {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="firstName" type="text" placeholder="Prénom" />
+					<Field name="firstName" type="text" placeholder="Nouveau prénom" />
 					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
-					<Field name="lastName" type="text" placeholder="Nom" />
+					<Field name="lastName" type="text" placeholder="Nouveau nom" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
 
-					<Field name="email" type="email" placeholder="adresse mail" />
+					<Field name="email" type="email" placeholder="Nouvelle adresse mail" />
 					<ErrorMessage name="email" component="div" className="errorInput" />
 
 					<Field name="password" type="password" placeholder="mot de passe" />
@@ -118,8 +118,21 @@ export default function FormModifyProfile() {
 					{/* <Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
 					<ErrorMessage name="picture" component="div" className="errorInput" /> */}
 
-					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
-						s'inscrire
+					<button type="submit" className="btn btn-primary" title="S'inscrire" aria-label="S'inscrire">
+						Modifier
+					</button>
+					<span className="errorInput mt-1 text-center " >Seuls les champs saisis seront modifiés</span>
+
+
+					<button
+						className="btn-sm btn-customize1" 
+						onClick={() => {
+							if (window.confirm("Se déconnecter ?")) {
+								console.log("c'est en bonne voie ")
+							}
+						}}
+					>
+						Retour
 					</button>
 
 					{errorMessage && (
@@ -130,9 +143,9 @@ export default function FormModifyProfile() {
 					)}
 				</Form>
 			</Formik>
-			<span className="mt-3 mb-3">ou</span>
+			<span className="mt-4 mb-2">ou</span>
 			<button
-				className="btn-sm btn-danger mt-2"
+				className="btn-sm btn-danger mt-0 mb-0"
 				onClick={() => {
 					if (window.confirm("Se déconnecter ?")) {
 						console.log("c'est en bonne voie ")

@@ -7,6 +7,7 @@ import ArticleForm from "../components/ArticleForm"
 import ArticleCard from "../components/ArticleCard"
 import ProfileBar from "../components/ProfileBar"
 import ErrorPage from "../components/ErrorPage"
+import Members from "../components/Members"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 
@@ -54,21 +55,16 @@ function HomeContent() {
 
 	return (
 		<div className="container">
-			<div className="row">
-				<aside className="col-lg-5 p-0 d-none d-md-block">
+			<div className="row h-100 " >
+				<aside className="col-5 p-0 d-none d-lg-block mb-4">
 					<ProfileBar />
 				</aside>
-				<aside className="offset-lg-1 col-lg-12">
+				<aside className="offset-lg-1 col-lg-12 mb-4 align-self-center gx-0">
 					<h1 className="d-none">Page d'accueil Groupomania</h1>
 					<ArticleForm />
 				</aside>
-				<aside className="offset-lg-1 col-lg-5 p-0 d-none d-lg-block card">
-					<h3>Membres</h3>
-					<ul>
-						<li>Samuel</li>
-						<li>Georges</li>
-						<li>Eddy</li>
-					</ul>
+				<aside className="offset-lg-1 col-lg-5 p-0 d-none d-lg-block mb-4">
+					<Members />
 				</aside>
 			</div>
 			<main className="">

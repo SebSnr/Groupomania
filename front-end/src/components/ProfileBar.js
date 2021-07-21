@@ -9,12 +9,10 @@ export default function ProfileBar() {
 	const {AuthState} = useContext(AuthContext)
 
 	const [profileRender, setProfileRender] = useState(
-		<div
-			className="d-flex flex-wrap flex-column align-items-center justify-content-between
-        flex-sm-row flex-lg-column align-items-lg-center 
-        p-3 mb-5 profileBar"
+		<div className="card shadow d-flex flex-wrap flex-column align-items-center justify-content-between
+        	flex-sm-row flex-lg-column align-items-lg-center 
+        	p-3 h-100"
 		>
-			<h3 className="d-none">Profil</h3>
 			<div className="">
 				<ProfilePicture photo={AuthState.photo} />
 			</div>

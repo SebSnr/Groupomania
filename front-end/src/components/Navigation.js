@@ -16,8 +16,8 @@ export default function Navigation() {
 	}
 
 	return (
-		<header className="header py-0">
-			<nav className="navbar navbar-expand-lg mb-5">
+		<header className="header shadow py-0">
+			<nav className="navbar navbar-expand-lg mb-4">
 				<div className="container">
 					<NavLink className="navbar-brand" to="/">
 						<img src="/img/icon.png" alt="Retour accueil" className="nav-logo" />
@@ -46,7 +46,7 @@ export default function Navigation() {
 									Membres
 								</NavLink>
 							</li>
-							<li className="nav-item d-md-none">
+							<li className="nav-item d-lg-none">
 								<NavLink className="nav-link nav-link-custom" to="/profile">
 									Profil
 								</NavLink>

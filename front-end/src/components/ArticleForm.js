@@ -107,7 +107,7 @@ export default function ArticleForm() {
 	})
 
 	return (
-		<div className="card row form-2 mb-5 p-3">
+		<div className="card shadow form-2 p-3 h-100 d-flex flex-column justify-content-center">
 			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
 				initialValues={{
