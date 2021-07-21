@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
-import {ApiUrl} from "../variables-config"
+import {ApiUrl} from "../utils/variables-config"
 import MiniProfilePicture from "./MiniProfilePicture"
 import {AuthContext} from "../App"
 import {SocialIcon} from "react-social-icons"

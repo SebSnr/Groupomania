@@ -1,17 +1,18 @@
-import React, { useContext } from "react"
-import { AuthContext } from "../App"
-import {NavLink} from 'react-router-dom'
+import React, {useContext} from "react"
+import {NavLink} from "react-router-dom"
+// components
+import {AuthContext} from "../App"
 
 export default function Navigation() {
 
-	// dispatch action and state of authenfication context
-	const { dispatchAuthState } = useContext(AuthContext)
+	// dispatch action and state of authentication
+	const {dispatchAuthState} = useContext(AuthContext)
 
 	const handleDeconnect = () => {
 		dispatchAuthState({
 			type: "LOGOUT",
 		})
-		window.location = ("/login") 
+		window.location = "/login"
 	}
 
 	return (
@@ -46,19 +47,19 @@ export default function Navigation() {
 								</NavLink>
 							</li>
 							<li className="nav-item d-md-none">
-								<NavLink className="nav-link nav-link-custom" to="/profile"> 
+								<NavLink className="nav-link nav-link-custom" to="/profile">
 									Profil
 								</NavLink>
 							</li>
-							{/* <li className="nav-item">
-								<NavLink className="nav-link nav-link-custom" to="/login">
-									Se connecter
-								</NavLink>
-							</li> */}
 							<li className="nav-item">
-								<NavLink onClick={() => {
-									if (window.confirm("Se déconnecter ?")){handleDeconnect()}	}} 
-									className="nav-link nav-link-custom" to="/login"
+								<NavLink
+									onClick={() => {
+										if (window.confirm("Se déconnecter ?")) {
+											handleDeconnect()
+										}
+									}}
+									className="nav-link nav-link-custom"
+									to="/login"
 								>
 									Se déconnecter
 								</NavLink>
@@ -69,5 +70,4 @@ export default function Navigation() {
 			</nav>
 		</header>
 	)
-	
 }

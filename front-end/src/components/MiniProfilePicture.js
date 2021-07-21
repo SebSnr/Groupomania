@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function MiniProfilePicture(props) {
+export default function ProfilePictureMini(props) {
 
 	return (
 		<div className="profile-picture profile-picture--mini">

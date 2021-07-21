@@ -1,47 +1,46 @@
 import React, {useContext, useEffect, useState} from "react"
-import Navigation from "../components/Navigation"
 import {AuthContext} from "../App"
 import axios from "axios"
-import {ApiUrl} from "../variables-config"
-import ArticleCard from "../components/ArticleCard"
+// Components
+import Navigation from "../components/Navigation"
 import ArticleForm from "../components/ArticleForm"
-import ErrorPage from "../components/ErrorPage"
+import ArticleCard from "../components/ArticleCard"
 import ProfileBar from "../components/ProfileBar"
+import ErrorPage from "../components/ErrorPage"
+// Utils
+import {ApiUrl} from "../utils/variables-config"
 
 export default function HomePage() {
+	// use authentication globalstate
 	const {AuthState} = useContext(AuthContext)
 
+	// redirection to login page
 	if (!AuthState.isAuthenticated) {
 		window.location = "/login"
+		return <ErrorPage />
+	} else {
+		return (
+			<React.Fragment>
+				<Navigation />
+				<HomeContent />
+			</React.Fragment>
+		)
 	}
-
-	return (
-		<React.Fragment>
-			{AuthState.isAuthenticated ? (
-				<div>
-					<Navigation />
-					<HomeContent />
-				</div>
-			) : (
-				<ErrorPage />
-			)}
-		</React.Fragment>
-	)
 }
 
 function HomeContent() {
 	// state articles data
 	const [articlesData, setArticlesData] = useState([])
 
-	// event: get article at the loading page
+	// event: get articles at the loading page
 	useEffect(() => {
 		getArticles()
 	}, [])
 
-	// get user token by the local storage
+	// get user token from local storage
 	const token = JSON.parse(localStorage.getItem("token"))
 
-	// get articles
+	// get all articles
 	const getArticles = () => {
 		axios({
 			method: "get",
@@ -69,11 +68,10 @@ function HomeContent() {
 						<li>Samuel</li>
 						<li>Georges</li>
 						<li>Eddy</li>
-
 					</ul>
 				</aside>
 			</div>
-			<main className="home-content">
+			<main className="">
 				<div className="row d-lg-flex justify-content-lg-between">
 					<h3 className="d-none">Post article</h3>
 					{articlesData
@@ -87,7 +85,6 @@ function HomeContent() {
 						))}
 				</div>
 			</main>
-			
 		</div>
 	)
 }

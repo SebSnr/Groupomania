@@ -1,67 +1,60 @@
-import React, { useContext, useState } from "react"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import { AuthContext } from "../App"
+import React, {useContext, useState} from "react"
+import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
 import * as Yup from "yup"
-import { ApiUrl } from "../variables-config"
+// import utils
+import {ApiUrl} from "../utils/variables-config"
+// import user data
+import {AuthContext} from "../App"
 
 export default function LoginForm() {
-
+	// Validate input
 	const LoginSchema = Yup.object().shape({
 		email: Yup.string().email("adresse mail invalide*").required("email valide obligatoire*"),
 		password: Yup.string().min(2, "trop court*").max(50, "Trop long*").required("obligatoire*"),
 	})
 
-	// dispatch action and state of authenfication context
-	const { dispatchAuthState } = useContext(AuthContext)
+	// dispatch action and state of authentication
+	const {dispatchAuthState} = useContext(AuthContext)
 
 	// set error message from server
 	const [errorMessage, setErrorMessage] = useState(null)
 
-	// send form data when form submit
+	// send form data
 	const handleFormSubmit = (values, resetForm) => {
-
 		axios({
 			method: "post",
 			url: `${ApiUrl}/auth/login`,
 			data: values,
 		})
 			.then((res) => {
-
-				console.log("Utilisateur trouvé")
+				console.log("Utilisateur trouvé") // A SUPP
 
 				if (res.status === 200) {
-			
-					console.log(res.data)
-
-					// send db response and action to the global reducer
+					console.log(res.data) // A SUPP
 					dispatchAuthState({
 						type: "LOGIN",
-						payload : res.data,
+						payload: res.data,
 					})
-	
-					setErrorMessage (null)
+					setErrorMessage(null)
 					resetForm()
-					window.location = ("/")
-				} 
-
+					window.location = "/"
+				}
 			})
-			.catch(error => {
-				if (error.response) setErrorMessage (error.response.data)
+			.catch((error) => {
+				if (error.response) setErrorMessage(error.response.data)
 			})
-
 	}
-	
 
 	return (
 		<div className="log-signup">
 			<h2>Se connecter</h2>
 			<Formik
-				initialValues= {{
+				initialValues={{
 					email: "",
 					password: "",
 				}}
-				validationSchema= {LoginSchema}
+				validationSchema={LoginSchema}
 				onSubmit={(values, {resetForm}) => {
 					console.log(values)
 					handleFormSubmit(values, resetForm)
@@ -69,16 +62,22 @@ export default function LoginForm() {
 			>
 				{() => (
 					<Form className="d-flex flex-column">
-
 						<Field name="email" type="email" placeholder="adresse mail" />
 						<ErrorMessage name="email" component="div" className="errorInput" />
 
 						<Field name="password" type="password" placeholder="mot de passe" />
 						<ErrorMessage name="password" component="div" className="errorInput" />
 
-						<button type="submit" className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">Se connecter</button>
+						<button type="submit" className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">
+							Se connecter
+						</button>
 
-						{errorMessage && <div className= "text-danger small"><br></br>{errorMessage}</div>}
+						{errorMessage && (
+							<div className="text-danger small">
+								<br />
+								{errorMessage}
+							</div>
+						)}
 					</Form>
 				)}
 			</Formik>

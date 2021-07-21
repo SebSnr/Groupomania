@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import MiniProfilePicture from "./MiniProfilePicture"
 import ReactPlayer from "react-player"
 import axios from "axios"
-import {ApiUrl} from "../variables-config"
+import {ApiUrl} from "../utils/variables-config"
 import { AuthContext } from "../App"
 
 

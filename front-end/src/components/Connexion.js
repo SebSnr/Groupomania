@@ -1,8 +1,10 @@
 import React, {useState} from "react"
+// Components
 import SignUpForm from "./SignUpForm"
 import LoginForm from "./LoginForm"
 
 export default function Connexion() {
+	// state of connexion render
 	const [connexionContent, setConnexionContent] = useState()
 
 	return (
@@ -13,11 +15,8 @@ export default function Connexion() {
 						return (
 							<div className="connexionContent">
 								<SignUpForm />
-								<br />
-								Déjà un compte ?
-								<br />
-								<br />
-								<button className="btn btn-customize1" onClick={() => setConnexionContent("login")}  title="Se connecter"  aria-label="Se connecter">
+								<br /> Déjà un compte ? <br /> <br />
+								<button className="btn btn-customize1" onClick={() => setConnexionContent("login")} title="Se connecter" aria-label="Se connecter">
 									Se connecter
 								</button>
 							</div>
@@ -26,11 +25,8 @@ export default function Connexion() {
 						return (
 							<div className="connexionContent">
 								<LoginForm />
-								<br />
-								Créer un compte
-								<br />
-								<br />
-								<button className="btn btn-customize1" onClick={() => setConnexionContent("signUp")}  title="S'inscrire"  aria-label="S'inscrire">
+								<br /> Créer un compte <br /> <br />
+								<button className="btn btn-customize1" onClick={() => setConnexionContent("signUp")} title="S'inscrire" aria-label="S'inscrire">
 									S'inscrire
 								</button>
 							</div>
@@ -38,12 +34,13 @@ export default function Connexion() {
 					default:
 						return (
 							<div className="connexionContent">
-								<button type="button" onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">S'inscrire</button>
-								<br></br>
-								ou
-								<br></br>
-								<br></br>
-								<button type="button" onClick={() => setConnexionContent("login")} className="btn-lg btn-primary"  title="Se connecter" aria-label="Se connecter">Se connecter</button>
+								<button type="button" onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
+									S'inscrire
+								</button>
+								<br></br> ou <br></br> <br></br>
+								<button type="button" onClick={() => setConnexionContent("login")} className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">
+									Se connecter
+								</button>
 							</div>
 						)
 				}

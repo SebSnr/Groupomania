@@ -1,11 +1,22 @@
-import React, { useState, useContext } from "react"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
-import { AuthContext } from "../App"
+import React, {useContext, useState} from "react"
+import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
-import { ApiUrl } from "../variables-config"
+import * as Yup from "yup"
+// import utils
+import {ApiUrl} from "../utils/variables-config"
+// import user data
+import {AuthContext} from "../App"
 
 export default function SignUpForm() {
+	// use authentication global state
+	const {dispatchAuthState} = useContext(AuthContext)
+
+	// state of uploaded file
+	const [selectedFile, setSelectedFile] = useState()
+
+	// set error message from server
+	const [errorMessage, setErrorMessage] = useState(null)
+
 	// validate input values
 	const SignupSchema = Yup.object().shape({
 		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long*").required("obligatoire*"),
@@ -18,30 +29,20 @@ export default function SignUpForm() {
 		// 	.required("obligatoire*"),
 	})
 
-	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState()
-
-	// useContext
-	const { dispatchAuthState } = useContext(AuthContext)
-
-	// set error message from server
-	const [errorMessage, setErrorMessage] = useState(null)
-
-	// send form data when form submit
+	// send form data
 	const handleFormSubmit = (values, resetForm) => {
+		console.log(values) // A SUPP
 
-		console.log(values)
-
+		// set data object to send
 		const formData = new FormData()
-		for (let i in values){
+		for (let i in values) {
 			formData.append(i, values[i])
 		}
-		if (selectedFile) {
+		if (selectedFile && selectedFile.size > 10) {
 			formData.append("picture", selectedFile)
 		}
 
-		
-		console.log(formData)
+		console.log(formData) // A SUPP
 
 		axios({
 			method: "post",
@@ -50,37 +51,33 @@ export default function SignUpForm() {
 			data: formData,
 		})
 			.then((res) => {
+				console.log("L'utilisateur a été créé") // A SUPP
 
-				console.log("L'utilisateur a été créé")
-
+				// if user creation well done, send request to log
 				if (res.status === 200) {
-					//now, log with user data
 					axios({
 						method: "post",
 						url: `${ApiUrl}/auth/login`,
 						data: values,
 					})
 						.then((res) => {
-			
-							console.log(res.data)
-			
-							// send db response and action to the global reducer
+							console.log(res.data) // A SUPP
 							dispatchAuthState({
 								type: "LOGIN",
 								payload: res.data,
 							})
-
-							setErrorMessage (null)
+							setErrorMessage(null)
 							resetForm()
-							window.location = ("/")
-			
+							window.location = "/"
 						})
-						.catch(error => {console.log(error)})
+						.catch((error) => {
+							console.log(error)
+						})
 				} else console.log("Error with signup then login")
 			})
-			.catch(error => {
-				if (error.response) setErrorMessage (error.response.data)
-				console.log(error)
+			.catch((error) => {
+				if (error.response) setErrorMessage(error.response.data)
+				console.log(error) // A SUPP
 			})
 	}
 
@@ -100,10 +97,8 @@ export default function SignUpForm() {
 					console.log(values)
 					handleFormSubmit(values, resetForm)
 				}}
-				
 			>
 				<Form className="d-flex flex-column">
-					
 					<Field name="firstName" type="text" placeholder="Prénom" />
 					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
@@ -122,11 +117,16 @@ export default function SignUpForm() {
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
 					<ErrorMessage name="picture" component="div" className="errorInput" />
 
+					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
+						s'inscrire
+					</button>
 
-					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire" >s'inscrire</button>
-
-					{errorMessage && <div className= "text-danger small"><br></br>{errorMessage}</div>}
-
+					{errorMessage && (
+						<div className="text-danger small">
+							<br />
+							{errorMessage}
+						</div>
+					)}
 				</Form>
 			</Formik>
 		</div>

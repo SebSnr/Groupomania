@@ -3,11 +3,12 @@ import Navigation from '../components/Navigation'
 import { AuthContext } from "../App"
 import ArticleCard from '../components/ArticleCard'
 import axios from 'axios'
-import { ApiUrl } from '../variables-config'
+import { ApiUrl } from '../utils/variables-config'
 import ErrorPage from '../components/ErrorPage'
 
 export default function HomePage() {
 
+	// use authentication global state
 	const { AuthState } = useContext(AuthContext)
 
     if (!AuthState.isAuthenticated){
