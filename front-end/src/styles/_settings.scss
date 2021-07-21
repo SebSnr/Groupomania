@@ -36,4 +36,19 @@ li {
 	position: right;	
 }
 
+.card {
+    border-radius: 20px;
+}
+
+.card-style {
+    // position: relative;
+    // min-width: 0;
+    // word-wrap: break-word;
+    // background-color: #fff;
+    // background-clip: border-box;
+    // border: 1px solid rgba(0, 0, 0, 0.125);
+    // border-radius: 20px;
+    // height: 86%;
+}
+
 // $grid-columns: 24 !default; ===> change in modules/boostrap/variables to get a grid with 24 columns (by default 12)

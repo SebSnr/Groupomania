@@ -7,7 +7,7 @@ import {ApiUrl} from "../utils/variables-config"
 // import user data
 import {AuthContext} from "../App"
 
-export default function SignUpForm() {
+export default function FormModifyProfile() {
 	// use authentication global state
 	const {dispatchAuthState} = useContext(AuthContext)
 
@@ -82,8 +82,9 @@ export default function SignUpForm() {
 	}
 
 	return (
-		<div className="form-1">
-			<h2>S'inscrire</h2>
+		<div className="card modifyProfile form-1 p-3 ">
+			<h3 className="text-center">Modifier mon compte ?</h3>
+
 			<Formik
 				initialValues={{
 					firstName: "",
@@ -98,7 +99,7 @@ export default function SignUpForm() {
 					handleFormSubmit(values, resetForm)
 				}}
 			>
-				<Form className="d-flex flex-column">
+				<Form className="d-flex flex-column align-items-center">
 					<Field name="firstName" type="text" placeholder="Prénom" />
 					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
@@ -114,8 +115,8 @@ export default function SignUpForm() {
 					{/* <Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
 					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
-					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
-					<ErrorMessage name="picture" component="div" className="errorInput" />
+					{/* <Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
+					<ErrorMessage name="picture" component="div" className="errorInput" /> */}
 
 					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
 						s'inscrire
@@ -129,6 +130,17 @@ export default function SignUpForm() {
 					)}
 				</Form>
 			</Formik>
+			<span className="mt-3 mb-3">ou</span>
+			<button
+				className="btn-sm btn-danger mt-2"
+				onClick={() => {
+					if (window.confirm("Se déconnecter ?")) {
+						console.log("c'est en bonne voie ")
+					}
+				}}
+			>
+				❌ Supprimer le compte ?{" "}
+			</button>
 		</div>
 	)
 }

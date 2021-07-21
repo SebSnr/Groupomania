@@ -82,13 +82,13 @@ export default function ArticleForm() {
 		console.log(article)
 	}
 
-	const FILE_SIZE = 160 * 1024;
-    const SUPPORTED_FORMATS = [
-      "image/jpg",
-      "image/jpeg",
-      "image/gif",
-      "image/png"
-    ];
+	// const FILE_SIZE = 160 * 1024;
+    // const SUPPORTED_FORMATS = [
+    //   "image/jpg",
+    //   "image/jpeg",
+    //   "image/gif",
+    //   "image/png"
+    // ];
     const validationSchema = Yup.object().shape({
     //   text: Yup.string().required("A text is required"),
     //   picture: Yup
@@ -107,7 +107,7 @@ export default function ArticleForm() {
 	})
 
 	return (
-		<div className="card row articleForm mb-5 p-3">
+		<div className="card row form-2 mb-5 p-3">
 			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
 				initialValues={{
@@ -145,7 +145,7 @@ export default function ArticleForm() {
 												setMedia("youtube")
 												setSelectedFile()
 											}}
-											className="btn-sm btn-customize1 mb-4"
+											className="btn-sm btn-customize1 mb-4 d-bloc m-auto"
 											title="Joindre une vidéo youtube"
 											aria-label="Joindre une vidéo youtube"
 										>
@@ -170,7 +170,7 @@ export default function ArticleForm() {
 													"youtube": "",
 												}))
 											}}
-											className="btn-sm btn-customize1 mb-4"
+											className="btn-sm btn-customize1 mb-4 d-bloc m-auto"
 											title="Joindre une photo"
 											aria-label="Joindre une photo"
 										>
@@ -181,13 +181,13 @@ export default function ArticleForm() {
 							default:
 								return (
 									<div className="d-flex flex-wrap">
-										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4" title="Joindre une photo" aria-label="Joindre une photo">
+										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 d-bloc m-auto" title="Joindre une photo" aria-label="Joindre une photo">
 											Joindre une photo &nbsp; 📷
 										</button>
 										<button
 											type="button"
 											onClick={() => setMedia("youtube")}
-											className="btn btn-customize1 mb-4 mb-lg-4"
+											className="btn btn-customize1 mb-4 mb-lg-4 d-bloc m-auto"
 											title="Joindre une video youtube"
 											aria-label="Joindre une video youtube"
 										>
@@ -199,7 +199,7 @@ export default function ArticleForm() {
 						}
 					})()}
 
-					<button type="submit" className="btn-lg btn-primary my-3 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
+					<button type="submit" className="btn-lg btn-primary d-bloc m-auto my-3 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
 						Envoyer
 					</button>
 				</Form>
