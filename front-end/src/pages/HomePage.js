@@ -56,12 +56,21 @@ function HomeContent() {
 	return (
 		<div className="container">
 			<div className="row">
-				<aside className="col-lg-2 no-padding d-none d-md-block">
+				<aside className="col-lg-5 p-0 d-none d-md-block">
 					<ProfileBar />
 				</aside>
-				<aside className="offset-lg-1 col-lg-9">
+				<aside className="offset-lg-1 col-lg-12">
 					<h1 className="d-none">Page d'accueil Groupomania</h1>
 					<ArticleForm />
+				</aside>
+				<aside className="offset-lg-1 col-lg-5 p-0 d-none d-lg-block card">
+					<h3>Membres</h3>
+					<ul>
+						<li>Samuel</li>
+						<li>Georges</li>
+						<li>Eddy</li>
+
+					</ul>
 				</aside>
 			</div>
 			<main className="home-content">

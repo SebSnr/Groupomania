@@ -41,7 +41,7 @@ export default function Navigation() {
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link nav-link-custom" to="/members">
+								<NavLink className="nav-link nav-link-custom d-lg-none" to="/members">
 									Membres
 								</NavLink>
 							</li>
