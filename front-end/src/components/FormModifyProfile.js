@@ -8,6 +8,9 @@ import {ApiUrl} from "../utils/variables-config"
 import {AuthContext} from "../App"
 
 export default function FormModifyProfile(props) {
+	// get user token by the local storage
+	const token = JSON.parse(localStorage.getItem("token"))
+
 	// use authentication global state
 	const {dispatchAuthState} = useContext(AuthContext)
 
@@ -19,10 +22,10 @@ export default function FormModifyProfile(props) {
 
 	// validate input values
 	const ModifySchema = Yup.object().shape({
-		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long*").required("obligatoire*"),
-		lastName: Yup.string().min(2, "trop court*").max(50, "Trop long*").required("obligatoire*"),
-		email: Yup.string().email("adresse mail invalide*").required("obligatoire*"),
-		password: Yup.string().min(4, "trop court*").max(50, "Trop long*").required("obligatoire*"),
+		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long*"),
+		lastName: Yup.string().min(2, "trop court*").max(50, "Trop long*"),
+		email: Yup.string().email("adresse mail invalide*"),
+		password: Yup.string().min(4, "trop court*").max(50, "Trop long*"),
 		// photo: Yup.mixed()
 		// 	// .test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
 		// 	.test("fileType", "formats autorisés : jpg, jpeg, png", (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type))
@@ -35,50 +38,70 @@ export default function FormModifyProfile(props) {
 
 		// set data object to send
 		const formData = new FormData()
+		// for (let i in values) {
+		// 	formData.append(i, values[i])
+		// }
 		for (let i in values) {
-			formData.append(i, values[i])
+			values[i] ? formData.append(i, values[i]) : formData.append("", "")
 		}
-		if (selectedFile && selectedFile.size > 10) {
-			formData.append("picture", selectedFile)
-		}
+
+		// if (selectedFile && selectedFile.size > 10) {
+		// 	formData.append("picture", selectedFile)
+		// }
 
 		console.log(formData) // A SUPP
 
 		axios({
-			method: "post",
-			url: `${ApiUrl}/auth/signup`,
-			headers: {"Content-Type": "multipart/form-data"},
-			data: formData,
+			method: "put",
+			url: `${ApiUrl}/auth/`,
+			// headers: {"Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}`},
+			// data: formData,
+			headers: {"Authorization": `Bearer ${token}`},
+			data: values
 		})
 			.then((res) => {
-				console.log("L'utilisateur a été créé") // A SUPP
-
-				// if user creation well done, send request to log
-				if (res.status === 200) {
-					axios({
-						method: "put",
-						url: `${ApiUrl}/auth/login`,
-						data: values,
-					})
-						.then((res) => {
-							console.log(res.data) // A SUPP
-							dispatchAuthState({
-								type: "LOGIN",
-								payload: res.data,
-							})
-							setErrorMessage(null)
-							resetForm()
-							window.location.reload()    // ou utiliser un state
-						})
-						.catch((error) => {
-							console.log(error)
-						})
-				} else console.log("Error with signup then login")
+				console.log("User has been modified") // A SUPP
+				
+				// // if user creation well done, send request to log
+				// if (res.status === 200) {
+				// 	axios({
+				// 		method: "put",
+				// 		url: `${ApiUrl}/auth/login`,
+				// 		data: values,
+				// 	})
+				// 		.then((res) => {
+				// 			console.log(res.data) // A SUPP
+				// 			dispatchAuthState({
+				// 				type: "LOGIN",
+				// 				payload: res.data,
+				// 			})
+				// 			setErrorMessage(null)
+				// 			resetForm()
+				// 			window.location("/") // ou utiliser un state
+				// 		})
+				// 		.catch((error) => {
+				// 			console.log(error)
+				// 		})
+				// } else console.log("Error with modify then login")
 			})
 			.catch((error) => {
 				if (error.response) setErrorMessage(error.response.data)
 				console.log(error) // A SUPP
 			})
+	}
+
+	const handleDeleteAccount = () => {
+		axios({
+			method: "delete",
+			url: `${ApiUrl}/auth/delete`,
+			headers: {"Authorization": `Bearer ${token}`},
+		})
+			.then((res) => {
+				if (res.status === 200) {
+					alert("Votre compte a bien été supprimé")((window.location = "/login"))
+				}
+			})
+			.catch(() => alert("Impossible de supprimer votre compte. Veuillez contacter un admin"))
 	}
 
 	return (
@@ -121,11 +144,10 @@ export default function FormModifyProfile(props) {
 					<button type="submit" className="btn btn-primary" title="Modifier" aria-label="Modifier">
 						Modifier
 					</button>
-					<span className="errorInput mt-1 text-center " >Seuls les champs saisis seront modifiés</span>
-
+					<span className="errorInput mt-1 text-center ">Seuls les champs saisis seront modifiés</span>
 
 					<button
-						className="btn-sm btn-customize1" 
+						className="btn-sm btn-customize1"
 						onClick={() => {
 							props.setProfileRender(props.initialProfileRender)
 						}}
@@ -145,8 +167,8 @@ export default function FormModifyProfile(props) {
 			<button
 				className="btn-sm btn-danger mt-0 mb-0"
 				onClick={() => {
-					if (window.confirm("Se déconnecter ?")) {
-						console.log("c'est en bonne voie ")
+					if (window.confirm("❌ Êtes-vous certain de vouloir supprimer votre compte ?")) {
+						handleDeleteAccount()
 					}
 				}}
 			>
@@ -155,3 +177,5 @@ export default function FormModifyProfile(props) {
 		</div>
 	)
 }
+
+

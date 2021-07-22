@@ -8,11 +8,6 @@ export default function ProfileBar() {
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
 
-	// change render of profilBar : initial or modify 
-	const handleProfileRender = () => {
-		setProfileRender(<FormModifyProfile setProfileRender={setProfileRender} initialProfileRender={initialProfileRender}/>)
-	}
-
 	let initialProfileRender = (
 		<div
 			className="card shadow d-flex flex-wrap flex-column align-items-center justify-content-between
@@ -36,10 +31,14 @@ export default function ProfileBar() {
 			</div>
 		</div>
 	)
-	
+
 	// state of profileRender
 	const [profileRender, setProfileRender] = useState(initialProfileRender)
 
+	// change render of profilBar : initial or modify
+	const handleProfileRender = () => {
+		setProfileRender(<FormModifyProfile setProfileRender={setProfileRender} initialProfileRender={initialProfileRender} />)
+	}
+
 	return profileRender
-	
 }

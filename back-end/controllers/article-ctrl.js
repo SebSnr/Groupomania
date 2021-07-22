@@ -89,7 +89,7 @@ exports.delete = (req, res) => {
 
 	Article.findOne({where: {id: req.params.id}})
 		.then((article) => {
-			console.log("article trouvé") //A SUPP
+			console.log("Article found") //A SUPP
 
 			//check if user is the author of the article
 			if (article.UserId === decodedToken.userId || checkAdmin()) {
@@ -98,7 +98,7 @@ exports.delete = (req, res) => {
 				// delete picture then delete article
 				fs.unlink(`./uploads/${filename}`, () => {
 					Article.destroy({where: {id: req.params.id}})
-						.then(() => res.status(200).json("Article supprimé"))
+						.then(() => res.status(200).json("Article deleted"))
 						.catch((error) => res.status(403).json({error}))
 				})
 			} else {
