@@ -8,8 +8,14 @@ export default function ProfileBar() {
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
 
-	const [profileRender, setProfileRender] = useState(
-		<div className="card shadow d-flex flex-wrap flex-column align-items-center justify-content-between
+	// change render of profilBar : initial or modify 
+	const handleProfileRender = () => {
+		setProfileRender(<FormModifyProfile setProfileRender={setProfileRender} initialProfileRender={initialProfileRender}/>)
+	}
+
+	let initialProfileRender = (
+		<div
+			className="card shadow d-flex flex-wrap flex-column align-items-center justify-content-between
         	flex-sm-row flex-lg-column align-items-lg-center 
         	p-3 h-100"
 		>
@@ -23,13 +29,17 @@ export default function ProfileBar() {
 					<div className="">{AuthState.lastName}</div>
 				</div>
 				<div className="d-flex align-items-center">
-					<button onClick={() => setProfileRender(<FormModifyProfile />)} className="btn btn-link">
+					<button onClick={() => handleProfileRender()} className="btn btn-link">
 						Modifier
 					</button>
 				</div>
 			</div>
 		</div>
 	)
+	
+	// state of profileRender
+	const [profileRender, setProfileRender] = useState(initialProfileRender)
 
 	return profileRender
+	
 }

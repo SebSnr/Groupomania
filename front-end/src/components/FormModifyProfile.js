@@ -7,7 +7,7 @@ import {ApiUrl} from "../utils/variables-config"
 // import user data
 import {AuthContext} from "../App"
 
-export default function FormModifyProfile() {
+export default function FormModifyProfile(props) {
 	// use authentication global state
 	const {dispatchAuthState} = useContext(AuthContext)
 
@@ -18,7 +18,7 @@ export default function FormModifyProfile() {
 	const [errorMessage, setErrorMessage] = useState(null)
 
 	// validate input values
-	const SignupSchema = Yup.object().shape({
+	const ModifySchema = Yup.object().shape({
 		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long*").required("obligatoire*"),
 		lastName: Yup.string().min(2, "trop court*").max(50, "Trop long*").required("obligatoire*"),
 		email: Yup.string().email("adresse mail invalide*").required("obligatoire*"),
@@ -56,7 +56,7 @@ export default function FormModifyProfile() {
 				// if user creation well done, send request to log
 				if (res.status === 200) {
 					axios({
-						method: "post",
+						method: "put",
 						url: `${ApiUrl}/auth/login`,
 						data: values,
 					})
@@ -68,7 +68,7 @@ export default function FormModifyProfile() {
 							})
 							setErrorMessage(null)
 							resetForm()
-							window.location = "/"
+							window.location.reload()    // ou utiliser un state
 						})
 						.catch((error) => {
 							console.log(error)
@@ -93,7 +93,7 @@ export default function FormModifyProfile() {
 					password: "",
 					// photo: "",
 				}}
-				validationSchema={SignupSchema}
+				validationSchema={ModifySchema}
 				onSubmit={(values, {resetForm}) => {
 					console.log(values)
 					handleFormSubmit(values, resetForm)
@@ -106,10 +106,10 @@ export default function FormModifyProfile() {
 					<Field name="lastName" type="text" placeholder="Nouveau nom" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
 
-					<Field name="email" type="email" placeholder="Nouvelle adresse mail" />
+					<Field name="email" type="email" placeholder="Nouveau mail" />
 					<ErrorMessage name="email" component="div" className="errorInput" />
 
-					<Field name="password" type="password" placeholder="mot de passe" />
+					<Field name="password" type="password" placeholder="Nouveau mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
 
 					{/* <Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
@@ -118,7 +118,7 @@ export default function FormModifyProfile() {
 					{/* <Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
 					<ErrorMessage name="picture" component="div" className="errorInput" /> */}
 
-					<button type="submit" className="btn btn-primary" title="S'inscrire" aria-label="S'inscrire">
+					<button type="submit" className="btn btn-primary" title="Modifier" aria-label="Modifier">
 						Modifier
 					</button>
 					<span className="errorInput mt-1 text-center " >Seuls les champs saisis seront modifiés</span>
@@ -127,9 +127,7 @@ export default function FormModifyProfile() {
 					<button
 						className="btn-sm btn-customize1" 
 						onClick={() => {
-							if (window.confirm("Se déconnecter ?")) {
-								console.log("c'est en bonne voie ")
-							}
+							props.setProfileRender(props.initialProfileRender)
 						}}
 					>
 						Retour
