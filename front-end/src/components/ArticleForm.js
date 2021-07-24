@@ -1,17 +1,18 @@
 import React, {useEffect, useState, useContext} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
+import {SocialIcon} from "react-social-icons"
 import axios from "axios"
-import {ApiUrl} from "../utils/variables-config"
+import * as Yup from "yup"
+// Components
 import MiniProfilePicture from "./MiniProfilePicture"
 import {AuthContext} from "../App"
-import {SocialIcon} from "react-social-icons"
-import * as Yup from "yup"
+// Utils
+import {ApiUrl} from "../utils/variables-config"
 
-
-export default function ArticleForm() {
+export default function ArticleForm(props) {
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
-
+	
 	// set state of article
 	const initialArticle = {
 		text: "",
@@ -19,23 +20,20 @@ export default function ArticleForm() {
 		picture: "",
 		youtube: "",
 	}
-
 	const [article, setArticle] = useState(initialArticle)
 
-	//state of welcome message text input
-	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
-
+	
 	// personalize the welcome message text input with user name
+	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
 	useEffect(() => {
 		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
 	}, [AuthState])
 
 	// state of media input choice
-	const [media, setMedia] = useState("")
+	const [media, setMedia] = useState((null))
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
-
 	useEffect(() => {
 		console.log(selectedFile)
 	}, [selectedFile])
@@ -68,7 +66,8 @@ export default function ArticleForm() {
 			.then((res) => {
 				setArticle(initialArticle)
 				console.log("Post créé")
-				window.location = "/"
+				setMedia("default")
+				props.setArticlesRefresh(true)
 			})
 			.catch((err) => console.log(`Error post article - ${err}`))
 	}

@@ -18,19 +18,15 @@
 
 	.card-text {
 		display: -webkit-box;
-		-webkit-line-clamp: 3;
+		-webkit-line-clamp: 6;
 		-webkit-box-orient: vertical;  
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 
 	.media-content{
-		// max-height: 3px;
-		overflow: hidden;
-		border-radius: 10px ;
-		
 		a img {
-			transform: translateY(-25%);
+			// transform: translateY(-25%);
 		}
 	}
 

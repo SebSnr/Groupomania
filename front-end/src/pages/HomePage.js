@@ -32,11 +32,13 @@ export default function HomePage() {
 function HomeContent() {
 	// state articles data
 	const [articlesData, setArticlesData] = useState([])
+	const [articlesRefresh, setArticlesRefresh] = useState(false)
 
 	// event: get articles at the loading page
 	useEffect(() => {
 		getArticles()
-	}, [])
+		setArticlesRefresh(false)
+	}, [articlesRefresh, ])
 
 	// get user token from local storage
 	const token = JSON.parse(localStorage.getItem("token"))
@@ -61,14 +63,13 @@ function HomeContent() {
 				</aside>
 				<aside className="offset-lg-1 col-lg-12 mb-4 align-self-center gx-0">
 					<h1 className="d-none">Page d'accueil Groupomania</h1>
-					<ArticleForm />
+					<ArticleForm setArticlesRefresh={setArticlesRefresh} refresh={false} />
 				</aside>
 				<aside className="offset-lg-1 col-lg-5 p-0 d-none d-lg-block mb-4">
 					<Members />
 				</aside>
 			</div>
-			<main className="">
-				<div className="row d-lg-flex justify-content-lg-between">
+			<main className="row d-lg-flex justify-content-lg-between">
 					<h3 className="d-none">Post article</h3>
 					{articlesData
 						.sort(function (a, b) {
@@ -77,9 +78,8 @@ function HomeContent() {
 							return dateB - dateA
 						})
 						.map((article) => (
-							<ArticleCard article={article} key={article.id} />
+							<ArticleCard article={article} key={article.id} setArticlesRefresh={setArticlesRefresh} />
 						))}
-				</div>
 			</main>
 		</div>
 	)
