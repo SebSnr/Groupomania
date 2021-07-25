@@ -29,7 +29,7 @@ exports.signup = (req, res) => {
 			photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
 		}
 
-		// console.log(req.body.firstName) 
+		// console.log(req.body.firstName)
 
 		User.create(user)
 			.then((valid) => {
@@ -119,22 +119,25 @@ exports.modify = (req, res) => {
 	checkAdmin(decodedId)
 	console.log(decodedId) //A SUPP
 
-	console.log(req.body.firstName)
-	
-	// problème pour recevoir les data du form
-	
-	let values = req.body
-	let newUser ={}
-	for (let i in values) {
-		// if (values[i] !== "") {
-			newUser = {i : values[i]}
-		// }
-	}
-	console.log(newUser)
+	console.log(req.body.firstName) 
+	console.log(req.body)
 
-	// let userObject = {...req.body}
-	User.update( newUser, {where: {id: decodedId}})
-		.then(() => res.status(200).json({message: "User modified"})) 
-		.catch((error) => res.status(403).json({error}))
-	
+	bcrypt.hash(req.body.password, 10, (err, hash) => {
+		const newUser = {
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			email: req.body.email, 
+			// password: hash,
+			// photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+		}
+
+		User.update(
+			{
+				newUser,
+			},
+			{where: {id: decodedId}}
+		)
+			.then(() => res.status(200).json({message: "User modified"}))
+			.catch((error) => res.status(403).json({error}))
+	})
 }

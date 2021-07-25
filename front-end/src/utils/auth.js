@@ -14,6 +14,7 @@ if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
 		isAdmin: JSON.parse(localStorage.getItem("isAdmin")),
 	}
 } else {
+	localStorage.clear()
 	initialAuth = {
 		isAuthenticated: false,
 		isAdmin: false,

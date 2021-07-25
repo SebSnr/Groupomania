@@ -40,13 +40,17 @@ export default function ArticleForm(props) {
 
 	// submit the form and request
 	function handleEditArticle(e) {
-		const formData = new FormData()
-		formData.append("text", article.text)
-		formData.append("author", article.author)
-		formData.append("youtube", article.youtube)
-		if (selectedFile) {
-			formData.append("picture", selectedFile)
+
+		if(article.text==="" && article.youtube==="" & !selectedFile){
+			alert("Veuillez remplir au moins un champs du post")
+			return
 		}
+
+		const formData = new FormData()
+		formData.append("author", article.author)
+		if (article.text) formData.append("text", article.text)
+		if (article.youtube) formData.append("youtube", article.youtube)
+		if (selectedFile) formData.append("picture", selectedFile)
 
 		console.log(formData) // A SUPP
 
@@ -110,7 +114,7 @@ export default function ArticleForm(props) {
 			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
 				initialValues={{
-					text: "",
+					// text: "",
 					// picture: "",
 					// youtube: "",
 				  }}

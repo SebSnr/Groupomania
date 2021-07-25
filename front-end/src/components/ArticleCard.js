@@ -46,10 +46,8 @@ export default function ArticleCard(props) {
 					{/* <MiniProfilePicture photo={props.article.User.photo} classNameDiv={"profile-picture--mini"} classNameImg={"profile-picture__clipped--mini"} /> */}
 					<MiniProfilePicture photo={props.article.User.photo} />
 
-					<span className="h5">{props.article.User.firstName}</span>
-				</div>
-				<div className="d-flex justify-content-end align-items-center card-article--date mb-3 overflow-hidden">
-					{articleDate}
+					<span className="h5 flex-grow-1">{props.article.User.firstName}</span>
+
 					{props.article.author === AuthState.user || AuthState.isAdmin === true ? (
 						<button
 							type="button"
@@ -57,12 +55,15 @@ export default function ArticleCard(props) {
 							onClick={() => {
 								if (window.confirm("Supprimer ce post ?")) deleteArticle()
 							}}
-							title="Supprimer article"
+							title="Supprimer l'article"
 							aria-label="Supprimer article"
 						>
 							🗑️
 						</button>
 					) : null}
+				</div>
+				<div className="d-flex justify-content-end card-article--date mb-3">
+					{articleDate}
 				</div>
 					<a href={`/articles/#${props.article.id}`} className="overflow-hidden">
 						<p className="card-text">{props.article.text}</p>

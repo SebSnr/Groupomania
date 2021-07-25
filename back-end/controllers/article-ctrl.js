@@ -33,7 +33,7 @@ exports.create = (req, res) => {
 		UserId: decodedToken.userId,
 	}
 
-	console.log(article) 
+	// console.log(article)  
 
 	// Save article in the database
 	Article.create(article)

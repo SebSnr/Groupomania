@@ -42,7 +42,11 @@ export default function FormModifyProfile(props) {
 		// 	formData.append(i, values[i])
 		// }
 		for (let i in values) {
-			values[i] ? formData.append(i, values[i]) : formData.append("", "")
+			if (!values[i]) {
+				console.log(values[i])
+			} else {
+			formData.append(i, values[i])
+			}
 		}
 
 		// if (selectedFile && selectedFile.size > 10) {
@@ -51,14 +55,18 @@ export default function FormModifyProfile(props) {
 
 		console.log(formData) // A SUPP
 
-		axios({
-			method: "put",
-			url: `${ApiUrl}/auth/`,
-			// headers: {"Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}`},
-			// data: formData,
-			headers: {"Authorization": `Bearer ${token}`},
-			data: values
-		})
+		const headers = {"Authorization": `Bearer ${token}`, "Content-Type": "multipart/form-data"}
+
+		axios.put(`${ApiUrl}/auth/`, formData, {headers: headers})
+
+		// axios({
+		// 	method: "put",
+		// 	url: `${ApiUrl}/auth/`,
+		// 	// headers, 
+		// 	data: formData,
+		// 	// headers: {"Authorization": `Bearer ${token}`},
+		// 	// data: values
+		// })
 			.then((res) => {
 				console.log("User has been modified") // A SUPP
 				
@@ -84,10 +92,10 @@ export default function FormModifyProfile(props) {
 				// 		})
 				// } else console.log("Error with modify then login")
 			})
-			.catch((error) => {
-				if (error.response) setErrorMessage(error.response.data)
-				console.log(error) // A SUPP
-			})
+			// .catch((error) => {
+			// 	if (error.response) setErrorMessage(error.response.data)
+			// 	// console.log(error) // A SUPP
+			// })
 	}
 
 	const handleDeleteAccount = () => {
@@ -114,7 +122,7 @@ export default function FormModifyProfile(props) {
 					lastName: "",
 					email: "",
 					password: "",
-					// photo: "",
+					photo: "",
 				}}
 				validationSchema={ModifySchema}
 				onSubmit={(values, {resetForm}) => {
@@ -134,9 +142,6 @@ export default function FormModifyProfile(props) {
 
 					<Field name="password" type="password" placeholder="Nouveau mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
-
-					{/* <Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
-					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
 					{/* <Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
 					<ErrorMessage name="picture" component="div" className="errorInput" /> */}
