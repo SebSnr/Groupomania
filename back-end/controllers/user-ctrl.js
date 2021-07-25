@@ -20,13 +20,18 @@ const checkAdmin = (decodedId) => {
 }
 
 exports.signup = (req, res) => {
+	let photo = `${req.protocol}://${req.get("host")}/images/Unknow.jpg`
+	if (req.file) {
+		photo = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+	}
+
 	bcrypt.hash(req.body.password, 10, (err, hash) => {
 		const user = {
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			email: req.body.email,
 			password: hash,
-			photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+			photo: photo,
 		}
 
 		// console.log(req.body.firstName)
@@ -119,25 +124,99 @@ exports.modify = (req, res) => {
 	checkAdmin(decodedId)
 	console.log(decodedId) //A SUPP
 
-	console.log(req.body.firstName) 
-	console.log(req.body)
-
+	console.log(req.body.firstName)
 	bcrypt.hash(req.body.password, 10, (err, hash) => {
-		const newUser = {
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
-			email: req.body.email, 
-			// password: hash,
-			// photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-		}
+		let newUser = {...req.body}
+		
+		User.findOne({where: {id: decodedId}})
+			.then((user) => {
 
-		User.update(
-			{
-				newUser,
-			},
-			{where: {id: decodedId}}
-		)
-			.then(() => res.status(200).json({message: "User modified"}))
+				if (req.body.password) {
+					newUser = {...newUser, password: hash}
+				}
+				if (req.file) {
+					// delete old picture
+					const oldFilename = user.photo.split("/images/")[1]
+					fs.unlink(`./uploads/${oldFilename}`)
+					newUser = {...newUser, photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`}
+				}
+				return newUser
+			})
+				.then((newUser) => {
+					User.update(
+						{
+							...newUser,
+						},
+						{where: {id: decodedId}}
+					)
+				})
+					.then(() => {
+						User.findOne({where: {id: decodedId}})
+					})
+						.then((user) => {
+							console.log("User found") //A SUPP
+							res.status(200).json({
+								user: user.id,
+								token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+								firstName: user.firstName,
+								lastName: user.lastName,
+								photo: user.photo,
+								isAuthenticated: true,
+								isAdmin: user.isAdmin,
+							})
+							//check if good user id or admin
+							console.log("User found but error authentication") // a supprimer
+						})
 			.catch((error) => res.status(403).json({error}))
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// let newUser = {...req.body}
+		// if (req.body.password) {
+		// 	newUser = {...newUser, password: hash}
+		// }
+		// if (req.file) {
+		// 	User.findOne({where: {id: decodedId}}).then((user) => {
+		// 		// delete old picture
+		// 		const oldFilename = user.photo.split("/images/")[1]
+		// 		fs.unlink(`./uploads/${oldFilename}`)
+		// 		newUser = {...newUser, photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`}
+		// 	})
+		// }
+
+		// User.update(
+		// 	{
+		// 		...newUser,
+		// 	},
+		// 	{where: {id: decodedId}}
+		// )
+		// 	.then((valid) => {User.findOne({where: {id: decodedId}})})
+		// 	.then((user) => {
+		// 		console.log("User found") //A SUPP
+		// 		res.status(200).json({
+		// 			user: user.id,
+		// 			token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+		// 			firstName: user.firstName,
+		// 			lastName: user.lastName,
+		// 			photo: user.photo,
+		// 			isAuthenticated: true,
+		// 			isAdmin: user.isAdmin,
+		// 		})
+		// 		//check if good user id or admin
+		// 		console.log("User found but error authentication") // a supprimer
+		// 	}) 
+		// 	.catch((error) => res.status(403).json({error}))
 	})
 }
