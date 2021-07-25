@@ -49,9 +49,9 @@ export default function FormModifyProfile(props) {
 			}
 		}
 
-		// if (selectedFile && selectedFile.size > 10) {
-		// 	formData.append("picture", selectedFile)
-		// }
+		if (selectedFile && selectedFile.size > 10) {
+			formData.append("picture", selectedFile)
+		}
 
 		console.log(formData) // A SUPP
 
@@ -69,28 +69,18 @@ export default function FormModifyProfile(props) {
 		// })
 			.then((res) => {
 				console.log("User has been modified") // A SUPP
-				
 				// // if user creation well done, send request to log
-				// if (res.status === 200) {
-				// 	axios({
-				// 		method: "put",
-				// 		url: `${ApiUrl}/auth/login`,
-				// 		data: values,
-				// 	})
-				// 		.then((res) => {
-				// 			console.log(res.data) // A SUPP
-				// 			dispatchAuthState({
-				// 				type: "LOGIN",
-				// 				payload: res.data,
-				// 			})
-				// 			setErrorMessage(null)
-				// 			resetForm()
-				// 			window.location("/") // ou utiliser un state
-				// 		})
-				// 		.catch((error) => {
-				// 			console.log(error)
-				// 		})
-				// } else console.log("Error with modify then login")
+				if (res.status === 200) {
+							console.log(res.data) // A SUPP
+							dispatchAuthState({
+								type: "LOGIN",
+								payload: res.data,
+							})
+							setErrorMessage(null)
+							resetForm()
+							// window.location = "/"
+						}
+				 else console.log("Error with modify then login")
 			})
 			// .catch((error) => {
 			// 	if (error.response) setErrorMessage(error.response.data)
@@ -143,8 +133,8 @@ export default function FormModifyProfile(props) {
 					<Field name="password" type="password" placeholder="Nouveau mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
 
-					{/* <Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
-					<ErrorMessage name="picture" component="div" className="errorInput" /> */}
+					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
+					<ErrorMessage name="picture" component="div" className="errorInput" />
 
 					<button type="submit" className="btn btn-primary" title="Modifier" aria-label="Modifier">
 						Modifier
