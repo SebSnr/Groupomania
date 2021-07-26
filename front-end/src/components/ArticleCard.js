@@ -1,11 +1,16 @@
 import React, {useContext} from "react"
-import MiniProfilePicture from "./MiniProfilePicture"
 import ReactPlayer from "react-player"
 import axios from "axios"
+import {Link, useHistory} from "react-router-dom"
+// Utils
 import {ApiUrl} from "../utils/variables-config"
+// components
+import MiniProfilePicture from "./MiniProfilePicture"
 import {AuthContext} from "../App"
 
 export default function ArticleCard(props) {
+	let history = useHistory()
+
 	// Format article date
 	let options = {year: "numeric", month: "long", day: "numeric"}
 	let dbDate = new Date(props.article.createdAt)
@@ -40,7 +45,7 @@ export default function ArticleCard(props) {
 	// 	rajouter "props.article.User.firstName et photo" ligne 47 sous ProfilePicture, ne fonctionne pas toujours. probleme de sync ?
 
 	return (
-		<div className="card shadow card-article col-lg-11 mb-4 p-3">
+		<div className="card shadow card-article col-lg-17 mb-4 p-3">
 			<div className="card-body align-items-center">
 				<div className="d-flex align-items-end mb-1">
 					{/* <MiniProfilePicture photo={props.article.User.photo} classNameDiv={"profile-picture--mini"} classNameImg={"profile-picture__clipped--mini"} /> */}
@@ -62,14 +67,14 @@ export default function ArticleCard(props) {
 						</button>
 					) : null}
 				</div>
-				<div className="d-flex justify-content-end card-article--date mb-3">
-					{articleDate}
-				</div>
-					<a href={`/articles/#${props.article.id}`} className="overflow-hidden">
-						<p className="card-text">{props.article.text}</p>
-					</a>
+				<div className="d-flex justify-content-end card-article--date mb-3">{articleDate}</div>
+				<Link to={`/articles/#${props.article.id}`} className="overflow-hidden">
+					<p className="card-text">{props.article.text}</p>
+				</Link>
 			</div>
-			<CardMedia props={props} />
+			<Link to={`/articles/#${props.article.id}`} className="overflow-hidden">
+				<CardMedia props={props} />
+			</Link>
 		</div>
 	)
 }
@@ -78,17 +83,13 @@ function CardMedia(props) {
 	if (props.props.article.picture) {
 		return (
 			<div className="card-img-bottom overflow-hidden rounded-3">
-				<a href={`/articles/#${props.props.article.id}`}>
 					<img src={props.props.article.picture} className="card-img-bottom" alt="article multimédia" />
-				</a>
 			</div>
 		)
 	} else if (props.props.article.youtube) {
 		return (
 			<div className="card-img-bottom overflow-hidden rounded-3">
-				<a href={`/articles/#${props.props.article.id}`}>
 					<ReactPlayer url={props.props.article.youtube} width="100%" className="card-img-bottom" />
-				</a>
 			</div>
 		)
 	} else return ""

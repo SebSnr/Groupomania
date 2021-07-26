@@ -84,8 +84,6 @@ exports.login = (req, res) => {
 		.catch((error) => res.status(500).json({error}))
 }
 
-exports.getOne = (req, res) => {}
-
 exports.getAll = (req, res) => {
 	User.findAll({
 		order: [["firstName", "ASC"]],

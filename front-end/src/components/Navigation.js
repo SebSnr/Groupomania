@@ -58,7 +58,7 @@ export default function Navigation() {
 										}
 									}}
 									className="nav-link nav-link-custom"
-									to="/login"
+									to=""
 								>
 									Se déconnecter
 								</NavLink>

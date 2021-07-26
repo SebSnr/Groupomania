@@ -1,5 +1,5 @@
 import React from "react"
-import {BrowserRouter, Switch, Route} from "react-router-dom"
+import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom"
 // pages
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
@@ -37,8 +37,8 @@ function App() {
 		routes = (
 			<BrowserRouter>
 				<Switch>
-					<Route path="/" exact component={HomePage} />
 					<Route path="/login" exact component={LoginPage} />
+					<Redirect to='/login' component={LoginPage}  />
 					<Route component={NotFoundPage} />
 				</Switch>
 			</BrowserRouter>

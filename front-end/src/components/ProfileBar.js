@@ -14,9 +14,7 @@ export default function ProfileBar() {
         	flex-sm-row flex-lg-column align-items-lg-center 
         	p-3 h-100"
 		>
-			<div className="">
-				<ProfilePicture photo={AuthState.photo} />
-			</div>
+			<ProfilePicture photo={AuthState.photo} />
 			<div className="flex-grow-1 p-3 d-flex flex-wrap flex-column justify-content-around flex-sm-row flex-lg-column ">
 				<h3 className="w-100 text-center">Profil</h3>
 				<div>

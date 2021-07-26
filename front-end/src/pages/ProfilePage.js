@@ -8,10 +8,8 @@ export default function ProfilePage() {
 		<div>
 			<Navigation />
 			<div class="container">
-				<div className="row">
 					<h1 className="d-none">Profil user</h1>
 					<ProfileBar />
-				</div>
 			</div>
 		</div>
 	)

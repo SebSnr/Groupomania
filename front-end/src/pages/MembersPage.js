@@ -8,10 +8,8 @@ export default function MembersPage() {
 		<div>
 			<Navigation />
 			<div class="container">
-				<div className="row">
 					<h1 className="d-none">Membres collègues amis page</h1>
 					<Members />
-				</div>
 			</div>
 		</div>
 	)
