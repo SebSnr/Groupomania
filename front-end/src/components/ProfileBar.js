@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react"
+import React, {useContext, useState, useEffect} from "react"
 
 import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
@@ -34,6 +34,10 @@ export default function ProfileBar() {
 
 	// state of profileRender
 	const [profileRender, setProfileRender] = useState(initialProfileRender)
+
+	useEffect(() => {
+		setProfileRender(initialProfileRender)
+	}, [AuthState, ])
 
 	// change render of profilBar : initial or modify
 	const handleProfileRender = () => {

@@ -36,6 +36,8 @@ export default function FormModifyProfile(props) {
 	const handleFormSubmit = (values, resetForm) => {
 		console.log(values) // A SUPP
 
+		if (window.confirm("Êtes-vous sûr de vouloir modifier ces informations ?")) {} else return
+
 		// set data object to send
 		const formData = new FormData()
 		// for (let i in values) {
@@ -55,21 +57,15 @@ export default function FormModifyProfile(props) {
 
 		console.log(formData) // A SUPP
 
-		const headers = {"Authorization": `Bearer ${token}`, "Content-Type": "multipart/form-data"}
-
-		axios.put(`${ApiUrl}/auth/`, formData, {headers: headers})
-
-		// axios({
-		// 	method: "put",
-		// 	url: `${ApiUrl}/auth/`,
-		// 	// headers, 
-		// 	data: formData,
-		// 	// headers: {"Authorization": `Bearer ${token}`},
-		// 	// data: values
-		// })
+		axios({
+			method: "put",
+			url: `${ApiUrl}/auth/`,
+			data: formData,
+			headers: {"Authorization": `Bearer ${token}`, "Content-Type": "multipart/form-data"},
+		})
 			.then((res) => {
 				console.log("User has been modified") // A SUPP
-				// // if user creation well done, send request to log
+				// if user modification well done, login with response data
 				if (res.status === 200) {
 							console.log(res.data) // A SUPP
 							dispatchAuthState({
@@ -78,14 +74,12 @@ export default function FormModifyProfile(props) {
 							})
 							setErrorMessage(null)
 							resetForm()
-							// window.location = "/"
 						}
 				 else console.log("Error with modify then login")
 			})
-			// .catch((error) => {
-			// 	if (error.response) setErrorMessage(error.response.data)
-			// 	// console.log(error) // A SUPP
-			// })
+			.catch((error) => {
+				if (error.response) setErrorMessage(error.response.data)
+			})
 	}
 
 	const handleDeleteAccount = () => {
@@ -140,6 +134,12 @@ export default function FormModifyProfile(props) {
 						Modifier
 					</button>
 					<span className="errorInput mt-1 text-center ">Seuls les champs saisis seront modifiés</span>
+					{errorMessage && (
+						<div className="text-danger small">
+							<br />
+							{errorMessage}
+						</div>
+					)}
 
 					<button
 						className="btn-sm btn-customize1"
@@ -149,13 +149,7 @@ export default function FormModifyProfile(props) {
 					>
 						Retour
 					</button>
-
-					{errorMessage && (
-						<div className="text-danger small">
-							<br />
-							{errorMessage}
-						</div>
-					)}
+					
 				</Form>
 			</Formik>
 			<span className="mt-4 mb-2">ou</span>
@@ -167,7 +161,7 @@ export default function FormModifyProfile(props) {
 					}
 				}}
 			>
-				❌ Supprimer le compte ?{" "}
+				❌ Supprimer le compte ?
 			</button>
 		</div>
 	)

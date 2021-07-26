@@ -30,15 +30,17 @@ export default function HomePage() {
 }
 
 function HomeContent() {
+	const {AuthState} = useContext(AuthContext)
+
 	// state articles data
 	const [articlesData, setArticlesData] = useState([])
 	const [articlesRefresh, setArticlesRefresh] = useState(false)
 
-	// event: get articles at the loading page
+	// event: get articles and refresh
 	useEffect(() => {
 		getArticles()
 		setArticlesRefresh(false)
-	}, [articlesRefresh, ])
+	}, [articlesRefresh, AuthState, ])
 
 	// get user token from local storage
 	const token = JSON.parse(localStorage.getItem("token"))

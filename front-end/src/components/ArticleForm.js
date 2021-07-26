@@ -27,7 +27,7 @@ export default function ArticleForm(props) {
 	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
 	useEffect(() => {
 		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
-	}, [AuthState])
+	}, [AuthState, ])
 
 	// state of media input choice
 	const [media, setMedia] = useState((null))
@@ -41,7 +41,7 @@ export default function ArticleForm(props) {
 	// submit the form and request
 	function handleEditArticle(e) {
 
-		if(article.text==="" && article.youtube==="" & !selectedFile){
+		if(article.text==="" && article.youtube==="" && !selectedFile){
 			alert("Veuillez remplir au moins un champs du post")
 			return
 		}
