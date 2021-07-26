@@ -51,12 +51,12 @@ export default function ArticleCard(props) {
 					{props.article.author === AuthState.user || AuthState.isAdmin === true ? (
 						<button
 							type="button"
-							className="deleteBtn btn-sm"
+							className="btn-sm bg-white fs-5"
 							onClick={() => {
-								if (window.confirm("Supprimer ce post ?")) deleteArticle()
+								if (window.confirm("Administrateur : Supprimer ce post définitivement ?")) deleteArticle()
 							}}
-							title="Supprimer l'article"
-							aria-label="Supprimer article"
+							title="Administrateur: Supprimer l'article"
+							aria-label="Administrateur: Supprimer l'article"
 						>
 							🗑️
 						</button>

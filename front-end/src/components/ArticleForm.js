@@ -110,7 +110,7 @@ export default function ArticleForm(props) {
 	})
 
 	return (
-		<div className="card shadow form-2 p-3 h-100 d-flex flex-column justify-content-center">
+		<div className="card shadow form-2 p-3 d-flex flex-column justify-content-center">
 			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
 				initialValues={{

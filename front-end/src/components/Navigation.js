@@ -12,7 +12,6 @@ export default function Navigation() {
 		dispatchAuthState({
 			type: "LOGOUT",
 		})
-		window.location = "/login"
 	}
 
 	return (

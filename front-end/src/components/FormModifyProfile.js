@@ -12,7 +12,8 @@ export default function FormModifyProfile(props) {
 	const token = JSON.parse(localStorage.getItem("token"))
 
 	// use authentication global state
-	const {dispatchAuthState} = useContext(AuthContext)
+	const {AuthState, dispatchAuthState} = useContext(AuthContext)
+	// const {AuthState} = useContext(AuthContext)
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
@@ -77,23 +78,26 @@ export default function FormModifyProfile(props) {
 						}
 				 else console.log("Error with modify then login")
 			})
-			.catch((error) => {
-				if (error.response) setErrorMessage(error.response.data)
-			})
+			// .catch((error) => {
+			// 	if (error.response) setErrorMessage(error.response.data)
+			// })
 	}
 
 	const handleDeleteAccount = () => {
 		axios({
 			method: "delete",
-			url: `${ApiUrl}/auth/delete`,
+			url: `${ApiUrl}/auth/${AuthState.user}`,
 			headers: {"Authorization": `Bearer ${token}`},
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					alert("Votre compte a bien été supprimé")((window.location = "/login"))
+					dispatchAuthState({
+						type: "LOGOUT",
+					})
+					alert("Votre compte a bien été supprimé")
 				}
 			})
-			.catch(() => alert("Impossible de supprimer votre compte. Veuillez contacter un admin"))
+			.catch((error) => {alert("Impossible de supprimer votre compte. Veuillez contacter un admin")})
 	}
 
 	return (

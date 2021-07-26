@@ -56,6 +56,7 @@ export const AuthReducer = (authState, action) => {
 			}
 		case "LOGOUT":
 			localStorage.clear()
+			window.location = "/login"
 			return {
 				...authState,
 				isAuthenticated: false,
