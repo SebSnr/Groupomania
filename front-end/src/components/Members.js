@@ -9,7 +9,8 @@ export default function Members() {
 	const {AuthState} = useContext(AuthContext)
 
 	//state users data
-	const [usersData, setUsersData] = useState([])
+	const [users, setUsers] = useState([])
+	const [filteredUsers, setFilteredUsers] = useState(users)
 
 	// event : get users at loading page
 	useEffect(() => {
@@ -23,8 +24,16 @@ export default function Members() {
 			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		}).then((res) => {
 			console.log(res.data)
-			setUsersData(res.data)
+			setUsers(res.data)
+			setFilteredUsers(res.data)
 		})
+	}
+
+	const handleSearch = (value) => {
+		let result = users.filter((user) => {
+			if (user.firstName.toLowerCase().search(value)!== -1 || user.lastName.toLowerCase().search(value)!== -1) return true
+		})
+		setFilteredUsers(result)
 	}
 
 	const deleteUser = (user) => {
@@ -48,10 +57,11 @@ export default function Members() {
 	return (
 		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column align-items-center">
 			<h3 className="text-center mb-3">Collègues</h3>
+			<input type="text" onChange={(event) => handleSearch(event.target.value.toLowerCase())} className="searchUsers mb-4" placeholder="Rechercher..."></input>
 			<ul className="p-0 w-100" style={{"maxHeight": "80vh", "maxWidth": "220px"}}>
-				{usersData.map((user) => (
+				{filteredUsers.map((user) => (
 					<div key={user.firstName}>
-						<li className="d-flex align-items-center justify-content-between flex-wrap mb-4 w-100" >
+						<li className="d-flex align-items-center justify-content-between flex-wrap mb-4 w-100">
 							<ProfilePictureMini photo={user.photo} />
 							<div className="flex-grow-1">
 								{user.firstName} <br />
