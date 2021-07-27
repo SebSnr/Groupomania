@@ -26,7 +26,7 @@ export default function SignUpForm() {
 		lastName: Yup.string().min(2, "trop court*").max(50, "trop long*").required("obligatoire*"),
 		email: Yup.string()
 			.email("mail invalide*")
-			.test("@groupomania.com", "exemple : mail@groupomania.com*", (email) => email && email.indexOf("@groupomania.com", email.length - "@groupomania.com".length) !== -1)
+			.test("@groupomania.com", "mail@groupomania.com*", (email) => email && email.indexOf("@groupomania.com", email.length - "@groupomania.com".length) !== -1)
 			.required("obligatoire*"),
 		password: Yup.string().min(4, "trop court*").max(50, "trop long*").required("obligatoire*"),
 	})

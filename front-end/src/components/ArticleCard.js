@@ -43,11 +43,12 @@ export default function ArticleCard(props) {
 	// console.log(props.article.User.firstName)
 	// 	rajouter "props.article.User.firstName et photo" ligne 47 sous ProfilePicture, ne fonctionne pas toujours. probleme de sync ?
 
+	let article = props.article
+
 	return (
-		<div className="card shadow card-article col-lg-17 mb-4 p-3">
+		<div className={`card shadow article mb-4 p-3 ${props.class} `}>
 			<div className="card-body align-items-center">
-				<div className="d-flex align-items-end mb-1">
-					{/* <MiniProfilePicture photo={props.article.User.photo} classNameDiv={"profile-picture--mini"} classNameImg={"profile-picture__clipped--mini"} /> */}
+				<div className="d-flex align-items-end flex-wrap mb-1">
 					<MiniProfilePicture photo={props.article.User.photo} />
 
 					<span className="h5 flex-grow-1">{props.article.User.firstName}</span>
@@ -66,12 +67,13 @@ export default function ArticleCard(props) {
 						</button>
 					) : null}
 				</div>
-				<div className="d-flex justify-content-end card-article--date mb-3">{articleDate}</div>
-				<Link to={`/articles/#${props.article.id}`} className="overflow-hidden">
+				<div className={`d-flex justify-content-end mb-3 text-muted fst-italic article__date`}  >{articleDate}</div>
+				<Link to={{pathname: `/articles`, state: {article}}} className="overflow-hidden text-decoration-none">
 					<p className="card-text">{props.article.text}</p>
 				</Link>
 			</div>
-			<Link to={`/articles/#${props.article.id}`} className="overflow-hidden">
+			<Link to={{pathname: `/articles`, state: {article}}} className="overflow-hidden text-decoration-none">
+
 				<CardMedia props={props} />
 			</Link>
 		</div>
@@ -81,9 +83,9 @@ export default function ArticleCard(props) {
 function CardMedia(props) {
 	if (props.props.article.picture) {
 		return (
-			<div className="card-img-bottom overflow-hidden rounded-3">
-					<img src={props.props.article.picture} className="card-img-bottom" alt="article multimédia" />
-			</div>
+			<React.Fragment>
+					<img src={props.props.article.picture} className="card-img-bottom overflow-hidden rounded-3" alt="article multimédia" />
+   		 	</React.Fragment>
 		)
 	} else if (props.props.article.youtube) {
 		return (

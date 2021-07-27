@@ -40,7 +40,7 @@ function HomeContent() {
 	useEffect(() => {
 		getArticles()
 		setArticlesRefresh(false)
-	}, [articlesRefresh, AuthState, ])
+	}, [articlesRefresh, AuthState])
 
 	// get user token from local storage
 	const token = JSON.parse(localStorage.getItem("token"))
@@ -69,7 +69,6 @@ function HomeContent() {
 					</aside>
 				</div>
 				<div className="offset-lg-1 col-lg-26 mb-4">
-
 					<aside className="align-self-center mb-4 ">
 						<h1 className="d-none">Page d'accueil Groupomania</h1>
 						<ArticleForm setArticlesRefresh={setArticlesRefresh} refresh={false} />
@@ -83,41 +82,11 @@ function HomeContent() {
 								return dateB - dateA
 							})
 							.map((article) => (
-								<ArticleCard article={article} key={article.id} setArticlesRefresh={setArticlesRefresh} />
+								<ArticleCard article={article} key={article.id} setArticlesRefresh={setArticlesRefresh} class="article--card col-lg-17" />
 							))}
 					</main>
-
-
 				</div>
-
 			</div>
-
-
-
-			{/* <div className="row h-100" >
-				<aside className="col-5 p-0 d-none d-lg-block mb-4">
-					<ProfileBar />
-				</aside>
-				<aside className="offset-lg-1 col-lg-12 mb-4 align-self-center gx-0">
-					<h1 className="d-none">Page d'accueil Groupomania</h1>
-					<ArticleForm setArticlesRefresh={setArticlesRefresh} refresh={false} />
-				</aside>
-				<aside className="offset-lg-1 col-lg-5 p-0 d-none d-lg-block mb-4">
-					<Members />
-				</aside>
-			</div>
-			<main className="row d-lg-flex justify-content-lg-between">
-					<h3 className="d-none">Post article</h3>
-					{articlesData
-						.sort(function (a, b) {
-							let dateA = new Date(a.createdAt),
-								dateB = new Date(b.createdAt)
-							return dateB - dateA
-						})
-						.map((article) => (
-							<ArticleCard article={article} key={article.id} setArticlesRefresh={setArticlesRefresh} />
-						))}
-			</main> */}
 		</div>
 	)
 }

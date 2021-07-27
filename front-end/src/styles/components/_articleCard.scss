@@ -1,20 +1,23 @@
-.card-article {
-	height: 450px;
+.article {
 
-	a {
-		text-decoration: none;
+	&__date {
+		font-size: 0.8rem;
 	}
 
-	&--date {
-		font-size: 0.7rem;
-		font-style: italic;
+	&--card{
+		height: 450px;
+	
+		.card-text {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 
-	.card-text {
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		text-overflow: ellipsis;
+	&--page{
+		max-width: 800px;
+		width: 100%;
 	}
 }
