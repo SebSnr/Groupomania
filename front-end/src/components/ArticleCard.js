@@ -1,7 +1,7 @@
 import React, {useContext} from "react"
 import ReactPlayer from "react-player"
 import axios from "axios"
-import {Link, useHistory} from "react-router-dom"
+import {Link} from "react-router-dom"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 // components
@@ -9,7 +9,6 @@ import MiniProfilePicture from "./MiniProfilePicture"
 import {AuthContext} from "../App"
 
 export default function ArticleCard(props) {
-	let history = useHistory()
 
 	// Format article date
 	let options = {year: "numeric", month: "long", day: "numeric"}

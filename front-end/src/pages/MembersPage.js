@@ -7,7 +7,7 @@ export default function MembersPage() {
 	return (
 		<div>
 			<Navigation />
-			<div class="container">
+			<div className="container">
 					<h1 className="d-none">Membres collègues amis page</h1>
 					<Members />
 			</div>

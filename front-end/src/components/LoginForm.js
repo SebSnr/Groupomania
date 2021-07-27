@@ -2,12 +2,17 @@ import React, {useContext, useState} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
 import * as Yup from "yup"
+import {useHistory} from "react-router-dom"
+
 // import utils
 import {ApiUrl} from "../utils/variables-config"
 // import user data
 import {AuthContext} from "../App"
 
 export default function LoginForm() {
+	let history = useHistory()
+
+
 	// Validate input
 	const LoginSchema = Yup.object().shape({
 		email: Yup.string().email("adresse mail invalide*").required("email valide obligatoire*"),
@@ -38,7 +43,7 @@ export default function LoginForm() {
 					})
 					setErrorMessage(null)
 					resetForm()
-					window.location = "/"
+					history.push("/")
 				}
 			})
 			.catch((error) => {

@@ -9,6 +9,7 @@ module.exports = (app) => {
 	router.post("/signup", multer, userCtrl.signup)
 	router.post("/login", userCtrl.login)
 	router.get("/", auth, userCtrl.getAll)
-	router.delete("/:id", auth, userCtrl.delete)
+	router.delete("/user/:email", auth, userCtrl.deleteOneUser)
+	router.delete("/", auth, userCtrl.delete)
 	router.put("/", auth, multer, userCtrl.modify)
 }

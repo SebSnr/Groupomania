@@ -1,9 +1,21 @@
+import {Link} from "react-router-dom"
+// utils
 import {toDataURL} from "./toDataURL"
 
 export let initialAuth = {}
 
-// Init initialAuth if already user in local storage
-if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
+// set timeout local storage 
+const hours = 0.5
+let saved = localStorage.getItem('savedAt')
+if (saved && (new Date().getTime() - saved > hours * 60 * 60 * 1000)) {
+	localStorage.clear()
+	initialAuth = {
+		isAuthenticated: false,
+		isAdmin: false,
+		user: null,
+		token: null,
+	}
+} else if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) { // Init initialAuth if already user in local storage
 	initialAuth = {
 		user: JSON.parse(localStorage.getItem("user")),
 		token: JSON.parse(localStorage.getItem("token")),
@@ -25,6 +37,8 @@ if (JSON.parse(localStorage.getItem("isAuthenticated")) === true) {
 
 // Action to do in case of
 export const AuthReducer = (authState, action) => {
+
+
 	switch (action.type) {
 		case "LOGIN":
 			// save user data
@@ -34,6 +48,7 @@ export const AuthReducer = (authState, action) => {
 			localStorage.setItem("token", JSON.stringify(action.payload.token))
 			localStorage.setItem("firstName", JSON.stringify(action.payload.firstName))
 			localStorage.setItem("lastName", JSON.stringify(action.payload.lastName))
+			localStorage.setItem('savedAt', new Date().getTime())
 
 			// save profile picture
 			toDataURL(action.payload.photo).then((dataUrl) => {
@@ -56,7 +71,6 @@ export const AuthReducer = (authState, action) => {
 			}
 		case "LOGOUT":
 			localStorage.clear()
-			window.location = "/login"
 			return {
 				...authState,
 				isAuthenticated: false,

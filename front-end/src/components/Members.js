@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react"
 import {AuthContext} from "../App"
 import axios from "axios"
-import {useHistory} from "react-router-dom"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 //components
@@ -11,18 +10,17 @@ import ProfilePicture from "./ProfilePicture"
 export default function Members() {
 	const {AuthState} = useContext(AuthContext)
 
-	let history = useHistory()
 	//state users data
 	const [users, setUsers] = useState([])
 	const [filteredUsers, setFilteredUsers] = useState(users)
 
 	let initialMembersRender = (
-		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column align-items-center">
+		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column align-items-center mb-4">
 			<h3 className="text-center mb-3">Collègues</h3>
 			<input type="text" onChange={(event) => handleSearch(event.target.value.toLowerCase())} className="searchUsers mb-4" placeholder="Rechercher..."></input>
 			<ul className="p-0 w-100" style={{"maxHeight": "80vh", "maxWidth": "220px"}}>
-				{filteredUsers.map((user) => (
-					<div key={user.firstName}>
+				{filteredUsers.map((user, index) => (
+					<div key={index}>
 						<li className="d-flex align-items-center justify-content-between flex-wrap mb-4 w-100">
 							<button className="flex-grow-1 bg-transparent d-flex align-items-center " onClick={() => setMembersRender(<MemberProfile user={user} setMembersRender={setMembersRender} initialMembersRender={initialMembersRender} />)}>
 								<ProfilePictureMini photo={user.photo} />
@@ -35,7 +33,7 @@ export default function Members() {
 									type="button"
 									className="btn-sm bg-white fs-5"
 									onClick={() => {
-										if (window.confirm("Administrateur : Supprimer cet utilisateur définitivement ?")) deleteUser(user.id)
+										if (window.confirm("Administrateur : Supprimer cet utilisateur définitivement ?")) deleteUser(user.email)
 									}}
 									title="Admin: Supprimer l'utilisateur'"
 									aria-label="Admin: Supprimer l'utilisateur"
@@ -80,10 +78,10 @@ export default function Members() {
 		setFilteredUsers(result)
 	}
 
-	const deleteUser = (user) => {
+	const deleteUser = (email) => {
 		axios({
 			method: "delete",
-			url: `${ApiUrl}/auth/${user}`,
+			url: `${ApiUrl}/auth/user/${email}`,
 			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		})
 			.then((res) => {
@@ -103,7 +101,7 @@ export default function Members() {
 
 function MemberProfile(props) {
 	return (
-		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column align-items-center">
+		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center">
 			{/* <h3 className="text-center mb-3">Collègue</h3> */}
 			<ProfilePicture photo={props.user.photo} />
 			<div className="mt-3">{props.user.firstName} {props.user.lastName}</div>

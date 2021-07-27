@@ -12,123 +12,76 @@ import {ApiUrl} from "../utils/variables-config"
 export default function ArticleForm(props) {
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
-	
-	// set state of article
-	const initialArticle = {
-		text: "",
-		author: AuthState.user,
-		picture: "",
-		youtube: "",
-	}
-	const [article, setArticle] = useState(initialArticle)
-
-	
-	// personalize the welcome message text input with user name
-	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
-	useEffect(() => {
-		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
-	}, [AuthState, ])
 
 	// state of media input choice
-	const [media, setMedia] = useState((null))
+	const [media, setMedia] = useState(null)
+
+	// personalize the welcome message text input with user name
+	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
+	useEffect(() => {setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)}, [AuthState])
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
-	useEffect(() => {
-		console.log(selectedFile)
-	}, [selectedFile])
 
 	// submit the form and request
-	function handleEditArticle(e) {
-
-		if(article.text==="" && article.youtube==="" && !selectedFile){
+	function handleFormSubmit(values, resetForm) {
+		// unless one field required
+		if (values.text === "" && values.youtube === "" && !selectedFile) {
 			alert("Veuillez remplir au moins un champs du post")
 			return
 		}
 
+		// prepare data to send
 		const formData = new FormData()
-		formData.append("author", article.author)
-		if (article.text) formData.append("text", article.text)
-		if (article.youtube) formData.append("youtube", article.youtube)
-		if (selectedFile) formData.append("picture", selectedFile)
+		formData.append("author", AuthState.user)
+		if (values.text) formData.append("text", values.text)
+		if (values.youtube) formData.append("youtube", values.youtube)
+		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png", "image/gif"].includes(selectedFile.type)) {
+			formData.append("picture", selectedFile)
+		}
+		if (values.youtube && selectedFile) formData.delete("youtube") //security : send only one media
 
-		console.log(formData) // A SUPP
-
-		for (var pair of formData.entries()) {
+		for (var pair of formData.entries()) {    // A SUPP
 			console.log(pair[0] + ", " + pair[1])
 		}
-
-		// get user token by the local storage
-		const token = JSON.parse(localStorage.getItem("token"))
 
 		axios({
 			method: "post",
 			url: `${ApiUrl}/articles`,
 			data: formData,
-			headers: {"Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}`},
+			headers: {"Content-Type": "multipart/form-data", "Authorization": `Bearer ${AuthState.token}`},
 		})
 			.then((res) => {
-				setArticle(initialArticle)
-				console.log("Post créé")
+				console.log("Post créé") //ASUPP
+				resetForm()
+				setSelectedFile()
 				setMedia("default")
 				props.setArticlesRefresh(true)
 			})
 			.catch((err) => console.log(`Error post article - ${err}`))
 	}
 
-	// update state of article with input data
-	function handleInputChange(e) {
-		setArticle(() => ({
-			...article,
-			[e.target.name]: e.target.value,
-		}))
-		console.log(article)
-	}
-
-	// const FILE_SIZE = 160 * 1024;
-    // const SUPPORTED_FORMATS = [
-    //   "image/jpg",
-    //   "image/jpeg",
-    //   "image/gif",
-    //   "image/png"
-    // ];
-    const validationSchema = Yup.object().shape({
-    //   text: Yup.string().required("A text is required"),
-    //   picture: Yup
-    //     .mixed()
-    //     .required("A file is required")
-    //     .test(
-    //       "fileSize",
-    //       "File too large",
-    //       value => value && value.size <= FILE_SIZE
-    //     )
-    //     .test(
-    //       "fileFormat",
-    //       "Unsupported Format",
-    //       value => value && SUPPORTED_FORMATS.includes(value.type)
-    //     )
+	const validationSchema = Yup.object().shape({
+		text: Yup.string(),
+		youtube: Yup.string(),
 	})
 
 	return (
 		<div className="card shadow form-2 p-3 d-flex flex-column justify-content-center">
 			<h2 className="d-none">Formulaire creation post article</h2>
 			<Formik
-				initialValues={{
-					// text: "",
-					// picture: "",
-					// youtube: "",
-				  }}
-				// validationSchema={validationSchema}
-				onSubmit={(values) => {
-					handleEditArticle(values)
+				initialValues={{text: "", youtube: ""}}
+				validationSchema={validationSchema}
+				onSubmit={(values, {resetForm}) => {
+					console.log(values) //ASUPP
+					handleFormSubmit(values, resetForm)
 				}}
 			>
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
-						<MiniProfilePicture photo={AuthState.photo}/>
-						<Field name="text" onChange={handleInputChange} value={article.text} type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
+						<MiniProfilePicture photo={AuthState.photo} />
+						<Field name="text" type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
 						<ErrorMessage name="text" component="div" className="errorInput" />
-
 					</div>
 
 					{(() => {
@@ -153,7 +106,7 @@ export default function ArticleForm(props) {
 											aria-label="Joindre une vidéo youtube"
 										>
 											Joindre une vidéo Youtube &nbsp;
-											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width:"1.8rem"}} />
+											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width: "1.8rem"}} />
 										</button>
 									</div>
 								)
@@ -162,29 +115,29 @@ export default function ArticleForm(props) {
 									<div className="d-flex align-items-center flex-wrap">
 										<span className="mb-3">Lien youtube :</span>
 										<div className="d-inline">
-											<Field name="youtube" onChange={handleInputChange} value={article.youtube} placeholder="Votre lien Youtube" className="ytInput mb-4" />
+											<Field name="youtube" placeholder="Votre lien Youtube" className="ytInput mb-4" />
 										</div>
 										<button
 											type="button"
-											onClick={() => {
-												setMedia("upload")
-												setArticle(() => ({
-													...article,
-													"youtube": "",
-												}))
-											}}
+											onClick={() => setMedia("upload")}
 											className="btn-sm btn-customize1 mb-4 d-bloc m-auto"
 											title="Joindre une photo"
 											aria-label="Joindre une photo"
 										>
-											Joindre une photo &nbsp; 📷 
+											Joindre une photo &nbsp; 📷
 										</button>
 									</div>
 								)
 							default:
 								return (
 									<div className="d-flex flex-wrap">
-										<button type="button" onClick={() => setMedia("upload")} className="btn btn-customize1 mb-4 d-bloc m-auto" title="Joindre une photo" aria-label="Joindre une photo">
+										<button
+											type="button"
+											onClick={() => setMedia("upload")}
+											className="btn btn-customize1 mb-4 d-bloc m-auto"
+											title="Joindre une photo"
+											aria-label="Joindre une photo"
+										>
 											Joindre une photo &nbsp; 📷
 										</button>
 										<button
@@ -195,7 +148,7 @@ export default function ArticleForm(props) {
 											aria-label="Joindre une video youtube"
 										>
 											Joindre une vidéo Youtube &nbsp;
-											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width:"1.8rem"}} />
+											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width: "1.8rem"}} />
 										</button>
 									</div>
 								)

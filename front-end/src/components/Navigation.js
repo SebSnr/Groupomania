@@ -1,9 +1,11 @@
 import React, {useContext} from "react"
-import {NavLink} from "react-router-dom"
+import {NavLink, useHistory} from "react-router-dom"
 // components
 import {AuthContext} from "../App"
 
 export default function Navigation() {
+	let history = useHistory()
+
 
 	// dispatch action and state of authentication
 	const {dispatchAuthState} = useContext(AuthContext)
@@ -12,6 +14,7 @@ export default function Navigation() {
 		dispatchAuthState({
 			type: "LOGOUT",
 		})
+		history.push("/")
 	}
 
 	return (

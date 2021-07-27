@@ -37,7 +37,8 @@ export default function FormModifyProfile(props) {
 	const handleFormSubmit = (values, resetForm) => {
 		console.log(values) // A SUPP
 
-		if (window.confirm("Êtes-vous sûr de vouloir modifier ces informations ?")) {} else return
+		if (window.confirm("Êtes-vous sûr de vouloir modifier ces informations ?")) {
+		} else return
 
 		// set data object to send
 		const formData = new FormData()
@@ -48,13 +49,18 @@ export default function FormModifyProfile(props) {
 			if (!values[i]) {
 				console.log(values[i])
 			} else {
-			formData.append(i, values[i])
+				formData.append(i, values[i])
 			}
 		}
 
-		if (selectedFile && selectedFile.size > 10) {
+		// add file if exist and validated
+		// add file if exist and validated
+		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png"].includes(selectedFile.type)) {
 			formData.append("picture", selectedFile)
-		}
+		} else if(selectedFile) {
+			alert("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
+			return
+		} else { }
 
 		console.log(formData) // A SUPP
 
@@ -63,30 +69,28 @@ export default function FormModifyProfile(props) {
 			url: `${ApiUrl}/auth/`,
 			data: formData,
 			headers: {"Authorization": `Bearer ${token}`, "Content-Type": "multipart/form-data"},
+		}).then((res) => {
+			console.log("User has been modified") // A SUPP
+			// if user modification well done, login with response data
+			if (res.status === 200) {
+				console.log(res.data) // A SUPP
+				dispatchAuthState({
+					type: "LOGIN",
+					payload: res.data,
+				})
+				setErrorMessage(null)
+				resetForm()
+			} else console.log("Error with modify then login")
 		})
-			.then((res) => {
-				console.log("User has been modified") // A SUPP
-				// if user modification well done, login with response data
-				if (res.status === 200) {
-							console.log(res.data) // A SUPP
-							dispatchAuthState({
-								type: "LOGIN",
-								payload: res.data,
-							})
-							setErrorMessage(null)
-							resetForm()
-						}
-				 else console.log("Error with modify then login")
-			})
-			// .catch((error) => {
-			// 	if (error.response) setErrorMessage(error.response.data)
-			// })
+		// .catch((error) => {
+		// 	if (error.response) setErrorMessage(error.response.data)
+		// })
 	}
 
 	const handleDeleteAccount = () => {
 		axios({
 			method: "delete",
-			url: `${ApiUrl}/auth/${AuthState.user}`,
+			url: `${ApiUrl}/auth`,
 			headers: {"Authorization": `Bearer ${token}`},
 		})
 			.then((res) => {
@@ -97,7 +101,9 @@ export default function FormModifyProfile(props) {
 					alert("Votre compte a bien été supprimé")
 				}
 			})
-			.catch((error) => {alert("Impossible de supprimer votre compte. Veuillez contacter un admin")})
+			.catch((error) => {
+				alert("Impossible de supprimer votre compte. Veuillez contacter un admin")
+			})
 	}
 
 	return (
@@ -153,7 +159,6 @@ export default function FormModifyProfile(props) {
 					>
 						Retour
 					</button>
-					
 				</Form>
 			</Formik>
 			<span className="mt-4 mb-2">ou</span>
@@ -170,5 +175,3 @@ export default function FormModifyProfile(props) {
 		</div>
 	)
 }
-
-

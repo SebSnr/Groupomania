@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
+import {useHistory} from "react-router-dom"
 import axios from "axios"
 import * as Yup from "yup"
 // import utils
@@ -8,6 +9,8 @@ import {ApiUrl} from "../utils/variables-config"
 import {AuthContext} from "../App"
 
 export default function SignUpForm() {
+	let history = useHistory()
+
 	// use authentication global state
 	const {dispatchAuthState} = useContext(AuthContext)
 
@@ -24,10 +27,12 @@ export default function SignUpForm() {
 		email: Yup.string().email("adresse mail invalide*").required("obligatoire*"),
 		password: Yup.string().min(4, "trop court*").max(50, "Trop long*").required("obligatoire*"),
 		// photo: Yup.mixed()
-		// 	// .test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
+			// .test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
 		// 	.test("fileType", "formats autorisés : jpg, jpeg, png", (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type))
 		// 	.required("obligatoire*"),
 	})
+
+
 
 	// send form data
 	const handleFormSubmit = (values, resetForm) => {
@@ -38,11 +43,13 @@ export default function SignUpForm() {
 		for (let i in values) {
 			formData.append(i, values[i])
 		}
-		if (selectedFile && selectedFile.size > 10) {
+		// add file if exist and validated
+		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png"].includes(selectedFile.type)) {
 			formData.append("picture", selectedFile)
-		}
-
-		console.log(formData) // A SUPP
+		} else if(selectedFile ) {
+			alert("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
+			return
+		} else { }
 
 		axios({
 			method: "post",
@@ -55,24 +62,14 @@ export default function SignUpForm() {
 
 				// if user creation well done, send request to log
 				if (res.status === 200) {
-					axios({
-						method: "post",
-						url: `${ApiUrl}/auth/login`,
-						data: values,
+					dispatchAuthState({
+						type: "LOGIN",
+						payload: res.data,
 					})
-						.then((res) => {
-							console.log(res.data) // A SUPP
-							dispatchAuthState({
-								type: "LOGIN",
-								payload: res.data,
-							})
-							setErrorMessage(null)
-							resetForm()
-							window.location = "/"
-						})
-						.catch((error) => {
-							console.log(error)
-						})
+					console.log(res.data) // A SUPP
+					setErrorMessage(null)
+					resetForm()
+					history.push("/")
 				} else console.log("Error with signup then login")
 			})
 			.catch((error) => {
@@ -90,11 +87,10 @@ export default function SignUpForm() {
 					lastName: "",
 					email: "",
 					password: "",
-					// photo: "",
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values, {resetForm}) => {
-					console.log(values)
+					console.log(values) //ASUPP
 					handleFormSubmit(values, resetForm)
 				}}
 			>
@@ -110,9 +106,6 @@ export default function SignUpForm() {
 
 					<Field name="password" type="password" placeholder="mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
-
-					{/* <Field name="photo" type="file" accept=".jpg, .jpeg, .png" />
-					<ErrorMessage name="photo" component="div" className="errorInput" /> */}
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
 					<ErrorMessage name="picture" component="div" className="errorInput" />
