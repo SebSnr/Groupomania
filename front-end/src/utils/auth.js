@@ -1,11 +1,10 @@
-import {Link} from "react-router-dom"
 // utils
 import {toDataURL} from "./toDataURL"
 
 export let initialAuth = {}
 
 // set timeout local storage 
-const hours = 0.5
+const hours = 2
 let saved = localStorage.getItem('savedAt')
 if (saved && (new Date().getTime() - saved > hours * 60 * 60 * 1000)) {
 	localStorage.clear()

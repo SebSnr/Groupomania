@@ -42,15 +42,12 @@ function HomeContent() {
 		setArticlesRefresh(false)
 	}, [articlesRefresh, AuthState])
 
-	// get user token from local storage
-	const token = JSON.parse(localStorage.getItem("token"))
-
 	// get all articles
 	const getArticles = () => {
 		axios({
 			method: "get",
 			url: `${ApiUrl}/articles`,
-			headers: {"Authorization": `Bearer ${token}`},
+			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		}).then((res) => {
 			setArticlesData(res.data)
 			console.log(res.data)

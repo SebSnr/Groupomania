@@ -8,12 +8,8 @@ import {ApiUrl} from "../utils/variables-config"
 import {AuthContext} from "../App"
 
 export default function FormModifyProfile(props) {
-	// get user token by the local storage
-	const token = JSON.parse(localStorage.getItem("token"))
-
 	// use authentication global state
 	const {AuthState, dispatchAuthState} = useContext(AuthContext)
-	// const {AuthState} = useContext(AuthContext)
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
@@ -62,7 +58,7 @@ export default function FormModifyProfile(props) {
 			method: "put",
 			url: `${ApiUrl}/auth/`,
 			data: formData,
-			headers: {"Authorization": `Bearer ${token}`, "Content-Type": "multipart/form-data"},
+			headers: {"Authorization": `Bearer ${AuthState.token}`, "Content-Type": "multipart/form-data"},
 		}).then((res) => {
 			console.log("User has been modified") // A SUPP
 			// if user modification well done, login with response data
@@ -85,7 +81,7 @@ export default function FormModifyProfile(props) {
 		axios({
 			method: "delete",
 			url: `${ApiUrl}/auth`,
-			headers: {"Authorization": `Bearer ${token}`},
+			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		})
 			.then((res) => {
 				if (res.status === 200) {

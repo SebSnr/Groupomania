@@ -1,51 +1,79 @@
 .header {
-
 	background-color: $color-2;
 
-	.navbar-brand{
+	.navbar-brand {
 		margin-left: 10px;
+
 		&:focus,
 		&:active {
 			outline: solid 2px $color-3;
 		}
+
+		&__logo {
+			height: 34px;
+			border-radius: 50%;
+			&:hover,
+			&:focus,
+			&:active {
+				border: solid 2px $color-2;
+				outline: none;
+			}
+		}
 	}
-	
-	.nav-logo {
-		height: 34px;
-		border-radius: 50%;
+
+	.nav-link--icon {
 		&:hover,
 		&:focus,
 		&:active {
-			border: solid 2px $color-2;
+			border-bottom: none;
+			box-shadow: none;
 			outline: none;
+
+			.nav-svg-icon {
+				border-bottom: none;
+				filter: invert(96%) sepia(18%) saturate(1842%) hue-rotate(291deg) brightness(111%) contrast(107%);
+				width: 26px;
+				outline: none;
+			}
+		}
+
+		.nav-svg-icon {
+			filter: brightness(0) invert(1);
+			width: 25px;
+			margin-right: 10px;
+			margin-left: 40px;
+
+			&:hover,
+			&:focus,
+			&:active {
+				border-bottom: none;
+				filter: invert(96%) sepia(18%) saturate(1842%) hue-rotate(291deg) brightness(111%) contrast(107%);
+				width: 26px;
+				outline: none;
+			}
 		}
 	}
 
-	.nav-link-custom {
-		&:hover,
-		&:focus,
-		&:active {
-			border-bottom: solid 1px $color-3;
-		}
-	}
-
-	.nav-link-custom, .nav-burger-custom {
+	.nav-link--custom,
+	.nav-burger--custom {
 		font-size: 1.1rem;
 		color: white;
 		margin-left: 40px;
-		border-bottom: solid 1px $color-2;
-		outline: none;	
+		outline: none;
 
 		&:hover,
 		&:focus,
 		&:active {
 			color: $color-3;
-			outline: none;	
+			outline: none;
 			box-shadow: none;
-
+		}
+	}
+	.nav-burger--custom {
+		&:hover,
+		&:focus,
+		&:active {
+			font-size: 1.15rem;
 		}
 	}
 }
-
-
-

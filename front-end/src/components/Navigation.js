@@ -22,10 +22,10 @@ export default function Navigation() {
 			<nav className="navbar navbar-expand-lg mb-4">
 				<div className="container">
 					<NavLink className="navbar-brand" to="/">
-						<img src="/img/icon.png" alt="Retour accueil" className="nav-logo" />
+						<img src="/img/icon.png" alt="Retour accueil" className="navbar-brand__logo" />
 					</NavLink>
 					<button
-						className="navbar-toggler nav-burger-custom"
+						className="navbar-toggler nav-burger--custom"
 						type="button"
 						data-toggle="collapse"
 						data-target="#navbarResponsive"
@@ -39,31 +39,28 @@ export default function Navigation() {
 					<div className="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
 						<ul className="navbar-nav ml-auto">
 							<li className="nav-item d-lg-none">
-								<NavLink className="nav-link nav-link-custom " to="/">
+								<NavLink className="nav-link nav-link--custom " to="/">
 									Accueil
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink className="nav-link nav-link-custom d-lg-none" to="/members">
+								<NavLink className="nav-link nav-link--custom d-lg-none" to="/members">
 									Membres
 								</NavLink>
 							</li>
 							<li className="nav-item d-lg-none">
-								<NavLink className="nav-link nav-link-custom" to="/profile">
+								<NavLink className="nav-link nav-link--custom" to="/profile">
 									Profil
 								</NavLink>
 							</li>
 							<li className="nav-item">
 								<NavLink
-									onClick={() => {
-										if (window.confirm("Se déconnecter ?")) {
-											handleDeconnect()
-										}
-									}}
-									className="nav-link nav-link-custom"
+									onClick={() => {if (window.confirm("Se déconnecter ?")) handleDeconnect()}}
+									className="nav-link--icon"
+									title="Se deconnecter"
 									to=""
 								>
-									Se déconnecter
+									<img src="/img/logout.svg" className="nav-svg-icon" alt="Se deconnecter"></img>
 								</NavLink>
 							</li>
 						</ul>

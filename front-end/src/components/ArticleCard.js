@@ -15,20 +15,17 @@ export default function ArticleCard(props) {
 	let dbDate = new Date(props.article.createdAt)
 	let articleDate = dbDate.toLocaleDateString("fr-FR", options) + " , " + ("0" + dbDate.getHours()).slice(-2) + "h" + ("0" + dbDate.getMinutes()).slice(-2)
 
-	// get user token by the local storage
-	const token = JSON.parse(localStorage.getItem("token"))
-
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
 
 	const deleteArticle = () => {
 		console.log(`${ApiUrl}/articles/:${props.article.id}`)
-		console.log(`Bearer ${JSON.parse(localStorage.getItem("token"))}`)
+		console.log(`Bearer ${AuthState.token}`)
 
 		axios({
 			method: "delete",
 			url: `${ApiUrl}/articles/${props.article.id}`,
-			headers: {"Authorization": `Bearer ${token}`},
+			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		})
 			.then((res) => {
 				if (res.status === 200) {
