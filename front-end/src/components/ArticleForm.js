@@ -4,7 +4,7 @@ import {SocialIcon} from "react-social-icons"
 import axios from "axios"
 import * as Yup from "yup"
 // Components
-import MiniProfilePicture from "./MiniProfilePicture"
+import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
@@ -79,7 +79,7 @@ export default function ArticleForm(props) {
 			>
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
-						<MiniProfilePicture photo={AuthState.photo} />
+						<ProfilePicture photo={AuthState.photo} class="profile-picture--mini" />
 						<Field name="text" type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
 						<ErrorMessage name="text" component="div" className="errorInput" />
 					</div>

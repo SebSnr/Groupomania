@@ -4,7 +4,6 @@ import axios from "axios"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 //components
-import ProfilePictureMini from "./MiniProfilePicture"
 import ProfilePicture from "./ProfilePicture"
 
 export default function Members() {
@@ -22,10 +21,12 @@ export default function Members() {
 				{filteredUsers.map((user, index) => (
 					<div key={index}>
 						<li className="d-flex align-items-center justify-content-between flex-wrap mb-4 w-100">
-							<button className="flex-grow-1 bg-transparent d-flex align-items-center " onClick={() => setMembersRender(<MemberProfile user={user} setMembersRender={setMembersRender} initialMembersRender={initialMembersRender} />)}>
-								<ProfilePictureMini photo={user.photo} />
-								{user.firstName} <br />
-								{user.lastName}
+							<button
+								className="flex-grow-1 bg-transparent d-flex align-items-center "
+								onClick={() => setMembersRender(<MemberProfile user={user} setMembersRender={setMembersRender} initialMembersRender={initialMembersRender} />)}
+							>
+								<ProfilePicture photo={user.photo} class="profile-picture--mini" />
+								{user.firstName} <br />{user.lastName}
 							</button>
 
 							{AuthState.isAdmin === true && user.id !== AuthState.user ? (
@@ -104,17 +105,19 @@ function MemberProfile(props) {
 		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center">
 			{/* <h3 className="text-center mb-3">Collègue</h3> */}
 			<ProfilePicture photo={props.user.photo} />
-			<div className="mt-3">{props.user.firstName} {props.user.lastName}</div>
+			<div className="mt-3">
+				{props.user.firstName} {props.user.lastName}
+			</div>
 			<div className="mb-3">{props.user.email}</div>
 
 			<button
-						className="btn-sm btn-customize1"
-						onClick={() => {
-							props.setMembersRender(props.initialMembersRender)
-						}}
-					>
-						Retour
-					</button>
+				className="btn-sm btn-customize1"
+				onClick={() => {
+					props.setMembersRender(props.initialMembersRender)
+				}}
+			>
+				Retour
+			</button>
 		</div>
 	)
 }

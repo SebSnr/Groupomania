@@ -5,12 +5,13 @@ import ProfileBar from "../components/ProfileBar"
 
 export default function ProfilePage() {
 	return (
-		<div>
+		<React.Fragment>
 			<Navigation />
-			<div class="container">
+			<main class="container">
 					<h1 className="d-none">Profil user</h1>
 					<ProfileBar />
-			</div>
-		</div>
+			</main>
+		</React.Fragment>
+
 	)
 }

@@ -8,8 +8,7 @@ import MembersPage from "./pages/MembersPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import ArticlePage from "./pages/ArticlePage"
 // utils
-import {initialAuth} from "./utils/auth"
-import {AuthReducer} from "./utils/auth"
+import {initialAuth, AuthReducer} from "./utils/auth"
 
 // store authentication data globally
 export const AuthContext = React.createContext()

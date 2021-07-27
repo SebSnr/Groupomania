@@ -1,19 +1,18 @@
-import React from 'react'
-import Navigation from '../components/Navigation'
+import React from "react"
+import Navigation from "../components/Navigation"
 // components
-import ArticleCard from '../components/ArticleCard'
+import ArticleCard from "../components/ArticleCard"
 
- export default function ArticlePage(props) {
+export default function ArticlePage(props) {
+    // get article data from props
+	let article = props.location.state.article
 
-    let article = props.location.state.article
-
-    return (
-        <div>
-            <Navigation />
-            <main className="container d-flex justify-content-center ">
-                    <ArticleCard article={article} class="article--page"/> 
-            </main>
-        </div>
-    )
-
+	return (
+		<React.Fragment>
+			<Navigation />
+			<main className="container d-flex justify-content-center ">
+				<ArticleCard article={article} class="article--page" />
+			</main>
+		</React.Fragment>
+	)
 }

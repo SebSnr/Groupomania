@@ -6,6 +6,7 @@ export let initialAuth = {}
 // set timeout local storage 
 const hours = 2
 let saved = localStorage.getItem('savedAt')
+
 if (saved && (new Date().getTime() - saved > hours * 60 * 60 * 1000)) {
 	localStorage.clear()
 	initialAuth = {
@@ -51,12 +52,10 @@ export const AuthReducer = (authState, action) => {
 
 			// save profile picture
 			toDataURL(action.payload.photo).then((dataUrl) => {
-				console.log("RESULT:", dataUrl)
 				localStorage.setItem("photo", JSON.stringify(dataUrl))
 			})
 
 			console.log("ca login dans la app") // a suppp
-			// console.log(action.payload)  // a suppp
 
 			return {
 				...authState,

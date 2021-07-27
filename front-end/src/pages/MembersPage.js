@@ -5,12 +5,12 @@ import Members from "../components/Members"
 
 export default function MembersPage() {
 	return (
-		<div>
+		<React.Fragment>
 			<Navigation />
-			<div className="container">
+			<main className="container">
 					<h1 className="d-none">Membres collègues amis page</h1>
 					<Members />
-			</div>
-		</div>
+			</main>
+		</React.Fragment>
 	)
 }

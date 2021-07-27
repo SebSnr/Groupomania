@@ -1,8 +1,5 @@
-
-
 .profile-picture {
 	
-	// display: inline-block;
 	position: relative;
 	overflow: hidden;
 	border-radius: 50%;
@@ -12,22 +9,20 @@
 	padding-right: 0!important;
 	padding-left: 0!important;
 
-	
-	&--mini {
-		margin-right: 15px;
-		height: 2.5rem;
-		width: 2.5rem;
-	}
-
-	&__clipped {
-
+	img {
 		position: absolute;
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
 		width: 7rem;
+	}
+	
+	&--mini {
+		margin-right: 15px;
+		height: 2.5rem;
+		width: 2.5rem;
 
-		&--mini {
+		img {
 			width: 2.5rem;
 		}
 	}

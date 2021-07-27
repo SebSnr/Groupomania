@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 // components
-import MiniProfilePicture from "./MiniProfilePicture"
+import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
 
 export default function ArticleCard(props) {
@@ -46,7 +46,7 @@ export default function ArticleCard(props) {
 		<div className={`card shadow article mb-4 p-3 ${props.class} `}>
 			<div className="card-body align-items-center">
 				<div className="d-flex align-items-end flex-wrap mb-1">
-					<MiniProfilePicture photo={props.article.User.photo} />
+					<ProfilePicture photo={props.article.User.photo} class="profile-picture--mini" />
 
 					<span className="h5 flex-grow-1">{props.article.User.firstName}</span>
 
