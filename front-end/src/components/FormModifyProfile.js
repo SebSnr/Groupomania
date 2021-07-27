@@ -33,15 +33,11 @@ export default function FormModifyProfile(props) {
 
 		// set data object to send
 		const formData = new FormData()
-		// for (let i in values) {
-		// 	formData.append(i, values[i])
-		// }
 		for (let i in values) {
-			if (!values[i]) {
-				console.log(values[i])
-			} else {
-				formData.append(i, values[i])
-			}
+			if (!values[i]) {}
+			else if (i === "password") formData.append(i, values[i])
+			else if (i === "email") formData.append(i, values[i].toLowerCase())
+			else formData.append(i, values[i].charAt(0).toUpperCase() + values[i].slice(1).toLowerCase()) 
 		}
 
 		// add file if exist and validated

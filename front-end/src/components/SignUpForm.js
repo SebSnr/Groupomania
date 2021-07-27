@@ -38,7 +38,9 @@ export default function SignUpForm() {
 		// set data object to send
 		const formData = new FormData()
 		for (let i in values) {
-			formData.append(i, values[i])
+			if (i === "password") formData.append(i, values[i])
+			else if (i === "email") formData.append(i, values[i].toLowerCase())
+			else formData.append(i, values[i].charAt(0).toUpperCase() + values[i].slice(1).toLowerCase()) 
 		}
 		// add file if exist and validated
 		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png"].includes(selectedFile.type)) {
