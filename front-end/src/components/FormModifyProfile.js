@@ -25,12 +25,7 @@ export default function FormModifyProfile(props) {
 	const ModifySchema = Yup.object().shape({
 		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long*"),
 		lastName: Yup.string().min(2, "trop court*").max(50, "Trop long*"),
-		email: Yup.string().email("adresse mail invalide*"),
 		password: Yup.string().min(4, "trop court*").max(50, "Trop long*"),
-		// photo: Yup.mixed()
-		// 	// .test("fileSize", "photo trop lourde", (value) => value === null || (value && value.size <= 2000000))
-		// 	.test("fileType", "formats autorisés : jpg, jpeg, png", (value) => value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type))
-		// 	.required("obligatoire*"),
 	})
 
 	// send form data
@@ -53,7 +48,6 @@ export default function FormModifyProfile(props) {
 			}
 		}
 
-		// add file if exist and validated
 		// add file if exist and validated
 		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png"].includes(selectedFile.type)) {
 			formData.append("picture", selectedFile)
@@ -114,7 +108,6 @@ export default function FormModifyProfile(props) {
 				initialValues={{
 					firstName: "",
 					lastName: "",
-					email: "",
 					password: "",
 					photo: "",
 				}}
@@ -125,14 +118,11 @@ export default function FormModifyProfile(props) {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="firstName" type="text" placeholder="Nouveau prénom" />
+					<Field name="firstName" type="text" placeholder="Nouveau prenom" />
 					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
 					<Field name="lastName" type="text" placeholder="Nouveau nom" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
-
-					<Field name="email" type="email" placeholder="Nouveau mail" />
-					<ErrorMessage name="email" component="div" className="errorInput" />
 
 					<Field name="password" type="password" placeholder="Nouveau mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
