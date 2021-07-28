@@ -21,8 +21,11 @@ export default function Navigation() {
 		<header className="header shadow py-0">
 			<nav className="navbar navbar-expand-lg mb-4">
 				<div className="container">
-					<NavLink className="navbar-brand" to="/">
+					<NavLink className="navbar-brand d-none d-lg-block" to="" onClick={() => history.goBack()}>
 						<img src="/img/icon.png" alt="Retour accueil" className="navbar-brand__logo" />
+					</NavLink>
+					<NavLink className="nav-link--icon d-lg-none my-2" to="/">
+						<img src="/img/previous-icon.svg" alt="Precedent" className="nav-svg-icon" />
 					</NavLink>
 					<button
 						className="navbar-toggler nav-burger--custom"
@@ -60,7 +63,7 @@ export default function Navigation() {
 									title="Se deconnecter"
 									to=""
 								>
-									<img src="/img/logout.svg" className="nav-svg-icon" alt="Se deconnecter"></img>
+									<img src="/img/logout.svg" className="nav-svg-icon my-2" alt="Se deconnecter"></img>
 								</NavLink>
 							</li>
 						</ul>

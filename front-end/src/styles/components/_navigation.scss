@@ -12,6 +12,7 @@
 		&__logo {
 			height: 34px;
 			border-radius: 50%;
+			margin-left: 10px;
 			&:hover,
 			&:focus,
 			&:active {
@@ -22,6 +23,9 @@
 	}
 
 	.nav-link--icon {
+		// padding-top: 0.5rem;
+		// padding-bottom: 0.5rem;
+
 		&:hover,
 		&:focus,
 		&:active {
@@ -39,10 +43,9 @@
 
 		.nav-svg-icon {
 			filter: brightness(0) invert(1);
-			width: 25px;
-			margin-right: 10px;
-			margin-left: 40px;
-
+			width: 1.6rem;
+			height: 1.6rem;
+			margin-right: 20px;
 			&:hover,
 			&:focus,
 			&:active {
@@ -58,7 +61,6 @@
 	.nav-burger--custom {
 		font-size: 1.1rem;
 		color: white;
-		margin-left: 40px;
 		outline: none;
 
 		&:hover,
@@ -73,7 +75,7 @@
 		&:hover,
 		&:focus,
 		&:active {
-			font-size: 1.15rem;
+			font-size: 1.12rem;
 		}
 	}
 }
