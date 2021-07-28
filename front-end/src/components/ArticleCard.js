@@ -30,7 +30,6 @@ export default function ArticleCard(props) {
 				if (res.status === 200) {
 					alert("Post supprimé")
 					props.setArticlesRefresh(true)
-					// ((window.location = "/"))
 				}
 			})
 			.catch(() => alert("Impossible de supprimer ce post."))

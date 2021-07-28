@@ -1,14 +1,15 @@
 import React, {useContext} from "react"
-import {NavLink, useHistory} from "react-router-dom"
+import {NavLink} from "react-router-dom"
+import { useHistory } from "react-router"
 // components
 import {AuthContext} from "../App"
 
 export default function Navigation() {
-	let history = useHistory()
-
-
 	// dispatch action and state of authentication
 	const {dispatchAuthState} = useContext(AuthContext)
+
+	// use history hook
+	const history = useHistory()
 
 	const handleDeconnect = () => {
 		dispatchAuthState({
@@ -21,12 +22,12 @@ export default function Navigation() {
 		<header className="header shadow py-0">
 			<nav className="navbar navbar-expand-lg mb-4">
 				<div className="container">
-					<NavLink className="navbar-brand d-none d-lg-block" to="" onClick={() => history.goBack()}>
+					<NavLink className="navbar-brand d-none d-lg-block" to="/">
 						<img src="/img/icon.png" alt="Retour accueil" className="navbar-brand__logo" />
 					</NavLink>
-					<NavLink className="nav-link--icon d-lg-none my-2" to="/">
+					<button className="nav-btn-icon d-lg-none my-2" onClick={() => history.goBack()} title="revenir en arrière">
 						<img src="/img/previous-icon.svg" alt="Precedent" className="nav-svg-icon" />
-					</NavLink>
+					</button>
 					<button
 						className="navbar-toggler nav-burger--custom"
 						type="button"
@@ -57,14 +58,15 @@ export default function Navigation() {
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink
-									onClick={() => {if (window.confirm("Se déconnecter ?")) handleDeconnect()}}
-									className="nav-link--icon"
+								<button
+									onClick={() => {
+										if (window.confirm("Se déconnecter ?")) handleDeconnect()
+									}}
+									className="nav-btn-icon"
 									title="Se deconnecter"
-									to=""
 								>
 									<img src="/img/logout.svg" className="nav-svg-icon my-2" alt="Se deconnecter"></img>
-								</NavLink>
+								</button>
 							</li>
 						</ul>
 					</div>
