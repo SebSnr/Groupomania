@@ -9,7 +9,6 @@ import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
 
 export default function ArticleCard(props) {
-
 	// Format article date
 	let options = {year: "numeric", month: "long", day: "numeric"}
 	let dbDate = new Date(props.article.createdAt)
@@ -37,14 +36,18 @@ export default function ArticleCard(props) {
 			.catch(() => alert("Impossible de supprimer ce post."))
 	}
 
-	// console.log(props.article.User.firstName)
-	// 	rajouter "props.article.User.firstName et photo" ligne 47 sous ProfilePicture, ne fonctionne pas toujours. probleme de sync ?
 
+	// set article for state of article page
 	let article = props.article
+
+	// set text size css in function of media because text-overflow: ellipsis not working vertically
+	let cardBodyClass= "" ;	let cardTextClass= ""; let mediaContainerClass= ""; let cardMediaNone= ""
+	if (!article.picture && !article.youtube) {cardBodyClass= "card-body--full"; cardTextClass= "card-text--full" ; cardMediaNone= "d-none"}
+	if (!article.text) {cardBodyClass = "card-body--mini"; mediaContainerClass = "media-container--full"}
 
 	return (
 		<div className={`card shadow article mb-4 p-3 ${props.class} `}>
-			<div className="card-body align-items-center">
+			<div className={`card-body align-items-center ${cardBodyClass}`}>
 				<div className="d-flex align-items-end flex-wrap mb-1">
 					<ProfilePicture photo={props.article.User.photo} class="profile-picture--mini" />
 
@@ -64,13 +67,13 @@ export default function ArticleCard(props) {
 						</button>
 					) : null}
 				</div>
-				<div className={`d-flex justify-content-end mb-3 text-muted fst-italic article__date`}  >{articleDate}</div>
-				<Link to={{pathname: `/articles`, state: {article}}} className="overflow-hidden text-decoration-none">
-					<p className="card-text">{props.article.text}</p>
+				<div className={`d-flex justify-content-end mb-2 mx-1 text-muted fst-italic article__date`}>{articleDate}</div>
+
+				<Link to={{pathname: `/articles`, state: {article}}} className="text-decoration-none">
+					<p className={`card-text ${cardTextClass}`}>{props.article.text}</p>
 				</Link>
 			</div>
-			<Link to={{pathname: `/articles`, state: {article}}} className="overflow-hidden text-decoration-none">
-
+			<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none media-container ${mediaContainerClass} ${cardMediaNone}`}>
 				<CardMedia props={props} />
 			</Link>
 		</div>
@@ -81,14 +84,14 @@ function CardMedia(props) {
 	if (props.props.article.picture) {
 		return (
 			<React.Fragment>
-					<img src={props.props.article.picture} className="card-img-bottom overflow-hidden rounded-3" alt="article multimédia" />
-   		 	</React.Fragment>
+				<img src={props.props.article.picture} className="rounded-3" alt="article multimédia" />
+			</React.Fragment>
 		)
 	} else if (props.props.article.youtube) {
 		return (
-			<div className="card-img-bottom overflow-hidden rounded-3">
-					<ReactPlayer url={props.props.article.youtube} width="100%" className="card-img-bottom" />
-			</div>
+			<React.Fragment>
+				<ReactPlayer url={props.props.article.youtube} width="100%" className="overflow-hidden rounded-3" />
+			</React.Fragment>
 		)
 	} else return ""
 }
