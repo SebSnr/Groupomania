@@ -14,19 +14,22 @@ export default function Members() {
 	const [filteredUsers, setFilteredUsers] = useState(users)
 
 	let initialMembersRender = (
-		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column align-items-center mb-4">
+		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column mb-4">
 			<h3 className="text-center mb-3">Collègues</h3>
 			<input type="text" onChange={(event) => handleSearch(event.target.value.toLowerCase())} className="searchUsers mb-4" placeholder="Rechercher..."></input>
-			<ul className="p-0 w-100" style={{"maxHeight": "80vh", "maxWidth": "220px"}}>
+			<ul className="p-0 w-100" style={{"maxHeight": "80vh", "maxWidth": "350px"}}>
 				{filteredUsers.map((user, index) => (
 					<div key={index}>
-						<li className="d-flex align-items-center justify-content-between flex-wrap mb-4 w-100">
+						<li className="d-flex align-items-center justify-content-between mb-4 w-100 text-left">
 							<button
-								className="flex-grow-1 bg-transparent d-flex align-items-center "
+								className="d-flex align-items-center justify-content-start flex-grow-1 bg-transparent text-start text-truncate "
 								onClick={() => setMembersRender(<MemberProfile user={user} setMembersRender={setMembersRender} initialMembersRender={initialMembersRender} />)}
 							>
 								<ProfilePicture photo={user.photo} class="profile-picture--mini" />
-								{user.firstName} <br />{user.lastName}
+								<span className="text-truncate">
+									{user.firstName}
+									<br /> {user.lastName}
+								</span>
 							</button>
 
 							{AuthState.isAdmin === true && user.id !== AuthState.user ? (
@@ -102,13 +105,13 @@ export default function Members() {
 
 function MemberProfile(props) {
 	return (
-		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center">
+		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center text-truncate">
 			{/* <h3 className="text-center mb-3">Collègue</h3> */}
 			<ProfilePicture photo={props.user.photo} />
-			<div className="mt-3">
-				{props.user.firstName} {props.user.lastName}
+			<div className="mt-3 text-truncate">
+				{props.user.firstName}<br />{props.user.lastName}
 			</div>
-			<div className="mb-3">{props.user.email}</div>
+			<div className="mb-3 text-wrap text-break">{props.user.email}</div>
 
 			<button
 				className="btn-sm btn-customize1"
