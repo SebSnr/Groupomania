@@ -67,12 +67,13 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
 	User.findOne({where: {email: req.body.email}})
 		.then((user) => {
-			if (!user) {
-				return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
-			}
+			// if (!user) {
+			// 	return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
+			// }
 			bcrypt
 				.compare(req.body.password, user.password)
 				.then((valid) => {
+					console.log(valid)
 					if (!valid) {
 						return res.status(401).send("Mot de passe incorrect")
 					}
@@ -87,9 +88,8 @@ exports.login = (req, res) => {
 						isAdmin: user.isAdmin,
 					})
 				})
-				.catch((error) => res.status(403).send({error}))
 		})
-		.catch((error) => res.status(500).send({error}))
+		.catch(() => res.status(401).send("Utilisateur non trouvé"))
 }
 
 exports.getAll = (req, res) => {
@@ -167,7 +167,7 @@ exports.delete = (req, res) => {
 
 exports.modify = (req, res) => {
 	if (!req) {
-		res.status(403).send({message: "Content can not be empty"})
+		res.status(401).send("Content can not be empty")
 		return
 	}
 
@@ -206,6 +206,7 @@ exports.modify = (req, res) => {
 					},
 					{where: {id: decodedId}}
 				)
+				.catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
 				// console.log(`newwwUser après update : ${User.firstName}`)
 			})
 			.then(() => {
@@ -224,6 +225,6 @@ exports.modify = (req, res) => {
 					isAdmin: user.isAdmin,
 				})
 			})
-			.catch((error) => res.status(403).send({error}))
+			.catch(() => res.status(500).send("utilisateur non trouvé"))
 	})
 }

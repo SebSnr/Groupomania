@@ -22,9 +22,7 @@ const checkAdmin = (decodedId) => {
 exports.create = (req, res) => {
 	// Validate request
 	if (!req) {
-		res.status(403).send({
-			message: "Content can not be empty!",
-		})
+		res.status(403).send("Content can not be empty!")
 		return
 	}
 
@@ -54,7 +52,7 @@ exports.create = (req, res) => {
 		.then((data) => {
 			res.send(data)
 		})
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).send({error}))
 }
 
 // Get all articles
@@ -66,7 +64,7 @@ exports.getAll = (req, res) => {
 		.then((articles) => {
 			res.send(articles)
 		})
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).send({error}))
 }
 
 // Get one article
@@ -79,7 +77,7 @@ exports.getOne = (req, res) => {
 		.then((article) => {
 			res.send(article)
 		})
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).send({error}))
 }
 
 // Delete one article
@@ -97,19 +95,19 @@ exports.delete = (req, res) => {
 				// delete picture then delete article
 				fs.unlink(`./uploads/${filename}`, () => {
 					Article.destroy({where: {id: req.params.id}})
-						.then(() => res.status(200).json("Article deleted"))
-						.catch((error) => res.status(403).json({error}))
+						.then(() => res.status(200).send("Article deleted"))
+						.catch((error) => res.status(403).send({error}))
 				})
 			} else {
-				res.status(403).json("Access authorization error")
+				res.status(403).send("Access authorization error")
 			}
 
 			console.log("post find but error authentication") // a supprimer
 		})
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).send({error}))
 }
 
-// Modify one article
+// Modify one article //no working
 exports.modify = (req, res) => {
 	let articleObjet = 0
 	if (req.file) {
@@ -127,5 +125,5 @@ exports.modify = (req, res) => {
 
 	Article.updateOne({id: req.params.id}, {...sauceObject, _id: req.params.id})
 		.then(() => res.status(200).json({message: "article modifié"}))
-		.catch((error) => res.status(403).json({error}))
+		.catch((error) => res.status(403).send({error}))
 }

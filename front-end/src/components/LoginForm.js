@@ -46,9 +46,7 @@ export default function LoginForm() {
 					history.push("/")
 				}
 			})
-			.catch((error) => {
-				if (error.response) setErrorMessage(error.response.data)
-			})
+			.catch((error) => {if (error.response) setErrorMessage(error.response.data)})
 	}
 
 	return (
@@ -78,7 +76,7 @@ export default function LoginForm() {
 						</button>
 
 						{errorMessage && (
-							<div className="text-danger small">
+							<div className="text-danger small text-center">
 								<br />
 								{errorMessage}
 							</div>

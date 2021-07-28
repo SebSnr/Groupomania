@@ -70,12 +70,10 @@ export default function SignUpForm() {
 					setErrorMessage(null)
 					resetForm()
 					history.push("/")
-				} else console.log("Error with signup then login")
+				}
 			})
-			.catch((error) => {
-				if (error.response) setErrorMessage(error.response.data)
-				console.log(error) // A SUPP
-			})
+			.catch((error) => {if (error.response) setErrorMessage(error.response.data)})
+
 	}
 
 	return (
@@ -115,7 +113,7 @@ export default function SignUpForm() {
 					</button>
 
 					{errorMessage && (
-						<div className="text-danger small">
+						<div className="text-danger small text-center">
 							<br />
 							{errorMessage}
 						</div>

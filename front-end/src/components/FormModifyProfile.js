@@ -66,11 +66,9 @@ export default function FormModifyProfile(props) {
 				})
 				setErrorMessage(null)
 				resetForm()
-			} else console.log("Error with modify then login")
+			}
 		})
-		// .catch((error) => {
-		// 	if (error.response) setErrorMessage(error.response.data)
-		// })
+		.catch((error) => {if (error.response) setErrorMessage(error.response.data)})
 	}
 
 	const handleDeleteAccount = () => {
