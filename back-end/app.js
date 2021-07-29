@@ -1,13 +1,35 @@
 const express = require("express")
 const path = require("path")
+const helmet = require("helmet")
+const cookieSession = require("cookie-session")
 
 const app = express()
+
+// separate sensitive connect data
+require("dotenv").config()
+cookieName = process.env.NAME_COOKIE
+secretCookie = process.env.SECRET_COOKIE
 
 const db = require("./models/index")
 db.sequelize.sync() 
 
 // drop the table if already exists
 // db.sequelize.sync({ force: true }).then(() => {console.log("Drop and re-sync db.");});
+
+// secure cookie http-only
+app.use(
+	cookieSession({
+		name: "notadefaultname4e84fesZ7dzsdhgVD",
+		secret: "frdgsvyu68411dfvd451csNVd",
+		maxAge: 86400000, //24h
+		secure: true,
+		httpOnly: true,
+		domain: "http://localhost:3000",
+	})
+)
+
+// secure app by various HTTP headers (like disable cache)
+app.use(helmet())
 
 // allow different access control
 app.use((req, res, next) => {

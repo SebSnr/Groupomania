@@ -4,10 +4,14 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const fs = require("fs")
 
+// separate sensitive connect data
+require("dotenv").config()
+secretTokenKey = process.env.TOKEN_SECRET
+
 // Get user id by token
 const getTokenUserId = (req) => {
 	const token = req.headers.authorization.split(" ")
-	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984")
+	const decodedToken = jwt.verify(token[1], secretTokenKey)
 	const decodedId = decodedToken.userId
 	return decodedId
 }
@@ -52,7 +56,7 @@ exports.signup = (req, res) => {
 				}
 				res.status(200).send({
 					user: userDB.id,
-					token: jwt.sign({userId: userDB.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+					token: jwt.sign({userId: userDB.id}, secretTokenKey, {expiresIn: "2h"}),
 					firstName: userDB.firstName,
 					lastName: userDB.lastName,
 					photo: userDB.photo,
@@ -79,7 +83,7 @@ exports.login = (req, res) => {
 					}
 					res.status(200).send({
 						user: user.id,
-						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+						token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
 						firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
 						lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
 						email: user.email.toLowerCase(),
@@ -217,7 +221,7 @@ exports.modify = (req, res) => {
 				console.log(`le user dans la db : ${user.firstName}`)
 				res.status(200).send({
 					user: user.id,
-					token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
+					token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
 					firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
 					lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
 					photo: user.photo,

@@ -5,11 +5,13 @@ module.exports = (app) => {
 	const auth = require("../middleware/auth")
 	const verifyMail = require("../middleware/verifyMail")
 	const verifyPassword = require("../middleware/verifyPassword")
+	const limiter = require('../middleware/rate-limiter')
+
 
 	app.use("/api/auth", router)
 
 	router.post("/signup", multer, verifyMail, verifyPassword, userCtrl.signup)
-	router.post("/login", verifyMail, verifyPassword, userCtrl.login) 
+	router.post("/login", limiter, verifyMail, verifyPassword, userCtrl.login) 
 	router.get("/", auth, userCtrl.getAll)
 	router.delete("/user/:email", auth, userCtrl.deleteOneUser)
 	router.delete("/", auth, userCtrl.delete)

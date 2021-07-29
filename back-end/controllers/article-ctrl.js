@@ -3,10 +3,14 @@ const Article = db.Article
 const fs = require("fs")
 const jwt = require("jsonwebtoken")
 
+// separate sensitive connect data
+require("dotenv").config()
+secretTokenKey = process.env.TOKEN_SECRET
+
 // Get user id by token
 const getTokenUserId = (req) => {
 	const token = req.headers.authorization.split(" ")
-	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984")
+	const decodedToken = jwt.verify(token[1], secretTokenKey)
 	const decodedId = decodedToken.userId
 	return decodedId
 }
@@ -26,9 +30,8 @@ exports.create = (req, res) => {
 		return
 	}
 
-	// Get user id from token
-	const token = req.headers.authorization.split(" ")
-	const decodedToken = jwt.verify(token[1], "monTokenSuperSecret1984")
+	// get ID
+	const decodedId = getTokenUserId(req)
 
 	// if picture
 	let pictureUrl = ""
@@ -39,10 +42,10 @@ exports.create = (req, res) => {
 	// Create a article
 	const article = {
 		text: req.body.text,
-		author: decodedToken.userId,
+		author: decodedId,
 		youtube: req.body.youtube,
 		picture: pictureUrl,
-		UserId: decodedToken.userId,
+		UserId: decodedId,
 	}
 
 	// console.log(article)
