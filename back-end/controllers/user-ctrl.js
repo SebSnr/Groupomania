@@ -80,9 +80,9 @@ exports.login = (req, res) => {
 					res.status(200).send({
 						user: user.id,
 						token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
-						firstName: user.firstName,
-						lastName: user.lastName,
-						email: user.email,
+						firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
+						lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
+						email: user.email.toLowerCase(),
 						photo: user.photo,
 						isAuthenticated: true,
 						isAdmin: user.isAdmin,
@@ -218,8 +218,8 @@ exports.modify = (req, res) => {
 				res.status(200).send({
 					user: user.id,
 					token: jwt.sign({userId: user.id}, "monTokenSuperSecret1984", {expiresIn: "2h"}),
-					firstName: user.firstName,
-					lastName: user.lastName,
+					firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
+					lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
 					photo: user.photo,
 					isAuthenticated: true,
 					isAdmin: user.isAdmin,

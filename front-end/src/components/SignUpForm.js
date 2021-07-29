@@ -9,6 +9,7 @@ import {ApiUrl} from "../utils/variables-config"
 import {AuthContext} from "../App"
 
 export default function SignUpForm() {
+	require('yup-password')(Yup) //update yup password librairie
 	let history = useHistory()
 
 	// use authentication global state
@@ -28,7 +29,8 @@ export default function SignUpForm() {
 			.email("mail invalide*")
 			.test("@groupomania.com", "mail@groupomania.com*", (email) => email && email.indexOf("@groupomania.com", email.length - "@groupomania.com".length) !== -1)
 			.required("obligatoire*"),
-		password: Yup.string().min(4, "trop court*").max(50, "trop long*").required("obligatoire*"),
+		password: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
+
 	})
 
 	// send form data
