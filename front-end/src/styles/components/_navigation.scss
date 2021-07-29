@@ -2,7 +2,7 @@
 	background-color: $color-2;
 
 	.navbar-brand {
-		margin-left: 10px;
+		margin-left: 15px;
 
 		&:focus,
 		&:active {
@@ -12,7 +12,6 @@
 		&__logo {
 			height: 34px;
 			border-radius: 50%;
-			margin-left: 10px;
 			&:hover,
 			&:focus,
 			&:active {

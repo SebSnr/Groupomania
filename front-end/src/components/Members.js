@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react"
 import {AuthContext} from "../App"
 import axios from "axios"
+import Loader from "react-loader-spinner"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 //components
@@ -9,9 +10,9 @@ import ProfilePicture from "./ProfilePicture"
 export default function Members() {
 	const {AuthState} = useContext(AuthContext)
 
-	//state users data
 	const [users, setUsers] = useState([])
 	const [filteredUsers, setFilteredUsers] = useState(users)
+	const [loading, setLoading] = useState(true)
 
 	let initialMembersRender = (
 		<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column mb-4">
@@ -72,6 +73,7 @@ export default function Members() {
 			console.log(res.data)
 			setUsers(res.data)
 			setFilteredUsers(res.data)
+			setLoading(false)
 		})
 	}
 
@@ -100,7 +102,9 @@ export default function Members() {
 			})
 	}
 
-	return membersRender
+	// loader page if no members data
+	if (loading === true ) return <div className="d-flex justify-content-center align-items-center vh-100 bg-white"><Loader type="TailSpin" color="#036bfc" height={100} width={100} timeout={300000} /></div>
+	else return membersRender
 }
 
 function MemberProfile(props) {
