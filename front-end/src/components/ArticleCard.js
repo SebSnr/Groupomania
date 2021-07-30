@@ -1,5 +1,5 @@
 import React, {useContext} from "react"
-import ReactPlayer from "react-player"
+import ReactPlayer from "react-player/youtube"
 import axios from "axios"
 import {Link} from "react-router-dom"
 // Utils
@@ -35,14 +35,23 @@ export default function ArticleCard(props) {
 			.catch(() => alert("Impossible de supprimer ce post."))
 	}
 
-
 	// set article for state of article page
 	let article = props.article
 
 	// set text size css in function of media because text-overflow: ellipsis not working vertically
-	let cardBodyClass= "" ;	let cardTextClass= ""; let mediaContainerClass= ""; let cardMediaNone= ""
-	if (!article.picture && !article.youtube) {cardBodyClass= "card-body--full"; cardTextClass= "card-text--full" ; cardMediaNone= "d-none"}
-	if (!article.text) {cardBodyClass = "card-body--mini"; mediaContainerClass = "media-container--full"}
+	let cardBodyClass = ""
+	let cardTextClass = ""
+	let mediaContainerClass = ""
+	let cardMediaNone = ""
+	if (!article.picture && !article.youtube) {
+		cardBodyClass = "card-body--full"
+		cardTextClass = "card-text--full"
+		cardMediaNone = "d-none"
+	}
+	if (!article.text) {
+		cardBodyClass = "card-body--mini"
+		mediaContainerClass = "media-container--full"
+	}
 
 	return (
 		<div className={`card shadow article mb-4 p-3 ${props.class} `}>
@@ -72,25 +81,11 @@ export default function ArticleCard(props) {
 					<p className={`card-text ${cardTextClass}`}>{props.article.text}</p>
 				</Link>
 			</div>
-			<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none media-container ${mediaContainerClass} ${cardMediaNone}`}>
-				<CardMedia props={props} />
-			</Link>
+			{article.youtube || article.picture ? (
+				<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none media-container ${mediaContainerClass} ${cardMediaNone}`}>
+						<ReactPlayer url={props.article.youtube} width="100%" className="overflow-hidden rounded-3" config={{ youtube: { playerVars: { origin: 'https://www.youtube.com' } } }} />
+				</Link>
+			) : null}
 		</div>
 	)
-}
-
-function CardMedia(props) {
-	if (props.props.article.picture) {
-		return (
-			<React.Fragment>
-				<img src={props.props.article.picture} className="rounded-3" alt="article multimédia" />
-			</React.Fragment>
-		)
-	} else if (props.props.article.youtube) {
-		return (
-			<React.Fragment>
-				<ReactPlayer url={props.props.article.youtube} width="100%" className="overflow-hidden rounded-3" />
-			</React.Fragment>
-		)
-	} else return ""
 }
