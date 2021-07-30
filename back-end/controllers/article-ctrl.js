@@ -1,5 +1,6 @@
 const db = require("../models")
 const Article = db.Article
+const User = db.User
 const fs = require("fs")
 const jwt = require("jsonwebtoken")
 
@@ -94,7 +95,7 @@ exports.delete = (req, res) => {
 
 			//check if user is the author of the article or is admin
 			if (article.UserId === decodedId || checkAdmin(decodedId)) {
-				const filename = article.picture.split("/images/")[1]
+				const filename = article.picture.split("/images/")[1] 
 				// delete picture then delete article
 				fs.unlink(`./uploads/${filename}`, () => {
 					Article.destroy({where: {id: req.params.id}})

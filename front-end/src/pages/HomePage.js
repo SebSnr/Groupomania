@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState} from "react"
+import React, {useContext, useEffect, useState, useCallback} from "react"
 import {AuthContext} from "../App"
 import axios from "axios"
 import Loader from "react-loader-spinner"
@@ -19,14 +19,8 @@ export default function HomePage() {
 	const [articlesData, setArticlesData] = useState(false)
 	const [articlesRefresh, setArticlesRefresh] = useState(false)
 
-	// event: get articles and refresh
-	useEffect(() => {
-		getArticles()
-		setArticlesRefresh(false)
-	}, [articlesRefresh, AuthState])
-
 	// get all articles
-	const getArticles = () => {
+	const getArticles = useCallback(() => {
 		axios({
 			method: "get",
 			url: `${ApiUrl}/articles`,
@@ -35,9 +29,20 @@ export default function HomePage() {
 			setArticlesData(res.data)
 			console.log(res.data)
 		})
-	}
+	}, [AuthState.token])
 
-	if (articlesData === false) return <div className="d-flex justify-content-center align-items-center vh-100 bg-white"><Loader type="TailSpin" color="#036bfc" height={100} width={100} timeout={300000} /></div>
+	// event: get articles and refresh
+	useEffect(() => {
+		getArticles()
+		setArticlesRefresh(false)
+	}, [articlesRefresh, AuthState, getArticles])
+
+	if (articlesData === false)
+		return (
+			<div className="d-flex justify-content-center align-items-center vh-100 bg-white">
+				<Loader type="TailSpin" color="#036bfc" height={100} width={100} timeout={300000} />
+			</div>
+		)
 	else
 		return (
 			<React.Fragment>
