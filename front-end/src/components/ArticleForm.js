@@ -80,7 +80,7 @@ export default function ArticleForm(props) {
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture photo={AuthState.photo} class="profile-picture--mini" />
-						<Field name="text" type="textarea" placeholder={placeHolderText} className="textInput p-3 mb-3" />
+						<Field name="text" type="textarea" placeholder={placeHolderText} className="textInput px-3 py-1" style={{"height" : "70px"}} />
 						<ErrorMessage name="text" component="div" className="errorInput" />
 					</div>
 

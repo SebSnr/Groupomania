@@ -71,7 +71,7 @@ export default function HomePage() {
 										return dateB - dateA
 									})
 									.map((article) => (
-										<ArticleCard article={article} key={article.id} setArticlesRefresh={setArticlesRefresh} class="article--card col-lg-17" />
+										<ArticleCard article={article} key={article.id} setArticlesRefresh={setArticlesRefresh} class="article--card" />
 									))}
 							</main>
 						</div>

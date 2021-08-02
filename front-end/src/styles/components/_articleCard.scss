@@ -1,9 +1,10 @@
 .article {
 	.media-container {
+
 		img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 	}
 
@@ -14,13 +15,17 @@
 	&--page {
 		max-width: 800px;
 		width: 100%;
+		height: 100%;
 	}
 
+
 	&--card {
-		height: 450px;
+		&__post {
+			height: 450px;
+			overflow: hidden;
+		}
 
 		.card-body {
-			padding: 0;
 			max-height: 30% !important;
 			overflow: hidden;
 
@@ -49,16 +54,10 @@
 			height: 100%;
 			max-height: 70% !important;
 			overflow: hidden;
-
+	
 			&--full {
 				max-height: 84% !important;
 			}
-		}
-
-		.card-img-bottom {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
 		}
 	}
 }
