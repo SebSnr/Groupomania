@@ -9,11 +9,15 @@ import NotFoundPage from "./pages/NotFoundPage"
 import ArticlePage from "./pages/ArticlePage"
 // utils
 import {initialAuth, AuthReducer} from "./utils/auth"
+import { RemoveBtnFocusOutline } from "./utils/removeBtnFocusOutline"
 
 // store authentication data globally
 export const AuthContext = React.createContext()
 
 function App() {
+
+	RemoveBtnFocusOutline()
+	
 	// dispatch authentication data and action
 	const [AuthState, dispatchAuthState] = React.useReducer(AuthReducer, initialAuth)
 

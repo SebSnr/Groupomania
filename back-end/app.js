@@ -43,14 +43,19 @@ app.use((req, res, next) => {
 app.use(express.json({limit: "20mb"}))
 app.use(express.urlencoded({extended: true}))
 
-// article routes
-require("./routes/article-routes")(app)
+
 
 //file route
 app.use('/images', express.static(path.join(__dirname, 'uploads')))
 
 // user routes
 require("./routes/user-routes")(app) 
+
+// article routes
+require("./routes/article-routes")(app)
+
+// comment routes
+require("./routes/comment-routes")(app)
 
 module.exports = app 
 

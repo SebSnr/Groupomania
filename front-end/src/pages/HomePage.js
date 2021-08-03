@@ -60,7 +60,7 @@ export default function HomePage() {
 						<div className="offset-lg-1 col-lg-26 mb-4">
 							<aside className="align-self-center mb-4 ">
 								<h1 className="d-none">Page d'accueil Groupomania</h1>
-								<ArticleForm setArticlesRefresh={setArticlesRefresh} refresh={false} />
+								<ArticleForm setArticlesRefresh={setArticlesRefresh} />
 							</aside>
 							<main className="d-lg-flex justify-content-lg-between flex-wrap">
 								<h3 className="d-none">Post article</h3>

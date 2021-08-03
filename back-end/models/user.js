@@ -5,9 +5,9 @@ module.exports = (sequelize, DataTypes) => {
 	class User extends Model {
 		static associate(models) {
 			// define associations tables
-			models.User.hasOne(models.Article)
-			//   models.User.hasMany(models.Comment);
-			//   models.User.hasMany(models.Like);
+			models.User.hasMany(models.Article)
+			models.User.hasMany(models.Comment);
+			models.User.hasMany(models.Like);
 		}
 	}
 	User.init(

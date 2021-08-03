@@ -1,6 +1,7 @@
 const db = require("../models")
 const Article = db.Article
 const User = db.User
+const Comment = db.Comment
 const fs = require("fs")
 const jwt = require("jsonwebtoken")
 
@@ -23,7 +24,7 @@ const checkAdmin = (decodedId) => {
 	return admin
 }
 
-// Create a new Article
+// Create a new comment
 exports.create = (req, res) => {
 	// Validate request
 	if (!req) {
@@ -34,49 +35,48 @@ exports.create = (req, res) => {
 	// get ID
 	const decodedId = getTokenUserId(req)
 
-	// if picture
-	let pictureUrl = ""
-	if (req.file) {
-		pictureUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-	}
 
-	// Create a article
-	const article = {
+	// Create a comment
+	const comment = {
 		text: req.body.text,
-		author: decodedId,
-		youtube: req.body.youtube,
-		picture: pictureUrl,
 		UserId: decodedId,
+		ArticleId: req.params.id
 	}
 
-	// console.log(article)
+	console.log(comment) 
 
-	// Save article in the database
-	Article.create(article)
-		.then((data) => {
-			res.send(data)
+	// Save comment in the database
+	Comment.create(comment)
+		.then(() => {
+			res.send("Comment created") 
 		})
 		.catch((error) => res.status(403).send({error}))
 }
 
-// Get all articles
+// Get all comments
 exports.getAll = (req, res) => {
-	Article.findAll({
+	console.log(req.params.id)
+	console.log(req.params.id) // A SUPP
+	Comment.findAll({
+		// attributes: {exclude: ['UserId']},
+		where: {ArticleId: req.params.id},
 		order: [["createdAt", "DESC"]],
 		include: [{model: db.User, attributes: ["firstName", "lastName", "photo"]}],
 	})
-		.then((articles) => {
-			res.send(articles)
+		.then((comment) => {
+			res.send(comment)
 		})
 		.catch((error) => res.status(403).send({error}))
+
 }
 
 // Get one article
 exports.getOne = (req, res) => {
 	console.log(req.params.id) // A SUPP
 	Article.findOne({
+		attributes: {exclude: ['id']},
 		where: {id: req.params.id},
-		include: [{model: db.User, attributes: ["firstName", "lastName", "photo"]}],
+		include: [{model: User, attributes: ["firstName", "lastName", "photo"]}],
 	})
 		.then((article) => {
 			res.send(article)
