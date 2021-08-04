@@ -7,7 +7,7 @@ export default function MembersPage() {
 	return (
 		<React.Fragment>
 			<Navigation />
-			<main className="container">
+			<main className="container gx-0">
 					<h1 className="d-none">Membres collègues amis page</h1>
 					<Members />
 			</main>

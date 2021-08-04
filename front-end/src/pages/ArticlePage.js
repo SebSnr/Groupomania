@@ -14,7 +14,7 @@ if (!article) return <div className="d-flex justify-content-center align-items-c
 		return (
 			<React.Fragment>
 				<Navigation />
-				<main className="container d-flex justify-content-center ">
+				<main className="container gx-0 d-flex justify-content-center ">
 					<ArticleCard article={article} class="article--page" />
 				</main>
 			</React.Fragment>

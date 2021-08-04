@@ -47,7 +47,7 @@ export default function HomePage() {
 		return (
 			<React.Fragment>
 				<Navigation />
-				<div className="container">
+				<div className="container gx-0">
 					<div className="row">
 						<div className="d-none d-lg-block col-9">
 							<aside className="p-0 d-none d-lg-block mb-4">
