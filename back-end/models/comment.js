@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
 				},
 				onDelete: "CASCADE",
 			})
-			models.Comment.hasMany(models.Like)
 		}
 	}
 	Comment.init(

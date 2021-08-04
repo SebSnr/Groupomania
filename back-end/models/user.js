@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define associations tables
 			models.User.hasMany(models.Article)
 			models.User.hasMany(models.Comment);
-			models.User.hasMany(models.Like);
+			// models.User.hasMany(models.Like);
 		}
 	}
 	User.init(
@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
 			password: {type: DataTypes.STRING, allowNull: false},
 			photo: { type: DataTypes.STRING, allowNull: true },
 			isAdmin: {type: DataTypes.BOOLEAN, allowNull: false,  defaultValue: false},
+			// like: {type: DataTypes.INTEGER, allowNull: true},   
+			// disLike: {type: DataTypes.INTEGER, allowNull: true},  
+			// usersLiked:{type: DataTypes.ARRAY(DataTypes.DECIMAL), allowNull: true},
+			// usersDisLiked:{type: DataTypes.ARRAY(DataTypes.DECIMAL), allowNull: true}   
 		},
 		{
 			sequelize,

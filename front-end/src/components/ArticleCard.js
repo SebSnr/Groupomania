@@ -46,33 +46,33 @@ export default function ArticleCard(props) {
 	let mediaContainerClass = ""
 	let cardMediaNone = ""
 	if (!article.picture && !article.youtube) {
-		cardBodyClass = "card-body--full"
+		cardBodyClass = "card-body--header--full"
 		cardTextClass = "card-text--full"
 		cardMediaNone = "d-none"
 	}
 	if (!article.text) {
-		cardBodyClass = "card-body--mini"
+		cardBodyClass = "card-body--header--mini"
 		mediaContainerClass = "media-container--full"
 	}
 
 	return (
 		<div className={`card shadow article w-100 mb-4 ${props.class} `}>
 			<div className={`border-bottom ${props.class}__post`}>
-				<div className={`card-body mb-3 align-items-center ${cardBodyClass}`}>
+				<div className={`card-body card-body--header mb-3 align-items-center ${cardBodyClass}`}>
 					<div className="d-flex align-items-end flex-wrap mb-1">
 						<ProfilePicture photo={props.article.User.photo} class="profile-picture--mini" />
 
 						<span className="h5 flex-grow-1">{props.article.User.firstName} {props.article.User.lastName}</span>
 
-						{props.article.author === AuthState.user || AuthState.isAdmin === true ? (
+						{props.article.UserId === AuthState.user || AuthState.isAdmin === true ? (
 							<button
 								type="button"
 								className="btn-sm bg-white fs-5"
 								onClick={() => {
-									if (window.confirm("Administrateur : Supprimer ce post définitivement ?")) deleteArticle()
+									if (window.confirm("Supprimer ce post définitivement ?")) deleteArticle()
 								}}
-								title="Administrateur: Supprimer l'article"
-								aria-label="Administrateur: Supprimer l'article"
+								title="supprimer l'article"
+								aria-label="supprimer l'article"
 							>
 								🗑️
 							</button>
@@ -87,7 +87,7 @@ export default function ArticleCard(props) {
 
 				{article.youtube || article.picture ? (
 					<div className={`media-container ${mediaContainerClass} ${cardMediaNone}`}>
-					<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none d-block`}>
+					<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none`}>
 						{article.youtube ? (
 							<ReactPlayer url={props.article.youtube} width="100%" className="overflow-hidden" config={{youtube: {playerVars: {origin: "https://www.youtube.com"}}}} />
 						) : (

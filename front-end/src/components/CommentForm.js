@@ -34,7 +34,7 @@ export default function CommentForm(props) {
 	}
 
 	const validationSchema = Yup.object().shape({
-		text: Yup.string().min(2, "").max(200, "trop long, max 200 charactères*").required("trop court, min 2 charactères*")
+		text: Yup.string().min(2, "").max(400, "trop long, max 400 charactères*").required("trop court, min 2 charactères*")
 	})
 
 	return (

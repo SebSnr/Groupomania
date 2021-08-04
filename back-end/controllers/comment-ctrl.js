@@ -1,9 +1,11 @@
+const jwt = require("jsonwebtoken")
+const fs = require("fs")
+
 const db = require("../models")
 const Article = db.Article
 const User = db.User
 const Comment = db.Comment
-const fs = require("fs")
-const jwt = require("jsonwebtoken")
+
 
 // separate sensitive connect data
 require("dotenv").config()
@@ -43,8 +45,6 @@ exports.create = (req, res) => {
 		ArticleId: req.params.id
 	}
 
-	console.log(comment) 
-
 	// Save comment in the database
 	Comment.create(comment)
 		.then(() => {
@@ -55,7 +55,6 @@ exports.create = (req, res) => {
 
 // Get all comments
 exports.getAll = (req, res) => {
-	console.log(req.params.id)
 	console.log(req.params.id) // A SUPP
 	Comment.findAll({
 		// attributes: {exclude: ['UserId']},
@@ -70,64 +69,25 @@ exports.getAll = (req, res) => {
 
 }
 
-// Get one article
-exports.getOne = (req, res) => {
-	console.log(req.params.id) // A SUPP
-	Article.findOne({
-		attributes: {exclude: ['id']},
-		where: {id: req.params.id},
-		include: [{model: User, attributes: ["firstName", "lastName", "photo"]}],
-	})
-		.then((article) => {
-			res.send(article)
-		})
-		.catch((error) => res.status(403).send({error}))
-}
-
-// Delete one article
+// Delete one comment
 exports.delete = (req, res) => {
 	// get ID
 	const decodedId = getTokenUserId(req)
 
-	Article.findOne({where: {id: req.params.id}})
-		.then((article) => {
-			console.log("Article found") //A SUPP
+	Comment.findOne({where: {id: req.params.id}})
+		.then((comment) => {
+			console.log("Comment found") //A SUPP
 
 			//check if user is the author of the article or is admin
-			if (article.UserId === decodedId || checkAdmin(decodedId)) {
-				const filename = article.picture.split("/images/")[1] 
-				// delete picture then delete article
-				fs.unlink(`./uploads/${filename}`, () => {
-					Article.destroy({where: {id: req.params.id}})
-						.then(() => res.status(200).send("Article deleted"))
+			if (comment.UserId === decodedId || checkAdmin(decodedId)) {
+					Comment.destroy({where: {id: req.params.id}})
+						.then(() => res.status(200).send("Comment deleted"))
 						.catch((error) => res.status(403).send({error}))
-				})
 			} else {
 				res.status(403).send("Access authorization error")
 			}
 
-			console.log("post find but error authentication") // a supprimer
+			console.log("comment find but error authentication") // a supprimer
 		})
-		.catch((error) => res.status(403).send({error}))
-}
-
-// Modify one article //no working
-exports.modify = (req, res) => {
-	let articleObjet = 0
-	if (req.file) {
-		Article.findOne({_id: req.params.id}).then((article) => {
-			const fileName = sauce.imageUrl.split("/images/")[1]
-			fs.unlinkSync(`images/${fileName}`)
-		})
-		articleObject = {
-			...JSON.parse(rsq.body.article),
-			picture: `${req.protocol}://${req.get("host")}/images/${req.file.fileName}`,
-		}
-	} else {
-		articleObject = {...req.body}
-	}
-
-	Article.updateOne({id: req.params.id}, {...sauceObject, _id: req.params.id})
-		.then(() => res.status(200).json({message: "article modifié"}))
 		.catch((error) => res.status(403).send({error}))
 }

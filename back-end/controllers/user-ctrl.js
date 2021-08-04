@@ -55,10 +55,11 @@ exports.signup = (req, res) => {
 					return res.status(401).send("Problème lors de la création de votre profil. veuillez réessayer plus tard")
 				}
 				res.status(200).send({
-					user: userDB.id,
+					user: user.id,
 					token: jwt.sign({userId: userDB.id}, secretTokenKey, {expiresIn: "2h"}),
 					firstName: userDB.firstName,
 					lastName: userDB.lastName,
+					email: userDB.email,
 					photo: userDB.photo,
 					isAuthenticated: true,
 					isAdmin: userDB.isAdmin,

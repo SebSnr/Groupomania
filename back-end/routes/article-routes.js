@@ -12,6 +12,4 @@ module.exports = app => {
     router.get("/", auth, articlesCtrl.getAll)
     router.get("/:id", auth, articlesCtrl.getOne)
     router.delete("/:id", auth, articlesCtrl.delete)
-
-    // router.put("/:id", auth, articlesCtrl.modify)
 }

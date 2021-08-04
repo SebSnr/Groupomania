@@ -28,6 +28,7 @@ export default function Comments(props) {
 			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		}).then((res) => {
 			setCommentsData(res.data)
+			setCommentsRefresh(false)
 		})
 	}, [AuthState.token, props.article.id])
 
@@ -35,7 +36,7 @@ export default function Comments(props) {
 	useEffect(() => {
 		getComments()
 		setCommentsRefresh(false)
-	}, [commentsRefresh, getComments])
+	}, [commentsRefresh, getComments, ])
 
 	return (
 		<div>
@@ -56,7 +57,7 @@ export default function Comments(props) {
 			<div className="form-2 mt-3">
 				<CommentForm article={props.article} setCommentsRefresh={setCommentsRefresh} setCommentsRender={setCommentsRender} commentsRender={commentsRender} />
 				{/* {commentsRender % 2 === 0 ? <Commentary data={commentsData} /> : null} */}
-				<Commentary data={commentsData} commentsRender={commentsRender} />
+				<Commentary data={commentsData} commentsRender={commentsRender} setCommentsRefresh={setCommentsRefresh} />
 			</div>
 		</div>
 	)
@@ -65,12 +66,28 @@ export default function Comments(props) {
 function Commentary(props) {
 	const {AuthState} = useContext(AuthContext)
 
-	useEffect(() => {}, [props.commentsRender])
+	const deleteComment = useCallback(
+		(id) => {
+			axios({
+				method: "delete",
+				url: `${ApiUrl}/comments/${id}`,
+				headers: {"Authorization": `Bearer ${AuthState.token}`},
+			})
+				.then((res) => {
+					if (res.status === 200) {
+						alert("Commentaire supprimé")
+						props.setCommentsRefresh(true)
+					}
+				})
+				.catch((error) => {
+					console.log(error)
+					alert("Impossible de supprimer ce commentaire")
+				})
+		},
+		[AuthState.token, props]
+	)
 
-	if (props.commentsRender === 0) {
-		let comment = props.data[0]
-		console.log("salut Ca passe")
-
+	const renderCommentary = (comment) => {
 		return (
 			<li key={comment.id} className="card p-2 mb-1">
 				<div className="d-flex align-items-center mb-2">
@@ -84,10 +101,10 @@ function Commentary(props) {
 							type="button"
 							className="btn-sm bg-white fs-6"
 							onClick={() => {
-								if (window.confirm("Supprimer ce post définitivement ?")) console.log("supprime")
+								if (window.confirm("Supprimer ce commentaire ?")) deleteComment(comment.id)
 							}}
-							title="supprimer l'article"
-							aria-label="supprimer l'article"
+							title="supprimer le commentaire"
+							aria-label="supprimer le commentaire"
 						>
 							🗑️
 						</button>
@@ -96,6 +113,13 @@ function Commentary(props) {
 				<p className="mb-0">{comment.text}</p>
 			</li>
 		)
+	}
+
+
+	// Render comment just written by user or render all comments
+	if (props.commentsRender === 0) {
+		let comment = props.data[0]
+		return renderCommentary(comment)
 	} else if (props.commentsRender % 2 === 1) {
 		return props.data
 			.sort(function (a, b) {
@@ -103,30 +127,6 @@ function Commentary(props) {
 					dateB = new Date(b.createdAt)
 				return dateB - dateA
 			})
-			.map((comment) => (
-				<li key={comment.id} className="card p-2 mb-1">
-					<div className="d-flex align-items-center mb-2">
-						<ProfilePicture photo={comment.User.photo} class="profile-picture--mini" />
-						<span className="fw-bold mb-0 flex-grow-1 ">
-							{comment.User.firstName} {comment.User.lastName}
-						</span>
-						<span className={`d-flex justify-content-end mx-1 text-muted fst-italic article__date`}>{toFormatedDate(comment.createdAt)}</span>
-						{comment.UserId === AuthState.user || AuthState.isAdmin === true ? (
-							<button
-								type="button"
-								className="btn-sm bg-white fs-6"
-								onClick={() => {
-									if (window.confirm("Supprimer ce post définitivement ?")) console.log("supprime")
-								}}
-								title="supprimer l'article"
-								aria-label="supprimer l'article"
-							>
-								🗑️
-							</button>
-						) : null}
-					</div>
-					<p className="mb-0 ms-5">{comment.text}</p>
-				</li>
-			))
+			.map((comment) => renderCommentary(comment))
 	} else return null
 }

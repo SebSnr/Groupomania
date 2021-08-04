@@ -1,8 +1,9 @@
+const jwt = require("jsonwebtoken")
+const fs = require("fs")
+
 const db = require("../models")
 const Article = db.Article
 const User = db.User
-const fs = require("fs")
-const jwt = require("jsonwebtoken")
 
 // separate sensitive connect data
 require("dotenv").config()
@@ -108,26 +109,5 @@ exports.delete = (req, res) => {
 
 			console.log("post find but error authentication") // a supprimer
 		})
-		.catch((error) => res.status(403).send({error}))
-}
-
-// Modify one article //no working
-exports.modify = (req, res) => {
-	let articleObjet = 0
-	if (req.file) {
-		Article.findOne({_id: req.params.id}).then((article) => {
-			const fileName = sauce.imageUrl.split("/images/")[1]
-			fs.unlinkSync(`images/${fileName}`)
-		})
-		articleObject = {
-			...JSON.parse(rsq.body.article),
-			picture: `${req.protocol}://${req.get("host")}/images/${req.file.fileName}`,
-		}
-	} else {
-		articleObject = {...req.body}
-	}
-
-	Article.updateOne({id: req.params.id}, {...sauceObject, _id: req.params.id})
-		.then(() => res.status(200).json({message: "article modifié"}))
 		.catch((error) => res.status(403).send({error}))
 }
