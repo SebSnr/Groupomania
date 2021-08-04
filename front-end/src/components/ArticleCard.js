@@ -101,7 +101,7 @@ export default function ArticleCard(props) {
 								className="btn-sm bg-white fs-5"
 								onClick={() => {
 									MySwal.fire({
-										title: "❌ Supprimer ce post définitivement ?",
+										title: "❌ Supprimer ce post ?",
 										timer: 15000,
 										showCancelButton: true,
 										confirmButtonText: "Oui",

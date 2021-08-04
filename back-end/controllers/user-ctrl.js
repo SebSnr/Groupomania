@@ -63,16 +63,15 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
 	User.findOne({where: {email: req.body.email}})
 		.then((user) => {
-			// if (!user) {
-			// 	return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
-			// }
+			if (!user) return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
+			
 			bcrypt
 				.compare(req.body.password, user.password)
 				.then((valid) => {
 					console.log(valid)
-					if (!valid) {
-						return res.status(401).send("Mot de passe incorrect")
-					}
+					if (!valid) return res.status(403).send("Mot de passe incorrect")
+
+
 					res.status(200).send({
 						user: user.id,
 						token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
@@ -224,3 +223,46 @@ exports.modify = (req, res) => {
 			.catch(() => res.status(500).send("utilisateur non trouvé"))
 	})
 }
+
+exports.modifyPassword = (req, res) => {
+	if (!req) return res.status(401).send("Content can not be empty")
+
+	// get ID or is admin
+	const decodedId = getTokenUserId(req)
+	console.log(decodedId) //A SUPP
+
+	console.log(req.body.password) //A SUPP
+
+	console.log(req.body.newPassword) //A SUPP
+
+	const passWord = req.body.password
+
+	User.findOne({where: {id: decodedId}})
+		.then((user) => {
+			if (!user) return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
+			console.log(user.firstName)
+			
+			bcrypt
+				.compare(req.body.password, user.password)
+				.then((valid) => {
+					if (!valid) return res.status(403).send("Ancien mot de passe incorrect")
+					if (req.body.newPassword !== req.body.newPasswordConfirm || req.body.newPassword === "" || req.body.newPasswordConfirm ===""  ) res.status(401).send("Les nouveau mots de passe sont différents")
+					console.log(valid)
+
+					bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+						User.update(
+									{
+										password: hash
+									},
+									{where: {id: decodedId}}
+								)
+								.then(() => {
+									return res.status(200).send("Mot de passe modifié")
+								})
+								.catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
+					})
+				})
+				.catch(() => res.status(401).send("Erreur lors du décryptage des mots de passe"))
+		})
+		.catch(() => res.status(500).send("Erreur de la base de données"))
+	}

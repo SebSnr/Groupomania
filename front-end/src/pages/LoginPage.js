@@ -18,7 +18,7 @@ export default function LoginPage() {
 			{loading ? (
 				<Lottie animationData={globalWorld} options={{loop: true, autoplay: true}} height={60} width={60} style={{"background": "none", "height": "100vh"}} />
 			) : (
-				<div className="card shadow container gx-0 loginContainer">
+				<div className="card shadow container gx-0 p-4 loginContainer">
 					<div className="loginContainer__header">
 						<h1>
 							Bienvenue à la communauté<span className="d-none">Groupomania</span>

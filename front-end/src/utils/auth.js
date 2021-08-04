@@ -21,7 +21,7 @@ if (saved && (new Date().getTime() - saved > hours * 60 * 60 * 1000)) {
 		token: JSON.parse(localStorage.getItem("token")),
 		firstName: JSON.parse(localStorage.getItem("firstName")),
 		lastName: JSON.parse(localStorage.getItem("lastName")),
-		email: JSON.parse(localStorage.getItem("email")),
+		// email: JSON.parse(localStorage.getItem("email")),
 		photo: JSON.parse(localStorage.getItem("photo")),
 		isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")),
 		isAdmin: JSON.parse(localStorage.getItem("isAdmin")),

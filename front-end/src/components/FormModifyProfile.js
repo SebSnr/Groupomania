@@ -6,8 +6,9 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 // import utils
 import {ApiUrl} from "../utils/variables-config"
-// import user data
+// import components
 import {AuthContext} from "../App"
+import PassWordForm from "./PassWordForm "
 
 export default function FormModifyProfile(props) {
 	// use authentication global state
@@ -22,7 +23,7 @@ export default function FormModifyProfile(props) {
 	const [errorMessage, setErrorMessage] = useState(null)
 
 	// validate input values
-	const ModifySchema = Yup.object().shape({
+	const ValidationSchema = Yup.object().shape({
 		firstName: Yup.string().min(2, "trop court*").max(50, "Trop long*"),
 		lastName: Yup.string().min(2, "trop court*").max(50, "Trop long*"),
 		password: Yup.string().min(4, "trop court*").max(50, "Trop long*"),
@@ -32,10 +33,10 @@ export default function FormModifyProfile(props) {
 	const handleFormSubmit = (values, resetForm) => {
 		console.log(values) // A SUPP
 
-		if(!values && !selectedFile){
-			setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
-			return
-		}
+		// if(!values && !selectedFile){
+		// 	setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
+		// 	return
+		// }
 
 		// set data object to send
 		const formData = new FormData()
@@ -119,7 +120,7 @@ export default function FormModifyProfile(props) {
 					})
 				}
 			})
-			.catch((error) => {
+			.catch(() => {
 				alert("Erreur : impossible de supprimer votre compte. Veuillez contacter un admin")
 			})
 	}
@@ -132,13 +133,29 @@ export default function FormModifyProfile(props) {
 				initialValues={{
 					firstName: "",
 					lastName: "",
-					// password: "",
 					photo: "",
 				}}
-				validationSchema={ModifySchema}
+				validationSchema={ValidationSchema}
 				onSubmit={(values, {resetForm}) => {
 					console.log(values)
-					handleFormSubmit(values, resetForm)
+					MySwal.fire({
+						title: "Êtes-vous sûr de vouloir modifier ces informations ?",
+						timer: 15000,
+						showCancelButton: true,
+						confirmButtonText: "Oui",
+						cancelButtonText: "Non",
+						buttonsStyling: false,
+						customClass: {
+							confirmButton: "btn btn-primary mx-3",
+							cancelButton: "btn btn-danger mx-3",
+							title: "h5 font",
+							popup: "card",
+						},
+					}).then((result) => {
+						if (result.isConfirmed) {
+							handleFormSubmit(values, resetForm)
+						} else return
+					})
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
@@ -156,35 +173,17 @@ export default function FormModifyProfile(props) {
 
 					<button
 						type="submit"
-						onClick={(e) => {
-							e.preventDefault()
-							MySwal.fire({
-								title: "Êtes-vous sûr de vouloir modifier ces informations ?",
-								timer: 15000,
-								showCancelButton: true,
-								confirmButtonText: "Oui",
-								cancelButtonText: "Non",
-								buttonsStyling: false,
-								customClass: {
-									confirmButton: "btn btn-primary mx-3",
-									cancelButton: "btn btn-danger mx-3",
-									title: "h5 font",
-									popup: "card",
-								},
-							}).then((result) => {
-								if (result.isConfirmed) {
-									handleFormSubmit()
-								} else return
-							})
-						}}
 						className="btn btn-primary"
 						title="Modifier"
 						aria-label="Modifier"
 					>
 						Modifier
 					</button>
-					{errorMessage ? <span className="errorInput mt-1 text-center ">{errorMessage}</span> :
-					<span className="errorInput mt-1 text-center ">Seuls les champs saisis seront modifiés</span>}
+					{errorMessage ? (
+						<span className="errorInput mt-1 text-center ">{errorMessage}</span>
+					) : (
+						<span className="errorInput mt-1 text-center ">Seuls les champs saisis seront modifiés</span>
+					)}
 
 					<button
 						className="btn-sm btn-customize1"
@@ -192,11 +191,17 @@ export default function FormModifyProfile(props) {
 							props.setProfileRender(props.initialProfileRender)
 						}}
 					>
-						Retour
+						Fermer
+					</button>
+					<button
+						onClick={() => props.setProfileRender(<PassWordForm setProfileRender={props.setProfileRender} initialProfileRender={props.initialProfileRender} />)}
+						className="btn btn-link"
+					>
+						Modifier le mot de passe ?
 					</button>
 				</Form>
 			</Formik>
-			<span className="mt-4 mb-2">ou</span>
+			<span className="mt-2 mb-3">ou</span>
 			<button
 				className="btn-sm btn-danger mt-0 mb-0"
 				onClick={() => {
