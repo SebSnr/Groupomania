@@ -52,18 +52,9 @@ exports.signup = (req, res) => {
 		User.create(user)
 			.then((userDB) => {
 				if (!userDB) {
-					return res.status(401).send("Problème lors de la création de votre profil. veuillez réessayer plus tard")
+					return res.status(500).send("Problème lors de la création de votre profil. veuillez réessayer plus tard")
 				}
-				res.status(200).send({
-					user: user.id,
-					token: jwt.sign({userId: userDB.id}, secretTokenKey, {expiresIn: "2h"}),
-					firstName: userDB.firstName,
-					lastName: userDB.lastName,
-					email: userDB.email,
-					photo: userDB.photo,
-					isAuthenticated: true,
-					isAdmin: userDB.isAdmin,
-				})
+				res.status(200).send("account created")
 			})
 			.catch(() => res.status(403).send("Cet utilisateur existe déjà."))
 	})

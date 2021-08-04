@@ -3,6 +3,8 @@ import {Formik, Form, Field, ErrorMessage} from "formik"
 import {SocialIcon} from "react-social-icons"
 import axios from "axios"
 import * as Yup from "yup"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 // Components
 import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
@@ -13,12 +15,16 @@ export default function ArticleForm(props) {
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
 
+	const MySwal = withReactContent(Swal) // custom alert button
+
 	// state of media input choice
 	const [media, setMedia] = useState(null)
 
 	// personalize the welcome message text input with user name
 	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
-	useEffect(() => {setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)}, [AuthState])
+	useEffect(() => {
+		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
+	}, [AuthState])
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
@@ -41,7 +47,8 @@ export default function ArticleForm(props) {
 		}
 		if (values.youtube && selectedFile) formData.delete("youtube") //security : send only one media
 
-		for (var pair of formData.entries()) {    // A SUPP
+		for (var pair of formData.entries()) {
+			// A SUPP
 			console.log(pair[0] + ", " + pair[1])
 		}
 
@@ -58,7 +65,19 @@ export default function ArticleForm(props) {
 				setMedia("default")
 				props.setArticlesRefresh(true)
 			})
-			.catch((err) => console.log(`Error post article - ${err}`))
+			.catch(() => {
+				MySwal.fire({
+					title: "Erreur : impossible de publier ce post",
+					icon: "error",
+					showCloseButton: false,
+					buttonsStyling: false,
+					customClass: {
+						confirmButton: "btn btn-primary mx-3",
+						title: "h4 font",
+						popup: "card",
+					},
+				})
+			})
 	}
 
 	const validationSchema = Yup.object().shape({
@@ -80,7 +99,7 @@ export default function ArticleForm(props) {
 				<Form>
 					<div className="d-flex align-items-center justify-content-between mb-3">
 						<ProfilePicture photo={AuthState.photo} class="profile-picture--mini" />
-						<Field name="text" type="textarea" placeholder={placeHolderText} className="textInput px-3 py-1" style={{"height" : "70px"}} />
+						<Field name="text" type="textarea" placeholder={placeHolderText} className="textInput px-3 py-1" style={{"height": "70px"}} />
 						<ErrorMessage name="text" component="div" className="errorInput" />
 					</div>
 

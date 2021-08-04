@@ -76,15 +76,15 @@ exports.delete = (req, res) => {
 
 	Comment.findOne({where: {id: req.params.id}})
 		.then((comment) => {
-			console.log("Comment found") //A SUPP
+			console.log("comment found") //A SUPP
 
 			//check if user is the author of the article or is admin
 			if (comment.UserId === decodedId || checkAdmin(decodedId)) {
 					Comment.destroy({where: {id: req.params.id}})
-						.then(() => res.status(200).send("Comment deleted"))
+						.then(() => res.status(200).send("comment deleted"))
 						.catch((error) => res.status(403).send({error}))
 			} else {
-				res.status(403).send("Access authorization error")
+				res.status(403).send("access authorization error")
 			}
 
 			console.log("comment find but error authentication") // a supprimer

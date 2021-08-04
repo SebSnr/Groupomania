@@ -1,6 +1,8 @@
 import React, {useContext} from "react"
 import {NavLink} from "react-router-dom"
-import { useHistory } from "react-router"
+import {useHistory} from "react-router"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 // components
 import {AuthContext} from "../App"
 
@@ -10,10 +12,25 @@ export default function Navigation() {
 
 	// use history hook
 	const history = useHistory()
+	// custom alert button
+	const MySwal = withReactContent(Swal)
 
 	const handleDeconnect = () => {
 		dispatchAuthState({
 			type: "LOGOUT",
+		})
+		MySwal.fire({
+			title: "Vous êtes déconnecté",
+			icon: "success",
+			timer: 1000,
+			showConfirmButton: false,
+			showCloseButton: false,
+			buttonsStyling: false,
+			customClass: {
+				confirmButton: "btn btn-primary mx-3",
+				title: "h4 font",
+				popup: "card",
+			},
 		})
 		history.push("/")
 	}
@@ -60,7 +77,24 @@ export default function Navigation() {
 							<li className="nav-item">
 								<button
 									onClick={() => {
-										if (window.confirm("Se déconnecter ?")) handleDeconnect()
+										MySwal.fire({
+											title: "Se déconnecter ?",
+											timer: 5000,
+											showCancelButton: true,
+											confirmButtonText: "Oui",
+											cancelButtonText: "Non",
+											buttonsStyling: false,
+											customClass: {
+												confirmButton: "btn btn-danger mx-3",
+												cancelButton: "btn btn-primary mx-3",
+												title: "h4 font",
+												popup: "card",
+											}
+										}).then((result) => {
+											if (result.isConfirmed) {
+												handleDeconnect()
+											} else return
+										})
 									}}
 									className="nav-btn-icon"
 									title="Se deconnecter"

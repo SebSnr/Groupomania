@@ -2,15 +2,19 @@ import React, {useContext} from "react"
 import ReactPlayer from "react-player/youtube"
 import axios from "axios"
 import {Link} from "react-router-dom"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 // components
 import {AuthContext} from "../App"
 import ProfilePicture from "./ProfilePicture"
 import CommentsPart from "./CommentsPart"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
-import { toFormatedDate } from "../utils/toformatedDate"
+import {toFormatedDate} from "../utils/toformatedDate"
 
 export default function ArticleCard(props) {
+
+	const MySwal = withReactContent(Swal) // custom alert button
 
 	// Format article date
 	toFormatedDate(props.article.createdAt)
@@ -30,11 +34,36 @@ export default function ArticleCard(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					alert("Post supprimé")
+
+					MySwal.fire({
+						title: "Post supprimé",
+						icon: "success",
+						timer: 1000,
+						showConfirmButton: false,
+						showCloseButton: false,
+						buttonsStyling: false,
+						customClass: {
+							title: "h4 font",
+							popup: "card",
+						},
+					})
+
 					props.setArticlesRefresh(true)
 				}
 			})
-			.catch(() => alert("Impossible de supprimer ce post."))
+			.catch(() => {
+				MySwal.fire({
+					title: "Erreur : impossible de supprimer ce post",
+					icon: "error",
+					showCloseButton: false,
+					buttonsStyling: false,
+					customClass: {
+						confirmButton: "btn btn-primary mx-3",
+						title: "h4 font",
+						popup: "card",
+					},
+				})
+			})
 	}
 
 	// set article for state of article page
@@ -62,14 +91,33 @@ export default function ArticleCard(props) {
 					<div className="d-flex align-items-end flex-wrap mb-1">
 						<ProfilePicture photo={props.article.User.photo} class="profile-picture--mini" />
 
-						<span className="h5 flex-grow-1">{props.article.User.firstName} {props.article.User.lastName}</span>
+						<span className="h5 flex-grow-1">
+							{props.article.User.firstName} {props.article.User.lastName}
+						</span>
 
 						{props.article.UserId === AuthState.user || AuthState.isAdmin === true ? (
 							<button
 								type="button"
 								className="btn-sm bg-white fs-5"
 								onClick={() => {
-									if (window.confirm("Supprimer ce post définitivement ?")) deleteArticle()
+									MySwal.fire({
+										title: "❌ Supprimer ce post définitivement ?",
+										timer: 15000,
+										showCancelButton: true,
+										confirmButtonText: "Oui",
+										cancelButtonText: "Non",
+										buttonsStyling: false,
+										customClass: {
+											confirmButton: "btn btn-danger mx-3",
+											cancelButton: "btn btn-primary mx-3",
+											title: "h5 font",
+											popup: "card",
+										},
+									}).then((result) => {
+										if (result.isConfirmed) {
+											deleteArticle()
+										} else return
+									})
 								}}
 								title="supprimer l'article"
 								aria-label="supprimer l'article"
@@ -87,19 +135,19 @@ export default function ArticleCard(props) {
 
 				{article.youtube || article.picture ? (
 					<div className={`media-container ${mediaContainerClass} ${cardMediaNone}`}>
-					<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none`}>
-						{article.youtube ? (
-							<ReactPlayer url={props.article.youtube} width="100%" className="overflow-hidden" config={{youtube: {playerVars: {origin: "https://www.youtube.com"}}}} />
-						) : (
-							<img src={props.article.picture} className="" alt="article multimédia" />
-						)}
-					</Link>
+						<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none`}>
+							{article.youtube ? (
+								<ReactPlayer url={props.article.youtube} width="100%" className="overflow-hidden" config={{youtube: {playerVars: {origin: "https://www.youtube.com"}}}} />
+							) : (
+								<img src={props.article.picture} className="" alt="article multimédia" />
+							)}
+						</Link>
 					</div>
 				) : null}
 			</div>
 
 			<div className="card-body">
-				<CommentsPart article={props.article} setArticlesRefresh={props.setArticlesRefresh}/>
+				<CommentsPart article={props.article} setArticlesRefresh={props.setArticlesRefresh} />
 			</div>
 		</div>
 	)

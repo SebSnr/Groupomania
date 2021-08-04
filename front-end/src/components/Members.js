@@ -2,6 +2,8 @@ import React, {useContext, useEffect, useState, useCallback, useMemo} from "reac
 import {AuthContext} from "../App"
 import axios from "axios"
 import Loader from "react-loader-spinner"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 //components
@@ -9,6 +11,8 @@ import ProfilePicture from "./ProfilePicture"
 
 export default function Members() {
 	const {AuthState} = useContext(AuthContext)
+
+	const MySwal = withReactContent(Swal) // custom alert button
 
 	const [users, setUsers] = useState([])
 	const [filteredUsers, setFilteredUsers] = useState(users)
@@ -47,16 +51,38 @@ export default function Members() {
 			})
 				.then((res) => {
 					if (res.status === 200) {
-						alert("Compte utilsateur supprimé")
+						MySwal.fire({
+							title: "Compte supprimé",
+							icon: "success",
+							timer: 1000,
+							showConfirmButton: false,
+							showCloseButton: false,
+							buttonsStyling: false,
+							customClass: {
+								confirmButton: "btn btn-primary mx-3",
+								cancelButton: "btn btn-danger mx-3",
+								title: "h4 font",
+								popup: "card",
+							},
+						})
 						getUsers()
 					}
 				})
-				.catch((error) => {
-					console.log(error)
-					alert("Impossible de supprimer cet utilisateur.")
+				.catch(() => {
+					MySwal.fire({
+						title: "Erreur : impossible de supprimer cet utilisateur.",
+						icon: "error",
+						showCloseButton: false,
+						buttonsStyling: false,
+						customClass: {
+							confirmButton: "btn btn-primary mx-3",
+							title: "h4 font",
+							popup: "card",
+						},
+					})
 				})
 		},
-		[AuthState.token, getUsers]
+		[AuthState.token, MySwal, getUsers]
 	)
 
 	const initialMembersRender = useMemo(() => {
@@ -84,7 +110,25 @@ export default function Members() {
 										type="button"
 										className="btn-sm bg-white fs-5"
 										onClick={() => {
-											if (window.confirm("Administrateur : Supprimer cet utilisateur définitivement ?")) deleteUser(user.email)
+											MySwal.fire({
+												title: "❌ Administrateur : Supprimer cet compte définitivement ?",
+												timer: 15000,
+												showCancelButton: true,
+												confirmButtonText: "Oui",
+												cancelButtonText: "Non",
+												buttonsStyling: false,
+												customClass: {
+													confirmButton: "btn btn-primary mx-3",
+													cancelButton: "btn btn-danger mx-3",
+													title: "h5 font",
+													popup: "card",
+												},
+											}).then((result) => {
+												if (result.isConfirmed) {
+													deleteUser(user.email)
+												} else return
+											})
+
 										}}
 										title="Admin: Supprimer l'utilisateur'"
 										aria-label="Admin: Supprimer l'utilisateur"
@@ -98,19 +142,21 @@ export default function Members() {
 				</ul>
 			</div>
 		)
-	}, [AuthState.firstName, AuthState.isAdmin, deleteUser, filteredUsers, handleSearch])
+	// }, [AuthState.firstName, AuthState.isAdmin, MySwal, deleteUser, filteredUsers, handleSearch, ])
+}, [AuthState.firstName, AuthState.isAdmin, filteredUsers, handleSearch])
+
 
 	const [membersRender, setMembersRender] = useState(initialMembersRender)
 
 	// event : get members render after get users
 	useEffect(() => {
 		setMembersRender(initialMembersRender)
-	}, [filteredUsers, initialMembersRender])
+	}, [filteredUsers, initialMembersRender, ])
 
 	// event : get users at loading page
 	useEffect(() => {
 		getUsers()
-	}, [getUsers])
+	}, [getUsers, ])
 
 	// loader page if no members data
 	if (loading === true)
@@ -127,12 +173,10 @@ function MemberProfile(props) {
 		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center text-truncate">
 			{/* <h3 className="text-center mb-3">Collègue</h3> */}
 			<ProfilePicture photo={props.user.photo} />
-			<div className="mt-3 text-truncate">
-				{props.user.firstName}
-				<br />
-				{props.user.lastName}
+			<div className="mt-3 mb-2 text-wrap text-break">{props.user.email}</div>
+			<div className="mb-3 text-truncate text-wrap">
+				{props.user.firstName} {props.user.lastName}
 			</div>
-			<div className="mb-3 text-wrap text-break">{props.user.email}</div>
 
 			<button
 				className="btn-sm btn-customize1"

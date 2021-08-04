@@ -7,7 +7,7 @@ export default function ProfilePage() {
 	return (
 		<React.Fragment>
 			<Navigation />
-			<main class="container">
+			<main className="container">
 					<h1 className="d-none">Profil user</h1>
 					<ProfileBar />
 			</main>

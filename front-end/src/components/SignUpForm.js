@@ -1,19 +1,17 @@
-import React, {useContext, useState} from "react"
+import React, {useState} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
-import {useHistory} from "react-router-dom"
 import axios from "axios"
 import * as Yup from "yup"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 // import utils
 import {ApiUrl} from "../utils/variables-config"
 // import user data
-import {AuthContext} from "../App"
 
-export default function SignUpForm() {
+export default function SignUpForm(props) {
 	require('yup-password')(Yup) //update yup password librairie
-	let history = useHistory()
 
-	// use authentication global state
-	const {dispatchAuthState} = useContext(AuthContext)
+	const MySwal = withReactContent(Swal) // custom alert button
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
@@ -60,18 +58,23 @@ export default function SignUpForm() {
 			data: formData,
 		})
 			.then((res) => {
-				console.log("L'utilisateur a été créé") // A SUPP
-
-				// if user creation well done, send request to log
+				// if user creation well done
 				if (res.status === 200) {
-					dispatchAuthState({
-						type: "LOGIN",
-						payload: res.data,
-					})
-					console.log(res.data) // A SUPP
 					setErrorMessage(null)
 					resetForm()
-					history.push("/")
+					MySwal.fire({
+						title: "Votre compte a bien été créé. Vous pouvez désormais vous connecter avec vos identifiants.",
+						icon: "success",
+						showCloseButton: false,
+						buttonsStyling: false,
+						customClass: {
+							confirmButton: "btn btn-primary mx-3",
+							cancelButton: "btn btn-danger mx-3",
+							title: "h4 font",
+							popup: "card",
+						},
+					})
+					props.setConnexionContent("login")
 				}
 			})
 			.catch((error) => {if (error.response) setErrorMessage(error.response.data)})
@@ -94,21 +97,21 @@ export default function SignUpForm() {
 					handleFormSubmit(values, resetForm)
 				}}
 			>
-				<Form className="d-flex flex-column">
+				<Form className="d-flex flex-column align-items-center">
 					<Field name="firstName" type="text" placeholder="prenom" />
-					<ErrorMessage name="firstName" component="div" className="errorInput" />
+					<ErrorMessage name="firstName" component="div" className="errorInput align-self-start px-5" />
 
 					<Field name="lastName" type="text" placeholder="nom" />
-					<ErrorMessage name="lastName" component="div" className="errorInput" />
+					<ErrorMessage name="lastName" component="div" className="errorInput align-self-start px-5" />
 
 					<Field name="email" type="email" placeholder="mail Groupomania" />
-					<ErrorMessage name="email" component="div" className="errorInput" />
+					<ErrorMessage name="email" component="div" className="errorInput align-self-start px-5" />
 
 					<Field name="password" type="password" placeholder="mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput" />
+					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-5" />
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
-					<ErrorMessage name="picture" component="div" className="errorInput" />
+					<ErrorMessage name="picture" component="div" className="errorInput align-self-start px-5" />
 
 					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
 						s'inscrire

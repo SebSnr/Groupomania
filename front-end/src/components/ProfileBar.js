@@ -34,6 +34,8 @@ export default function ProfileBar() {
 					<div>
 						<div>{AuthState.firstName}</div>
 						<div>{AuthState.lastName}</div>
+						{/* <div className="mb-2 text-wrap text-break">{AuthState.email}</div>
+						<div className="mb-3 text-truncate text-wrap">{AuthState.firstName} {AuthState.lastName}</div> */}
 					</div>
 					<div className="d-flex align-items-center">
 						<button onClick={() => handleProfileRender()} className="btn btn-link">
