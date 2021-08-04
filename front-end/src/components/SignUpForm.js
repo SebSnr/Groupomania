@@ -98,20 +98,20 @@ export default function SignUpForm(props) {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="firstName" type="text" placeholder="prenom" />
-					<ErrorMessage name="firstName" component="div" className="errorInput align-self-start px-5" />
+					<Field name="firstName" type="text" placeholder="Prénom" />
+					<ErrorMessage name="firstName" component="div" className="errorInput align-self-start px-1" />
 
-					<Field name="lastName" type="text" placeholder="nom" />
-					<ErrorMessage name="lastName" component="div" className="errorInput align-self-start px-5" />
+					<Field name="lastName" type="text" placeholder="Nom" />
+					<ErrorMessage name="lastName" component="div" className="errorInput align-self-start px-1" />
 
-					<Field name="email" type="email" placeholder="mail Groupomania" />
-					<ErrorMessage name="email" component="div" className="errorInput align-self-start px-5" />
+					<Field name="email" type="email" placeholder="Mail Groupomania" />
+					<ErrorMessage name="email" component="div" className="errorInput align-self-start px-1" />
 
-					<Field name="password" type="password" placeholder="mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-5" />
+					<Field name="password" type="password" placeholder="Mot de passe" />
+					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-1" />
 
-					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
-					<ErrorMessage name="picture" component="div" className="errorInput align-self-start px-5" />
+					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," className="file-input" />
+					<ErrorMessage name="picture" component="div" className="errorInput align-self-start px-1" />
 
 					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
 						s'inscrire

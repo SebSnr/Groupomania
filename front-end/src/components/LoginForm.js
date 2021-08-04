@@ -69,11 +69,11 @@ export default function LoginForm() {
 			>
 				{() => (
 					<Form className="d-flex flex-column align-items-center">
-						<Field name="email" type="email" placeholder="adresse mail" />
-						<ErrorMessage name="email" component="div" className="errorInput align-self-start px-4" />
+						<Field name="email" type="email" placeholder="Mail Groupomania" className="input--login" />
+						<ErrorMessage name="email" component="div" className="errorInput align-self-start px-1" />
 
-						<Field name="password" type="password" placeholder="mot de passe" />
-						<ErrorMessage name="password" component="div" className="errorInput align-self-start px-4" />
+						<Field name="password" type="password" placeholder="Mot de passe" className="input--login" />
+						<ErrorMessage name="password" component="div" className="errorInput align-self-start px-1" />
 
 						<button type="submit" className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">
 							Se connecter

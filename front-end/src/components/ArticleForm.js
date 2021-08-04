@@ -107,20 +107,19 @@ export default function ArticleForm(props) {
 						switch (media) {
 							case "upload":
 								return (
-									<div className="d-flex align-items-center flex-wrap">
-										<span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span>
-										<div className="d-inline">
-											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-4 file-input" />
+									<div className="d-flex justify-content-between align-items-center flex-wrap">
+										{/* <span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span> */}
+										<div className="mx-auto">
+											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-3 file-input" />
 										</div>
 										<ErrorMessage name="picture" component="div" className="errorInput" />
-
 										<button
 											type="button"
 											onClick={() => {
 												setMedia("youtube")
 												setSelectedFile()
 											}}
-											className="btn-sm btn-customize1 mb-4 d-bloc m-auto"
+											className="btn-sm btn-customize1 mb-3 d-bloc m-auto"
 											title="Joindre une vidéo youtube"
 											aria-label="Joindre une vidéo youtube"
 										>
@@ -132,9 +131,8 @@ export default function ArticleForm(props) {
 							case "youtube":
 								return (
 									<div className="d-flex align-items-center flex-wrap">
-										<span className="mb-3">Lien youtube :</span>
-										<div className="d-inline">
-											<Field name="youtube" placeholder="Votre lien Youtube" className="ytInput mb-4" />
+										<div className="d-inline mx-auto">
+											<Field name="youtube" placeholder="Votre lien Youtube" className="ytInput mb-4 px-2" />
 										</div>
 										<button
 											type="button"
@@ -174,7 +172,7 @@ export default function ArticleForm(props) {
 						}
 					})()}
 
-					<button type="submit" className="btn-lg btn-primary d-bloc m-auto my-3 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
+					<button type="submit" className="btn-lg btn-primary d-bloc m-auto mb-1 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
 						Envoyer
 					</button>
 				</Form>

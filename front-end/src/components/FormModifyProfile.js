@@ -142,7 +142,7 @@ export default function FormModifyProfile(props) {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="firstName" type="text" placeholder={`Prenom actuel : ${AuthState.firstName}`} />
+					<Field name="firstName" type="text" placeholder={`Prénom actuel : ${AuthState.firstName}`} />
 					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
 					<Field name="lastName" type="text" placeholder={`Nom actuel : ${AuthState.lastName}`} />
@@ -151,7 +151,7 @@ export default function FormModifyProfile(props) {
 					{/* <Field name="password" type="password" placeholder="Nouveau mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" /> */}
 
-					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," />
+					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," className="file-input" />
 					<ErrorMessage name="picture" component="div" className="errorInput" />
 
 					<button

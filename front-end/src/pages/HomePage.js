@@ -49,7 +49,7 @@ export default function HomePage() {
 				<Navigation />
 				<div className="container gx-0">
 					<div className="row">
-						<div className="d-none d-lg-block col-9">
+						<div className="d-none d-lg-block col-10">
 							<aside className="p-0 d-none d-lg-block mb-4">
 								<ProfileBar />
 							</aside>
@@ -57,7 +57,7 @@ export default function HomePage() {
 								<Members />
 							</aside>
 						</div>
-						<div className="offset-lg-1 col-lg-26 mb-4">
+						<div className="col-lg-26 mb-4">
 							<aside className="align-self-center mb-4 ">
 								<h1 className="d-none">Page d'accueil Groupomania</h1>
 								<ArticleForm setArticlesRefresh={setArticlesRefresh} />
