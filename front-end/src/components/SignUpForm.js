@@ -111,19 +111,19 @@ export default function SignUpForm(props) {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="firstName" type="text" placeholder="Prénom" />
+					<Field name="firstName" type="text" placeholder="Prénom" className="px-2" />
 					<ErrorMessage name="firstName" component="div" className="errorInput align-self-start px-4" />
 
-					<Field name="lastName" type="text" placeholder="Nom" />
+					<Field name="lastName" type="text" placeholder="Nom" className="px-2" />
 					<ErrorMessage name="lastName" component="div" className="errorInput align-self-start px-4" />
 
-					<Field name="email" type="email" placeholder="Mail Groupomania" />
+					<Field name="email" type="email" placeholder="Mail Groupomania" className="px-2" />
 					<ErrorMessage name="email" component="div" className="errorInput align-self-start px-4" />
 
-					<Field name="password" type="password" placeholder="Mot de passe" />
+					<Field name="password" type="password" placeholder="Mot de passe" className="px-2" />
 					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-4" />
 
-					<Field name="passwordConfirm" type="password" placeholder="Confirmer le mot de passe" />
+					<Field name="passwordConfirm" type="password" placeholder="Confirmer le mot de passe" className="px-2" />
 					<ErrorMessage name="passwordConfirm" component="div" className="errorInput align-self-start px-4" />
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," className="file-input" />

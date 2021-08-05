@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-// $grid-columns: 24 !default; ===> change in modules/boostrap/variables to get a grid with 36 columns (by default 12)
+// $grid-columns: 36 !default; ===> change in modules/boostrap/variables to get a grid with 36 columns (by default 12)
 
 $font-1: "poppins", sans-serif;
 
@@ -19,7 +19,7 @@ $border-radius: 3rem;
 	box-sizing: border-box;
 }
 
-body {
+body { 
 	color: $color-4;
 	background-image: url("../assets/logo-background.png");
 	background-repeat: no-repeat;

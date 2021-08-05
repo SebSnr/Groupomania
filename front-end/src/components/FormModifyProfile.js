@@ -173,10 +173,10 @@ export default function FormModifyProfile(props) {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="firstName" type="text" placeholder={`Prénom actuel : ${AuthState.firstName}`} />
+					<Field name="firstName" type="text" placeholder={`Prénom actuel : ${AuthState.firstName}`} className="px-2" />
 					<ErrorMessage name="firstName" component="div" className="errorInput" />
 
-					<Field name="lastName" type="text" placeholder={`Nom actuel : ${AuthState.lastName}`} />
+					<Field name="lastName" type="text" placeholder={`Nom actuel : ${AuthState.lastName}`} className="px-2" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
 
 					{/* <Field name="password" type="password" placeholder="Nouveau mot de passe" />
@@ -200,7 +200,7 @@ export default function FormModifyProfile(props) {
 					)}
 
 					<button
-						className="btn-sm btn-customize1"
+						className="btn-sm btn--customize1"
 						onClick={() => {
 							props.setProfileRender(props.initialProfileRender)
 						}}

@@ -8,6 +8,9 @@ import withReactContent from "sweetalert2-react-content"
 import {ApiUrl} from "../utils/variables-config"
 //components
 import ProfilePicture from "./ProfilePicture"
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrashAlt  } from "@fortawesome/free-solid-svg-icons"
 
 export default function Members() {
 	const {AuthState} = useContext(AuthContext)
@@ -133,7 +136,7 @@ export default function Members() {
 										title="Admin: Supprimer l'utilisateur'"
 										aria-label="Admin: Supprimer l'utilisateur"
 									>
-										🗑️
+									<FontAwesomeIcon icon={faTrashAlt} />
 									</button>
 								) : null}
 							</li>
@@ -179,7 +182,7 @@ function MemberProfile(props) {
 			</div>
 
 			<button
-				className="btn-sm btn-customize1"
+				className="btn-sm btn--customize1"
 				onClick={() => {
 					props.setMembersRender(props.initialMembersRender)
 				}}

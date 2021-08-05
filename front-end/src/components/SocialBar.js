@@ -3,15 +3,15 @@ import {SocialIcon} from "react-social-icons"
 
 export default function SocialBar() {
 	return (
-		<div className="socialBar">
+		<div className="socialBar d-flex justify-content-center">
 			<button type="button" className="btn" title="Facebook">
-				<SocialIcon network="facebook" className="btn-iconed" />
+				<SocialIcon network="facebook" className="btn--iconed" />
 			</button>
 			<button type="button" className="btn" title="Youtube">
-				<SocialIcon network="youtube" className="btn-iconed" />
+				<SocialIcon network="youtube" className="btn--iconed" />
 			</button>
 			<button type="button" className="btn" title="Twitter">
-				<SocialIcon network="twitter" className="btn-iconed" />
+				<SocialIcon network="twitter" className="btn--iconed" />
 			</button>
 		</div>
 	)

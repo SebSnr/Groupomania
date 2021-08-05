@@ -8,13 +8,15 @@ import withReactContent from "sweetalert2-react-content"
 import {AuthContext} from "../App"
 import CommentForm from "./CommentForm"
 import ProfilePicture from "./ProfilePicture"
+// icons
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 import {toFormatedDate} from "../utils/toformatedDate"
 
 export default function Comments(props) {
-	
-	const {AuthState} = useContext(AuthContext)// use global state of authContext
+	const {AuthState} = useContext(AuthContext) // use global state of authContext
 
 	const [commentsRender, setCommentsRender] = useState(2)
 
@@ -38,7 +40,7 @@ export default function Comments(props) {
 	useEffect(() => {
 		getComments()
 		setCommentsRefresh(false)
-	}, [commentsRefresh, getComments, ])
+	}, [commentsRefresh, getComments])
 
 	return (
 		<div>
@@ -65,10 +67,9 @@ export default function Comments(props) {
 }
 
 function Commentary(props) {
-	const {AuthState} = useContext(AuthContext)// use global state of authContext
+	const {AuthState} = useContext(AuthContext) // use global state of authContext
 
 	const MySwal = withReactContent(Swal) // custom alert button
-
 
 	const deleteComment = useCallback(
 		(id) => {
@@ -147,7 +148,7 @@ function Commentary(props) {
 							title="supprimer le commentaire"
 							aria-label="supprimer le commentaire"
 						>
-							🗑️
+							<FontAwesomeIcon icon={faTrashAlt} />
 						</button>
 					) : null}
 				</div>

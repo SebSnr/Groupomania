@@ -121,7 +121,7 @@ export default function PassWordForm(props) {
 					{errorMessage && <span className="errorInput mt-1 text-center ">{errorMessage}</span>}
 
 					<button
-						className="btn-sm btn-customize1"
+						className="btn-sm btn--customize1"
 						onClick={() => {
 							props.setProfileRender(props.initialProfileRender)
 						}}

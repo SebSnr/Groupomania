@@ -11,6 +11,9 @@ import CommentsPart from "./CommentsPart"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 import {toFormatedDate} from "../utils/toformatedDate"
+// icons
+import { faTrashAlt  } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function ArticleCard(props) {
 
@@ -98,7 +101,7 @@ export default function ArticleCard(props) {
 						{props.article.UserId === AuthState.user || AuthState.isAdmin === true ? (
 							<button
 								type="button"
-								className="btn-sm bg-white fs-5"
+								className="btn-sm bg-white btn--trash fs-5"
 								onClick={() => {
 									MySwal.fire({
 										title: "❌ Supprimer ce post ?",
@@ -122,7 +125,7 @@ export default function ArticleCard(props) {
 								title="supprimer l'article"
 								aria-label="supprimer l'article"
 							>
-								🗑️
+								<FontAwesomeIcon icon={faTrashAlt} />
 							</button>
 						) : null}
 					</div>

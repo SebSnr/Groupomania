@@ -5,6 +5,10 @@ import axios from "axios"
 import * as Yup from "yup"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCamera } from "@fortawesome/free-solid-svg-icons"
+import { faYoutube } from '@fortawesome/free-brands-svg-icons'
 // Components
 import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
@@ -124,12 +128,11 @@ export default function ArticleForm(props) {
 												setMedia("youtube")
 												setSelectedFile()
 											}}
-											className="btn-sm btn-customize1 mb-3 d-bloc m-auto"
+											className="btn-sm btn--customize1 mb-3 d-bloc m-auto"
 											title="Joindre une vidéo youtube"
 											aria-label="Joindre une vidéo youtube"
 										>
-											Joindre une vidéo Youtube &nbsp;
-											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width: "1.8rem"}} />
+											Joindre une vidéo Youtube &nbsp; <FontAwesomeIcon icon={faYoutube} />
 										</button>
 									</div>
 								)
@@ -142,11 +145,11 @@ export default function ArticleForm(props) {
 										<button
 											type="button"
 											onClick={() => setMedia("upload")}
-											className="btn-sm btn-customize1 mb-4 d-bloc m-auto"
+											className="btn-sm btn--customize1 mb-4 d-bloc m-auto"
 											title="Joindre une photo"
 											aria-label="Joindre une photo"
 										>
-											Joindre une photo &nbsp; 📷
+											Joindre une photo &nbsp; <span className="awesomeColorIcon"><FontAwesomeIcon icon={faCamera} /></span>
 										</button>
 									</div>
 								)
@@ -156,21 +159,20 @@ export default function ArticleForm(props) {
 										<button
 											type="button"
 											onClick={() => setMedia("upload")}
-											className="btn btn-customize1 mb-4 d-bloc m-auto"
+											className="btn btn--customize1 mb-4 d-bloc m-auto"
 											title="Joindre une photo"
 											aria-label="Joindre une photo"
 										>
-											Joindre une photo &nbsp; 📷
+											Joindre une photo &nbsp; <FontAwesomeIcon icon={faCamera} />
 										</button>
 										<button
 											type="button"
 											onClick={() => setMedia("youtube")}
-											className="btn btn-customize1 mb-4 mb-lg-4 d-bloc m-auto"
+											className="btn btn--customize1 mb-4 mb-lg-4 d-bloc m-auto"
 											title="Joindre une video youtube"
 											aria-label="Joindre une video youtube"
 										>
-											Joindre une vidéo Youtube &nbsp;
-											<SocialIcon network="youtube" bgColor="white" style={{height: "1.2rem", margin: "0", width: "1.8rem"}} />
+											Joindre une vidéo Youtube &nbsp; <FontAwesomeIcon icon={faYoutube} />
 										</button>
 									</div>
 								)

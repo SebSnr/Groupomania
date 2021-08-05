@@ -16,7 +16,7 @@ export default function Connexion() {
 							<div className="connexionContent">
 								<SignUpForm setConnexionContent={setConnexionContent} />
 								<br /> Déjà un compte ? <br /> <br />
-								<button className="btn btn-customize1" onClick={() => setConnexionContent("login")} title="Se connecter" aria-label="Se connecter">
+								<button className="btn btn--customize1" onClick={() => setConnexionContent("login")} title="Se connecter" aria-label="Se connecter">
 									Se connecter
 								</button>
 							</div>
@@ -26,7 +26,7 @@ export default function Connexion() {
 							<div className="connexionContent">
 								<LoginForm />
 								<br /> Créer un compte ? <br /> <br />
-								<button className="btn btn-customize1" onClick={() => setConnexionContent("signUp")} title="S'inscrire" aria-label="S'inscrire">
+								<button className="btn btn--customize1" onClick={() => setConnexionContent("signUp")} title="S'inscrire" aria-label="S'inscrire">
 									S'inscrire
 								</button>
 							</div>

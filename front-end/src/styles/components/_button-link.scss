@@ -10,36 +10,65 @@ button {
 	text-align: center;
 }
 
-.btn-customize1 {
-	background-color: darken($color: $color-3, $amount: 22) !important;
-	color: white;
-	text-shadow: 0 0 1px rgb(48, 48, 48); /* horizontal-offset vertical-offset 'blur' colour */
-	-moz-text-shadow: 0 0 1px rgb(48, 48, 48);
-	-webkit-text-shadow: 0 0 1px rgb(48, 48, 48);
-	border: darken($color: $color-3, $amount: 20) solid 2px;
-
-	// font-size: 1.2rem;
-	// box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
-
-	&:hover {
-		background-color: darken($color: $color-3, $amount: 25) !important;
-		box-shadow: 0 0px 0px 1px rgba(218, 217, 217, 0.2);
-		color: white;
+.btn {
+	&--comments {
+		color: $color-5;
+		&:focus,
+		&:hover,
+		&:active {
+			color: $color-4;
+		}
 	}
 
-	&:focus,
-	&:active {
-		// border: solid 5px darken($color: $color-3, $amount: 25);
-		box-shadow: 0 0px 2px 4px darken($color: $color-3, $amount: 10);
-		color: white;
+	&--iconed:hover {
+		background-color: $btn-link-hover-color;
+		border-radius: 50%;
+		box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
 	}
-}
 
-.btn--comments {
-    color: $color-5;
-	&:focus,
-	&:hover,
-	&:active {
-		color: $color-4;
+	&--trash {
+		svg path {
+			fill: rgb(141, 141, 141);
+		}
+		&:focus,
+		&:hover,
+		&:active {
+			svg path {
+				fill: $danger;
+			}
+		}
+	}
+
+	&--customize1 {
+		.fa-youtube {
+			font-size: 1.1rem;
+			background-color: white;
+			border-radius: 25%;
+			path {
+				fill: red;
+			}
+		}
+		.fa-camera {
+			path {
+				fill: white;
+			}
+		}
+
+		background-color: darken($color: $color-3, $amount: 22) !important;
+		color: white;
+		text-shadow: 0 0 1px rgb(48, 48, 48);
+		border: darken($color: $color-3, $amount: 20) solid 2px;
+
+		&:hover {
+			background-color: darken($color: $color-3, $amount: 25) !important;
+			box-shadow: 0 0px 0px 1px rgba(218, 217, 217, 0.2);
+			color: white;
+		}
+
+		&:focus,
+		&:active {
+			box-shadow: 0 0px 2px 4px darken($color: $color-3, $amount: 10);
+			color: white;
+		}
 	}
 }
