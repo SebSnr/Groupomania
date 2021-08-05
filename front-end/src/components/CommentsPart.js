@@ -1,7 +1,5 @@
 import React, {useEffect, useState, useContext, useCallback} from "react"
-import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
-import * as Yup from "yup"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 // Components
@@ -19,7 +17,7 @@ import {alertErrorMessage, alertSuccessMessage} from "../utils/alertMessage"
 export default function Comments(props) {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
 
-	const [commentsRender, setCommentsRender] = useState(2)
+	const [commentsRender, setCommentsRender] = useState(2) // set comments if no click, click or user post new comment
 
 	// state comments data
 	const [commentsData, setCommentsData] = useState([])

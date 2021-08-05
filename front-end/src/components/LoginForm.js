@@ -3,12 +3,10 @@ import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
 import * as Yup from "yup"
 import {useHistory} from "react-router-dom"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
-// import utils
+// utils
 import {ApiUrl} from "../utils/variables-config"
 import {alertErrorMessage} from "../utils/alertMessage"
-// import user data
+// components
 import {AuthContext} from "../App"
 
 export default function LoginForm() {

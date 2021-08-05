@@ -6,16 +6,16 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
+import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 //components
 import ProfilePicture from "./ProfilePicture"
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrashAlt  } from "@fortawesome/free-solid-svg-icons"
-import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 
 export default function Members() {
-	const {AuthState} = useContext(AuthContext)
 
+	const {AuthState} = useContext(AuthContext) // use global state of authContext
 	const MySwal = withReactContent(Swal) // custom alert button
 
 	const [users, setUsers] = useState([])
@@ -123,8 +123,7 @@ export default function Members() {
 				</ul>
 			</div>
 		)
-	// }, [AuthState.firstName, AuthState.isAdmin, MySwal, deleteUser, filteredUsers, handleSearch, ])
-}, [AuthState.firstName, AuthState.isAdmin, filteredUsers, handleSearch])
+	}, [AuthState.firstName, AuthState.isAdmin, filteredUsers, handleSearch])
 
 
 	const [membersRender, setMembersRender] = useState(initialMembersRender)
