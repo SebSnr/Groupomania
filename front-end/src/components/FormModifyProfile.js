@@ -142,9 +142,18 @@ export default function FormModifyProfile(props) {
 						setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
 						return
 					}
+
+					// show informations before confirm
+					let newFirstName = ""
+					let newLastName = ""
+					let newFile = ""
+					if(values.firstName) newFirstName = `Prénom : ${values.firstName}`
+					if(values.lastName) newLastName = `Nom : ${values.lastName}`
+					if(selectedFile) newFile = `Photo de profil : ${selectedFile.name}`
 					
 					MySwal.fire({
 						title: "Êtes-vous sûr de vouloir modifier ces informations ?",
+						html:  `  <div >${newFirstName} <br/> ${newLastName} <br/> ${newFile}</div>`,
 						timer: 15000,
 						showCancelButton: true,
 						confirmButtonText: "Oui",
