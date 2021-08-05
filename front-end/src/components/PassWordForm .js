@@ -19,15 +19,19 @@ export default function PassWordForm(props) {
 	const [errorMessage, setErrorMessage] = useState(null) // set error message from server
 
 	// validate input values
+	const passWordTest = Yup.string()
+	.required("obligatoire*")
+	.min(6, "trop court, 6 minimum*")
+	.max(50, "trop long, 50 maximum*")
+	.minLowercase(1, "minimum 1 lettre minuscule")
+	.minUppercase(1, "minimum 1 lettre majuscule")
+	.minNumbers(1, "minimum 1 chiffre")
+	.minSymbols(1, "minimum 1 symbole")
+
 	const ModifySchema = Yup.object().shape({
-		password: Yup.string()
-			.required("obligatoire*")
-			.min(6, "trop court, 6 minimum*")
-			.max(50, "trop long, 50 maximum*")
-			.minLowercase(1, "minimum 1 lettre minuscule")
-			.minUppercase(1, "minimum 1 lettre majuscule")
-			.minNumbers(1, "minimum 1 chiffre")
-			.minSymbols(1, "minimum 1 symbole"),
+		oldPassword: passWordTest,
+		password: passWordTest,
+		passwordConfirm: passWordTest,
 	})
 
 	// send form data
@@ -46,9 +50,9 @@ export default function PassWordForm(props) {
 					console.log(res.data) // A SUPP
 					setErrorMessage(null)
 					resetForm()
-                    props.setProfileRender(props.initialProfileRender)
+					props.setProfileRender(props.initialProfileRender)
 
-                    MySwal.fire({
+					MySwal.fire({
 						title: "Mot de passe modifié",
 						icon: "success",
 						timer: 2500,
@@ -73,9 +77,9 @@ export default function PassWordForm(props) {
 
 			<Formik
 				initialValues={{
+					oldPassword: "",
 					password: "",
-					newPassword: "",
-					newPasswordConfirm: "",
+					passwordConfirm: "",
 				}}
 				validationSchema={ModifySchema}
 				onSubmit={(values, {resetForm}) => {
@@ -102,14 +106,14 @@ export default function PassWordForm(props) {
 				}}
 			>
 				<Form className="d-flex flex-column align-items-center">
-					<Field name="password" type="password" placeholder="Ancien mot de passe" />
+					<Field name="oldPassword" type="password" placeholder="Ancien mot de passe" />
+					<ErrorMessage name="oldPassword" component="div" className="errorInput" />
+
+					<Field name="password" type="password" placeholder="Nouveau mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput" />
 
-					<Field name="newPassword" type="password" placeholder="Nouveau mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput" />
-
-					<Field name="newPasswordConfirm" type="password" placeholder="Confirmer le mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput" />
+					<Field name="passwordConfirm" type="password" placeholder="Confirmer le mot de passe" />
+					<ErrorMessage name="passwordConfirm" component="div" className="errorInput" />
 
 					<button type="submit" className="btn btn-primary" title="Modifier mot de passe" aria-label="Modifier mot de passe">
 						Modifier le mot de passe

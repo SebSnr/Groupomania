@@ -28,6 +28,8 @@ export default function SignUpForm(props) {
 			.test("@groupomania.com", "mail@groupomania.com*", (email) => email && email.indexOf("@groupomania.com", email.length - "@groupomania.com".length) !== -1)
 			.required("obligatoire*"),
 		password: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
+		passwordConfirm: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
+
 
 	})
 
@@ -38,7 +40,7 @@ export default function SignUpForm(props) {
 		// set data object to send
 		const formData = new FormData()
 		for (let i in values) {
-			if (i === "password") formData.append(i, values[i])
+			if (i === "password" || i === "passwordConfirm") formData.append(i, values[i])
 			else if (i === "email") formData.append(i, values[i].toLowerCase())
 			else formData.append(i, values[i].charAt(0).toUpperCase() + values[i].slice(1).toLowerCase()) 
 		}
@@ -46,7 +48,7 @@ export default function SignUpForm(props) {
 		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png"].includes(selectedFile.type)) {
 			formData.append("picture", selectedFile)
 		} else if (selectedFile) {
-			alert("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
+			setErrorMessage("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
 			return
 		} else {
 		}
@@ -90,10 +92,21 @@ export default function SignUpForm(props) {
 					lastName: "",
 					email: "",
 					password: "",
+					passwordConfirm: "",
+
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values, {resetForm}) => {
 					console.log(values) //ASUPP
+
+					if (selectedFile && selectedFile.size > 2000000 && ["image/jpg", "image/jpeg", "image/png"].notIncludes(selectedFile.type)) {
+						setErrorMessage("Erreur de fichier. Non obligatoire. Formats autorisés : .jpg .jpeg .png, max 3Mo")
+						return
+					} 
+
+
+
+
 					handleFormSubmit(values, resetForm)
 				}}
 			>
@@ -109,6 +122,9 @@ export default function SignUpForm(props) {
 
 					<Field name="password" type="password" placeholder="Mot de passe" />
 					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-4" />
+
+					<Field name="passwordConfirm" type="password" placeholder="Confirmer le mot de passe" />
+					<ErrorMessage name="passwordConfirm" component="div" className="errorInput align-self-start px-4" />
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," className="file-input" />
 					<ErrorMessage name="picture" component="div" className="errorInput align-self-start px-4" />

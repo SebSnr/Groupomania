@@ -25,13 +25,8 @@ const checkAdmin = (decodedId) => {
 
 exports.signup = (req, res) => {
 	// Validate request
-	if (!req) {
-		res.status(403).send({message: "Content can not be empty"})
-		return
-	}
-	if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password) {
-		res.status(403).send({message: "All fields (except photo) are required"})
-		return
+	if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password || !req.body.passwordConfirm) {
+		return res.status(403).send("All fields (except photo) are required")
 	}
 
 	let photo = `${req.protocol}://${req.get("host")}/images/Unknow.jpg` //default profile picture
@@ -50,8 +45,8 @@ exports.signup = (req, res) => {
 		}
 
 		User.create(user)
-			.then((userDB) => {
-				if (!userDB) {
+			.then((valid) => {
+				if (!valid) {
 					return res.status(500).send("Problème lors de la création de votre profil. veuillez réessayer plus tard")
 				}
 				res.status(200).send("account created")
@@ -161,10 +156,7 @@ exports.delete = (req, res) => {
 }
 
 exports.modify = (req, res) => {
-	if (!req.file && !req.body.firstName && !req.body.lastName) {
-		res.status(401).send("Content can not be empty")
-		return
-	}
+	if (!req.file && !req.body.firstName && !req.body.lastName) return res.status(401).send("All fields are required")
 
 	// get ID or is admin
 	const decodedId = getTokenUserId(req)
@@ -226,7 +218,10 @@ exports.modify = (req, res) => {
 }
 
 exports.modifyPassword = (req, res) => {
-	if (!req) return res.status(401).send("Content can not be empty")
+	if (!req.body.oldPassword || !req.body.password || !req.body.passwordConfirm) {
+		res.status(401).send("All fields are required")
+		return 
+	}
 
 	// get ID or is admin
 	const decodedId = getTokenUserId(req)
@@ -234,9 +229,7 @@ exports.modifyPassword = (req, res) => {
 
 	console.log(req.body.password) //A SUPP
 
-	console.log(req.body.newPassword) //A SUPP
-
-	const passWord = req.body.password
+	console.log(req.body.passwordConfirm) //A SUPP
 
 	User.findOne({where: {id: decodedId}})
 		.then((user) => {
@@ -244,13 +237,12 @@ exports.modifyPassword = (req, res) => {
 			console.log(user.firstName)
 			
 			bcrypt
-				.compare(req.body.password, user.password)
+				.compare(req.body.oldPassword, user.password)
 				.then((valid) => {
 					if (!valid) return res.status(403).send("Ancien mot de passe incorrect")
-					if (req.body.newPassword !== req.body.newPasswordConfirm || req.body.newPassword === "" || req.body.newPasswordConfirm ===""  ) res.status(401).send("Les nouveau mots de passe sont différents")
-					console.log(valid)
+					console.log(valid) //ASUPP
 
-					bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+					bcrypt.hash(req.body.passwordConfirm, 10, (err, hash) => {
 						User.update(
 									{
 										password: hash
