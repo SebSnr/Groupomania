@@ -6,6 +6,7 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 // import utils
 import {ApiUrl} from "../utils/variables-config"
+import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 // import components
 import {AuthContext} from "../App"
 import PassWordForm from "./PassWordForm "
@@ -51,17 +52,7 @@ export default function FormModifyProfile(props) {
 		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png"].includes(selectedFile.type)) {
 			formData.append("picture", selectedFile)
 		} else if (selectedFile) {
-			MySwal.fire({
-				title: "Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo",
-				icon: "error",
-				showCloseButton: false,
-				buttonsStyling: false,
-				customClass: {
-					confirmButton: "btn btn-primary mx-3",
-					title: "h4 font",
-					popup: "card",
-				},
-			})
+			alertErrorMessage("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
 			return
 		} else {
 		}
@@ -88,7 +79,8 @@ export default function FormModifyProfile(props) {
 				}
 			})
 			.catch((error) => {
-				if (error.response) setErrorMessage(error.response.data)
+				if (typeof error.response.data === "string") setErrorMessage(error.response.data)
+				else alertErrorMessage("Erreur : impossible de modifier votre compte. Veuillez contacter un admin ou retenter ultérieurement")
 			})
 	}
 
@@ -100,28 +92,15 @@ export default function FormModifyProfile(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					MySwal.fire({
-						title: "Votre compte a bien été supprimé",
-						icon: "success",
-						timer: 1300,
-						showConfirmButton: false,
-						showCloseButton: false,
-						buttonsStyling: false,
-						customClass: {
-							confirmButton: "btn btn-primary mx-3",
-							cancelButton: "btn btn-danger mx-3",
-							title: "h4 font",
-							popup: "card",
-						},
-					})
-
 					dispatchAuthState({
 						type: "LOGOUT",
 					})
+					alertSuccessMessage("Votre compte a bien été supprimé", 1300)
 				}
 			})
-			.catch(() => {
-				alert("Erreur : impossible de supprimer votre compte. Veuillez contacter un admin")
+			.catch((error) => {
+				if (typeof error.response.data === "string") setErrorMessage(error.response.data)
+				else alertErrorMessage("Erreur : impossible de supprimer votre compte. Veuillez contacter un admin ou retenter ultérieurement")
 			})
 	}
 

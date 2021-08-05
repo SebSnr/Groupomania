@@ -11,6 +11,7 @@ import ProfilePicture from "./ProfilePicture"
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrashAlt  } from "@fortawesome/free-solid-svg-icons"
+import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 
 export default function Members() {
 	const {AuthState} = useContext(AuthContext)
@@ -54,38 +55,15 @@ export default function Members() {
 			})
 				.then((res) => {
 					if (res.status === 200) {
-						MySwal.fire({
-							title: "Compte supprimé",
-							icon: "success",
-							timer: 1000,
-							showConfirmButton: false,
-							showCloseButton: false,
-							buttonsStyling: false,
-							customClass: {
-								confirmButton: "btn btn-primary mx-3",
-								cancelButton: "btn btn-danger mx-3",
-								title: "h4 font",
-								popup: "card",
-							},
-						})
+						alertSuccessMessage("Compte supprimé", 1000)
 						getUsers()
 					}
 				})
 				.catch(() => {
-					MySwal.fire({
-						title: "Erreur : impossible de supprimer cet utilisateur.",
-						icon: "error",
-						showCloseButton: false,
-						buttonsStyling: false,
-						customClass: {
-							confirmButton: "btn btn-primary mx-3",
-							title: "h4 font",
-							popup: "card",
-						},
-					})
+					alertErrorMessage("Erreur : impossible de supprimer cet utilisateur.")
 				})
 		},
-		[AuthState.token, MySwal, getUsers]
+		[AuthState.token, getUsers]
 	)
 
 	const initialMembersRender = useMemo(() => {
@@ -93,7 +71,7 @@ export default function Members() {
 			<div className="card shadow p-3 h-100 overflow-hidden d-flex flex-column mb-4">
 				<h3 className="text-center mb-3">Collègues</h3>
 				<input type="text" onChange={(event) => handleSearch(event.target.value.toLowerCase())} className="searchUsers mb-4" placeholder="Rechercher..."></input>
-				<ul className="p-0 w-100" style={{"maxHeight": "80vh", "maxWidth": "350px"}}>
+				<ul className="p-0 w-100 overflow-auto" style={{"maxHeight": "80vh", "maxWidth": "350px"}} >
 					{filteredUsers.map((user, index) => (
 						<div key={index}>
 							<li className="d-flex align-items-center justify-content-between mb-4 w-100 text-left">
@@ -111,7 +89,7 @@ export default function Members() {
 								{AuthState.isAdmin === true && user.firstName !== AuthState.firstName ? (
 									<button
 										type="button"
-										className="btn-sm bg-white fs-5"
+										className="btn-sm btn--trash bg-white fs-5"
 										onClick={() => {
 											MySwal.fire({
 												title: "❌ Administrateur : Supprimer cet compte définitivement ?",

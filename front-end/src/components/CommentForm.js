@@ -7,10 +7,14 @@ import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
+import { alertErrorMessage } from "../utils/alertMessage"
+
 
 export default function CommentForm(props) {
-	// use global state of authContext
-	const {AuthState} = useContext(AuthContext)
+
+	const {AuthState} = useContext(AuthContext) // use global state of authContext
+	const [errorMessage, setErrorMessage] = useState(null) // set error message
+
 
 	// submit the form and request
 	function handleFormSubmit(values, resetForm) {
@@ -24,17 +28,20 @@ export default function CommentForm(props) {
 				if (res.status === 200) {
 					console.log("Commentaire créé") //ASUPP
 					resetForm()
-					if (props.commentsRender % 2 === 0 ) props.setCommentsRender(0)
 					props.setCommentsRefresh(true)
+					if (props.commentsRender % 2 === 0) props.setCommentsRender(0)
 				} else {
 					return res.status(401)
 				}
 			})
-			.catch((err) => console.log(`Error post comment - ${err}`))
+			.catch((error) => {
+				if (typeof error.response.data === "string") setErrorMessage(error.response.data)
+				else alertErrorMessage("Erreur : impossible de poster votre commentaire. Veuillez retenter ultérieurement")
+			})
 	}
 
 	const validationSchema = Yup.object().shape({
-		text: Yup.string().min(2, "").max(400, "trop long, max 400 charactères*").required("trop court, min 2 charactères*")
+		text: Yup.string().min(2, "trop court, min 2 charactères*").max(400, "trop long, max 400 charactères*").required(""),
 	})
 
 	return (
@@ -48,16 +55,18 @@ export default function CommentForm(props) {
 				}}
 			>
 				<Form>
-					<div className="d-flex align-items-center justify-content-between mb-3">
-						<ProfilePicture photo={AuthState.photo} class="profile-picture--mini" />
-						<div className="d-flex flex-grow-1">
-							<Field name="text" type="textarea" placeholder="Écrivez votre commentaire" className="textInput px-3 py-1" />
-							<button type="submit" className="btn-sm btn-primary mx-3" title="Envoyer les données" aria-label="Envoyer les données">
-								Commenter
-							</button>
+					<div className="mb-3">
+						<div className="d-flex align-items-center justify-content-between">
+							<ProfilePicture photo={AuthState.photo} class="profile-picture--mini" />
+							<div className="d-flex flex-grow-1">
+								<Field name="text" type="textarea" placeholder="Écrivez votre commentaire" className="textInput px-3 py-1" />
+								<button type="submit" className="btn-sm btn-primary mx-3" title="Envoyer les données" aria-label="Envoyer les données">
+									Commenter
+								</button>
+							</div>
 						</div>
+						{errorMessage ? <div className="errorInput mt-1 text-center">{errorMessage}</div> : <ErrorMessage name="text" component="div" className="errorInput mx-5" />}
 					</div>
-						<ErrorMessage name="text" component="div" className="errorInput mx-5" />
 				</Form>
 			</Formik>
 		</React.Fragment>

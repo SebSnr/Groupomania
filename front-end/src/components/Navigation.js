@@ -5,6 +5,8 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 // components
 import {AuthContext} from "../App"
+// utils
+import { alertSuccessMessage } from "../utils/alertMessage"
 
 export default function Navigation() {
 	// dispatch action and state of authentication
@@ -19,20 +21,8 @@ export default function Navigation() {
 		dispatchAuthState({
 			type: "LOGOUT",
 		})
-		MySwal.fire({
-			title: "Vous êtes déconnecté",
-			icon: "success",
-			timer: 1000,
-			showConfirmButton: false,
-			showCloseButton: false,
-			buttonsStyling: false,
-			customClass: {
-				confirmButton: "btn btn-primary mx-3",
-				title: "h4 font",
-				popup: "card",
-			},
-		})
 		history.push("/")
+		alertSuccessMessage("Vous êtes déconnecté", 1000)
 	}
 
 	return (

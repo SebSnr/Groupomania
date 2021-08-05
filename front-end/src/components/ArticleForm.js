@@ -1,25 +1,22 @@
 import React, {useEffect, useState, useContext} from "react"
 import {Formik, Form, Field, ErrorMessage} from "formik"
-import {SocialIcon} from "react-social-icons"
 import axios from "axios"
 import * as Yup from "yup"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
 // icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCamera } from "@fortawesome/free-solid-svg-icons"
-import { faYoutube } from '@fortawesome/free-brands-svg-icons'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faCamera} from "@fortawesome/free-solid-svg-icons"
+import {faYoutube} from "@fortawesome/free-brands-svg-icons"
 // Components
 import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
+import { alertErrorMessage } from "../utils/alertMessage"
 
 export default function ArticleForm(props) {
 	// use global state of authContext
 	const {AuthState} = useContext(AuthContext)
 
-	const MySwal = withReactContent(Swal) // custom alert button
 
 	// state of media input choice
 	const [media, setMedia] = useState(null)
@@ -29,7 +26,7 @@ export default function ArticleForm(props) {
 	useEffect(() => {
 		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
 	}, [AuthState])
-	
+
 	const [errorMessage, setErrorMessage] = useState(null) // set error message
 
 	// state of uploaded file
@@ -67,20 +64,8 @@ export default function ArticleForm(props) {
 				props.setArticlesRefresh(true)
 			})
 			.catch((error) => {
-
-				if (error.response) setErrorMessage(error.response.data)
-
-				MySwal.fire({
-					title: "Erreur : impossible de publier ce post",
-					icon: "error",
-					showCloseButton: false,
-					buttonsStyling: false,
-					customClass: {
-						confirmButton: "btn btn-primary mx-3",
-						title: "h4 font",
-						popup: "card",
-					},
-				})
+				if (typeof error.response.data === "string") setErrorMessage(error.response.data)
+				else alertErrorMessage("Erreur : impossible de poster votre post. Veuillez retenter ultérieurement")
 			})
 	}
 
@@ -96,7 +81,6 @@ export default function ArticleForm(props) {
 				initialValues={{text: "", youtube: ""}}
 				validationSchema={validationSchema}
 				onSubmit={(values, {resetForm}) => {
-					
 					if (values.text === "" && values.youtube === "" && !selectedFile) {
 						setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
 						return
@@ -149,7 +133,10 @@ export default function ArticleForm(props) {
 											title="Joindre une photo"
 											aria-label="Joindre une photo"
 										>
-											Joindre une photo &nbsp; <span className="awesomeColorIcon"><FontAwesomeIcon icon={faCamera} /></span>
+											Joindre une photo &nbsp;{" "}
+											<span className="awesomeColorIcon">
+												<FontAwesomeIcon icon={faCamera} />
+											</span>
 										</button>
 									</div>
 								)
@@ -182,8 +169,7 @@ export default function ArticleForm(props) {
 					<button type="submit" className="btn-lg btn-primary d-bloc m-auto mb-1 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
 						Envoyer
 					</button>
-					{errorMessage &&
-						<div className="errorInput mt-1 text-center">{errorMessage}</div>}
+					{errorMessage && <div className="errorInput mt-1 text-center">{errorMessage}</div>}
 				</Form>
 			</Formik>
 		</div>

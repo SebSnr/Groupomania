@@ -11,6 +11,7 @@ import CommentsPart from "./CommentsPart"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 import {toFormatedDate} from "../utils/toformatedDate"
+import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 // icons
 import { faTrashAlt  } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -37,36 +38,11 @@ export default function ArticleCard(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-
-					MySwal.fire({
-						title: "Post supprimé",
-						icon: "success",
-						timer: 1000,
-						showConfirmButton: false,
-						showCloseButton: false,
-						buttonsStyling: false,
-						customClass: {
-							title: "h4 font",
-							popup: "card",
-						},
-					})
-
 					props.setArticlesRefresh(true)
+					alertSuccessMessage("Post supprimé.", 1000)
 				}
 			})
-			.catch(() => {
-				MySwal.fire({
-					title: "Erreur : impossible de supprimer ce post",
-					icon: "error",
-					showCloseButton: false,
-					buttonsStyling: false,
-					customClass: {
-						confirmButton: "btn btn-primary mx-3",
-						title: "h4 font",
-						popup: "card",
-					},
-				})
-			})
+			.catch(() => alertErrorMessage("Erreur : impossible de supprimer ce post."))
 	}
 
 	// set article for state of article page
@@ -148,10 +124,7 @@ export default function ArticleCard(props) {
 					</div>
 				) : null}
 			</div>
-
-			<div className="card-body">
-				<CommentsPart article={props.article} setArticlesRefresh={props.setArticlesRefresh} />
-			</div>
+			<CommentsPart article={props.article} setArticlesRefresh={props.setArticlesRefresh} />
 		</div>
 	)
 }

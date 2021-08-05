@@ -6,7 +6,7 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 // import utils
 import {ApiUrl} from "../utils/variables-config"
-// import user data
+import { alertErrorMessage } from "../utils/alertMessage"
 
 export default function SignUpForm(props) {
 	require('yup-password')(Yup) //update yup password librairie
@@ -29,8 +29,6 @@ export default function SignUpForm(props) {
 			.required("obligatoire*"),
 		password: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
 		passwordConfirm: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
-
-
 	})
 
 	// send form data
@@ -79,7 +77,10 @@ export default function SignUpForm(props) {
 					props.setConnexionContent("login")
 				}
 			})
-			.catch((error) => {if (error.response) setErrorMessage(error.response.data)})
+			.catch((error) => {
+				if (typeof error.response.data === "string") setErrorMessage(error.response.data)
+				else alertErrorMessage("Erreur : impossible de créer un compte. Veuillez contacter un admin ou retenter ultérieurement")
+			})
 
 	}
 
@@ -103,10 +104,6 @@ export default function SignUpForm(props) {
 						setErrorMessage("Erreur de fichier. Non obligatoire. Formats autorisés : .jpg .jpeg .png, max 3Mo")
 						return
 					} 
-
-
-
-
 					handleFormSubmit(values, resetForm)
 				}}
 			>

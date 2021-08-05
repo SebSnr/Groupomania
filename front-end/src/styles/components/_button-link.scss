@@ -27,6 +27,9 @@ button {
 	}
 
 	&--trash {
+		.fa-trash-alt {
+			font-size: 1rem;
+		}
 		svg path {
 			fill: rgb(141, 141, 141);
 		}

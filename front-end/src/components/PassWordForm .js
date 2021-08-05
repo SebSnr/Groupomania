@@ -8,6 +8,7 @@ import withReactContent from "sweetalert2-react-content"
 import {ApiUrl} from "../utils/variables-config"
 // import user data
 import {AuthContext} from "../App"
+import { alertSuccessMessage } from "../utils/alertMessage"
 
 export default function PassWordForm(props) {
 	require("yup-password")(Yup) //update yup password librairie
@@ -51,19 +52,7 @@ export default function PassWordForm(props) {
 					setErrorMessage(null)
 					resetForm()
 					props.setProfileRender(props.initialProfileRender)
-
-					MySwal.fire({
-						title: "Mot de passe modifié",
-						icon: "success",
-						timer: 2500,
-						showConfirmButton: false,
-						showCloseButton: false,
-						buttonsStyling: false,
-						customClass: {
-							title: "h4 font",
-							popup: "card",
-						},
-					})
+					alertSuccessMessage("Mot de passe modifié", 2500)
 				}
 			})
 			.catch((error) => {

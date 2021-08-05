@@ -14,6 +14,7 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 import {toFormatedDate} from "../utils/toformatedDate"
+import {alertErrorMessage, alertSuccessMessage} from "../utils/alertMessage"
 
 export default function Comments(props) {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
@@ -43,7 +44,7 @@ export default function Comments(props) {
 	}, [commentsRefresh, getComments])
 
 	return (
-		<div>
+		<div className="card-body pt-0">
 			<div className="d-flex justify-content-evenly border-bottom">
 				{/* <div>Like / dislike</div> */}
 				<div>
@@ -80,34 +81,11 @@ function Commentary(props) {
 			})
 				.then((res) => {
 					if (res.status === 200) {
-						MySwal.fire({
-							title: "Commentaire supprimé",
-							icon: "success",
-							timer: 1000,
-							showConfirmButton: false,
-							showCloseButton: false,
-							buttonsStyling: false,
-							customClass: {
-								title: "h4 font",
-								popup: "card",
-							},
-						})
 						props.setCommentsRefresh(true)
+						alertSuccessMessage("Commentaire supprimé.", 1000)
 					}
 				})
-				.catch(() => {
-					MySwal.fire({
-						title: "Erreur : impossible de supprimer ce commentaire",
-						icon: "error",
-						showCloseButton: false,
-						buttonsStyling: false,
-						customClass: {
-							confirmButton: "btn btn-primary mx-3",
-							title: "h4 font",
-							popup: "card",
-						},
-					})
-				})
+				.catch(() => alertErrorMessage("Erreur : impossible de supprimer ce commentaire."))
 		},
 		[AuthState.token, props]
 	)
@@ -124,7 +102,7 @@ function Commentary(props) {
 					{comment.UserId === AuthState.user || AuthState.isAdmin === true ? (
 						<button
 							type="button"
-							className="btn-sm bg-white fs-6"
+							className="btn-sm btn--trash bg-white fs-6"
 							onClick={() => {
 								MySwal.fire({
 									title: "❌ Supprimer ce commentaire ?",

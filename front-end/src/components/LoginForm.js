@@ -3,16 +3,18 @@ import {Formik, Form, Field, ErrorMessage} from "formik"
 import axios from "axios"
 import * as Yup from "yup"
 import {useHistory} from "react-router-dom"
-
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 // import utils
 import {ApiUrl} from "../utils/variables-config"
+import {alertErrorMessage} from "../utils/alertMessage"
 // import user data
 import {AuthContext} from "../App"
 
 export default function LoginForm() {
-	require('yup-password')(Yup) //update yup password librairie
+	require("yup-password")(Yup) //update yup password librairie
 
-	let history = useHistory()
+	let history = useHistory() //browser history
 
 	// Validate input
 	const LoginSchema = Yup.object().shape({
@@ -20,7 +22,14 @@ export default function LoginForm() {
 			.email("mail invalide*")
 			.test("@groupomania.com", "mail@groupomania.com*", (email) => email && email.indexOf("@groupomania.com", email.length - "@groupomania.com".length) !== -1)
 			.required("obligatoire*"),
-		password: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
+		password: Yup.string()
+			.required("obligatoire*")
+			.min(6, "trop court, 6 minimum*")
+			.max(50, "trop long, 50 maximum*")
+			.minLowercase(1, "minimum 1 lettre minuscule")
+			.minUppercase(1, "minimum 1 lettre majuscule")
+			.minNumbers(1, "minimum 1 chiffre")
+			.minSymbols(1, "minimum 1 symbole"),
 	})
 
 	// dispatch action and state of authentication
@@ -50,7 +59,10 @@ export default function LoginForm() {
 					history.push("/")
 				}
 			})
-			.catch((error) => {if (error.response) setErrorMessage(error.response.data)})
+			.catch((error) => {
+				if (typeof error.response.data === "string") setErrorMessage(error.response.data)
+				else alertErrorMessage("Erreur : impossible de se connecter. Veuillez contacter un admin ou retenter ultérieurement")
+			})
 	}
 
 	return (
