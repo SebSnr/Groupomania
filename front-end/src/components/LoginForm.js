@@ -70,10 +70,10 @@ export default function LoginForm() {
 				{() => (
 					<Form className="d-flex flex-column align-items-center">
 						<Field name="email" type="email" placeholder="Mail Groupomania" className="input--login" />
-						<ErrorMessage name="email" component="div" className="errorInput align-self-start px-1" />
+						<ErrorMessage name="email" component="div" className="errorInput align-self-start" />
 
 						<Field name="password" type="password" placeholder="Mot de passe" className="input--login" />
-						<ErrorMessage name="password" component="div" className="errorInput align-self-start px-1" />
+						<ErrorMessage name="password" component="div" className="errorInput align-self-start" />
 
 						<button type="submit" className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">
 							Se connecter

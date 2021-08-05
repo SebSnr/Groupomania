@@ -25,18 +25,14 @@ export default function ArticleForm(props) {
 	useEffect(() => {
 		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
 	}, [AuthState])
+	
+	const [errorMessage, setErrorMessage] = useState(null) // set error message
 
 	// state of uploaded file
 	const [selectedFile, setSelectedFile] = useState()
 
 	// submit the form and request
 	function handleFormSubmit(values, resetForm) {
-		// unless one field required
-		if (values.text === "" && values.youtube === "" && !selectedFile) {
-			alert("Veuillez remplir au moins un champs du post")
-			return
-		}
-
 		// prepare data to send
 		const formData = new FormData()
 		formData.append("author", AuthState.user)
@@ -61,11 +57,15 @@ export default function ArticleForm(props) {
 			.then((res) => {
 				console.log("Post créé") //ASUPP
 				resetForm()
+				setErrorMessage(null)
 				setSelectedFile()
 				setMedia("default")
 				props.setArticlesRefresh(true)
 			})
-			.catch(() => {
+			.catch((error) => {
+
+				if (error.response) setErrorMessage(error.response.data)
+
 				MySwal.fire({
 					title: "Erreur : impossible de publier ce post",
 					icon: "error",
@@ -92,6 +92,11 @@ export default function ArticleForm(props) {
 				initialValues={{text: "", youtube: ""}}
 				validationSchema={validationSchema}
 				onSubmit={(values, {resetForm}) => {
+					
+					if (values.text === "" && values.youtube === "" && !selectedFile) {
+						setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
+						return
+					}
 					console.log(values) //ASUPP
 					handleFormSubmit(values, resetForm)
 				}}
@@ -175,6 +180,8 @@ export default function ArticleForm(props) {
 					<button type="submit" className="btn-lg btn-primary d-bloc m-auto mb-1 mt-lg-0" title="Envoyer les données" aria-label="Envoyer les données">
 						Envoyer
 					</button>
+					{errorMessage &&
+						<div className="errorInput mt-1 text-center">{errorMessage}</div>}
 				</Form>
 			</Formik>
 		</div>

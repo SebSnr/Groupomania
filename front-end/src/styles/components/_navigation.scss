@@ -3,20 +3,30 @@
 
 	.navbar-brand {
 		margin-left: 15px;
+		position: relative;
+		height: 34px;
+		width: 34px;
 
 		&:focus,
 		&:active {
-			outline: solid 2px $color-3;
+			outline: none;
+			border: none;
+			box-shadow: 0 0 4px 1px rgb(63, 63, 63);
+			border-radius: 50%;
 		}
 
 		&__logo {
+			position: absolute;
+			top: 0;
 			height: 34px;
 			border-radius: 50%;
 			&:hover,
 			&:focus,
 			&:active {
-				border: solid 2px $color-2;
 				outline: none;
+				box-shadow: 0 0 4px 1px rgb(90, 90, 90);
+				border-radius: 50%;
+
 			}
 		}
 	}

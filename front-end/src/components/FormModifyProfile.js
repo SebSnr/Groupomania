@@ -33,10 +33,10 @@ export default function FormModifyProfile(props) {
 	const handleFormSubmit = (values, resetForm) => {
 		console.log(values) // A SUPP
 
-		// if(!values && !selectedFile){
-		// 	setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
-		// 	return
-		// }
+		if(!values.firstName && !values.lastName && !selectedFile){
+			setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
+			return
+		}
 
 		// set data object to send
 		const formData = new FormData()
@@ -137,7 +137,12 @@ export default function FormModifyProfile(props) {
 				}}
 				validationSchema={ValidationSchema}
 				onSubmit={(values, {resetForm}) => {
-					console.log(values)
+
+					if(!values.firstName && !values.lastName && !selectedFile){
+						setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
+						return
+					}
+					
 					MySwal.fire({
 						title: "Êtes-vous sûr de vouloir modifier ces informations ?",
 						timer: 15000,

@@ -99,19 +99,19 @@ export default function SignUpForm(props) {
 			>
 				<Form className="d-flex flex-column align-items-center">
 					<Field name="firstName" type="text" placeholder="Prénom" />
-					<ErrorMessage name="firstName" component="div" className="errorInput align-self-start px-1" />
+					<ErrorMessage name="firstName" component="div" className="errorInput align-self-start px-4" />
 
 					<Field name="lastName" type="text" placeholder="Nom" />
-					<ErrorMessage name="lastName" component="div" className="errorInput align-self-start px-1" />
+					<ErrorMessage name="lastName" component="div" className="errorInput align-self-start px-4" />
 
 					<Field name="email" type="email" placeholder="Mail Groupomania" />
-					<ErrorMessage name="email" component="div" className="errorInput align-self-start px-1" />
+					<ErrorMessage name="email" component="div" className="errorInput align-self-start px-4" />
 
 					<Field name="password" type="password" placeholder="Mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-1" />
+					<ErrorMessage name="password" component="div" className="errorInput align-self-start px-4" />
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," className="file-input" />
-					<ErrorMessage name="picture" component="div" className="errorInput align-self-start px-1" />
+					<ErrorMessage name="picture" component="div" className="errorInput align-self-start px-4" />
 
 					<button type="submit" className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
 						s'inscrire

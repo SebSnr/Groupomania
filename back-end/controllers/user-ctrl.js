@@ -161,7 +161,7 @@ exports.delete = (req, res) => {
 }
 
 exports.modify = (req, res) => {
-	if (!req) {
+	if (!req.file && !req.body.firstName && !req.body.lastName) {
 		res.status(401).send("Content can not be empty")
 		return
 	}
@@ -215,6 +215,7 @@ exports.modify = (req, res) => {
 					token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
 					firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
 					lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
+					email: user.email.toLowerCase(),
 					photo: user.photo,
 					isAuthenticated: true,
 					isAdmin: user.isAdmin,
