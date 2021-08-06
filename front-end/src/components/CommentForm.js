@@ -29,7 +29,7 @@ export default function CommentForm(props) {
 					console.log("Commentaire créé") //ASUPP
 					resetForm()
 					props.setCommentsRefresh(true)
-					if (props.commentsRender % 2 === 0) props.setCommentsRender(0)
+					if (props.commentsRender % 2 === 0) props.setCommentsRender(1)
 				} else {
 					return res.status(401)
 				}

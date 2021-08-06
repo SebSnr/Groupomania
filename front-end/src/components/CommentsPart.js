@@ -133,11 +133,8 @@ function Commentary(props) {
 		)
 	}
 
-	// Render comment just written by user or render all comments on click
-	if (props.commentsRender === 0) {
-		let comment = props.data[0]
-		return renderCommentary(comment)
-	} else if (props.commentsRender % 2 === 1) {
+	// Render all comments on click or when post new comment
+	if (props.commentsRender % 2 === 1) {
 		return props.data
 			.sort(function (a, b) {
 				let dateA = new Date(a.createdAt),
