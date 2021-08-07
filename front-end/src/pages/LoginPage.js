@@ -18,16 +18,18 @@ export default function LoginPage() {
 			{loading ? (
 				<Lottie animationData={globalWorld} options={{loop: true, autoplay: true}} height={60} width={60} style={{"background": "none", "height": "100vh"}} />
 			) : (
-				<div className="card shadow container gx-0 p-4 loginContainer">
-					<div className="loginContainer__header">
+				<div className="vh-100  d-flex justify-content-center align-items-center">
+				<div className="card shadow container gx-0 p-4">
+					<div>
 						<h1>
 							Bienvenue à la communauté<span className="d-none">Groupomania</span>
 						</h1>
 						<br />
-						<img src="/img/groupomania transparent.png" alt="Logo Groupomania" className="img-fluid mx-auto" />
+						<img src="/img/groupomania transparent.png" alt="Logo Groupomania" className="img-fluid mx-auto mb-5" />
 					</div>
 					<Connexion />
 					<SocialBar />
+				</div>
 				</div>
 			)}
 		</React.Fragment>

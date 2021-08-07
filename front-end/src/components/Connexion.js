@@ -13,7 +13,7 @@ export default function Connexion() {
 				switch (connexionContent) {
 					case "signUp":
 						return (
-							<div className="connexionContent">
+							<div className="d-flex flex-column align-items-center mb-5">
 								<SignUpForm setConnexionContent={setConnexionContent} />
 								<br /> Déjà un compte ? <br /> <br />
 								<button className="btn btn--customize1" onClick={() => setConnexionContent("login")} title="Se connecter" aria-label="Se connecter">
@@ -23,7 +23,7 @@ export default function Connexion() {
 						)
 					case "login":
 						return (
-							<div className="connexionContent">
+							<div className="d-flex flex-column align-items-center mb-5">
 								<LoginForm />
 								<br /> Créer un compte ? <br /> <br />
 								<button className="btn btn--customize1" onClick={() => setConnexionContent("signUp")} title="S'inscrire" aria-label="S'inscrire">
@@ -33,7 +33,7 @@ export default function Connexion() {
 						)
 					default:
 						return (
-							<div className="connexionContent">
+							<div className="d-flex flex-column align-items-center mb-5">
 								<button type="button" onClick={() => setConnexionContent("signUp")} className="btn-lg btn-primary" title="S'inscrire" aria-label="S'inscrire">
 									S'inscrire
 								</button>

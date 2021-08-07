@@ -9,13 +9,12 @@ import {AuthContext} from "../App"
 import { alertSuccessMessage } from "../utils/alertMessage"
 
 export default function Navigation() {
-	// dispatch action and state of authentication
-	const {dispatchAuthState} = useContext(AuthContext)
-
-	// use history hook
-	const history = useHistory()
-	// custom alert button
-	const MySwal = withReactContent(Swal)
+	
+	const {dispatchAuthState} = useContext(AuthContext) // dispatch action and state of authentication
+	
+	const history = useHistory() // use history hook
+	
+	const MySwal = withReactContent(Swal) // custom alert button
 
 	const handleDeconnect = () => {
 		dispatchAuthState({

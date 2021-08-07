@@ -48,8 +48,7 @@ export default function SignUpForm(props) {
 		} else if (selectedFile) {
 			setErrorMessage("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
 			return
-		} else {
-		}
+		} else {}
 
 		axios({
 			method: "post",

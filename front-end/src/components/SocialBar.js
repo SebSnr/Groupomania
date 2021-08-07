@@ -3,7 +3,7 @@ import {SocialIcon} from "react-social-icons"
 
 export default function SocialBar() {
 	return (
-		<div className="socialBar d-flex justify-content-center">
+		<div className="d-flex justify-content-center mt-4">
 			<button type="button" className="btn" title="Facebook">
 				<SocialIcon network="facebook" className="btn--iconed" />
 			</button>

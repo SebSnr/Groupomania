@@ -39,9 +39,13 @@ export default function ArticleForm(props) {
 		formData.append("author", AuthState.user)
 		if (values.text) formData.append("text", values.text)
 		if (values.youtube) formData.append("youtube", values.youtube)
+		// add file if exist and validated
 		if (selectedFile && selectedFile.size < 2000000 && ["image/jpg", "image/jpeg", "image/png", "image/gif"].includes(selectedFile.type)) {
 			formData.append("picture", selectedFile)
-		}
+		} else if (selectedFile) {
+			setErrorMessage("Erreur de fichier. Formats autorisés : .jpg .jpeg .png .gif, max 3Mo")
+			return
+		} else {}
 		if (values.youtube && selectedFile) formData.delete("youtube") //security : send only one media
 
 		for (var pair of formData.entries()) {

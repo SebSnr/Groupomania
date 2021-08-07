@@ -57,7 +57,7 @@ exports.create = (req, res) => {
 		.then((data) => {
 			res.send(data)
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(400).send({error}))
 }
 
 // Get all articles

@@ -4,6 +4,7 @@ import axios from "axios"
 import {Link} from "react-router-dom"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+import {useHistory} from "react-router"
 // components
 import {AuthContext} from "../App"
 import ProfilePicture from "./ProfilePicture"
@@ -18,6 +19,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function ArticleCard(props) {
 
+	const history = useHistory() // use history hook
+	
 	const MySwal = withReactContent(Swal) // custom alert button
 
 	// Format article date
@@ -38,7 +41,8 @@ export default function ArticleCard(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					props.setArticlesRefresh(true)
+					if (props.setArticlesRefresh) props.setArticlesRefresh(true)
+					if (!props.setArticlesRefresh) history.push("/")
 					alertSuccessMessage("Post supprimé.", 1000)
 				}
 			})

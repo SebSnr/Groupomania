@@ -32,7 +32,8 @@ export default function Comments(props) {
 		}).then((res) => {
 			setCommentsData(res.data)
 			setCommentsRefresh(false)
-		})
+		}).catch(() => alertErrorMessage("Erreur lors du chargement des commentaires."))
+
 	}, [AuthState.token, props.article.id])
 
 	// event: get articles and refresh

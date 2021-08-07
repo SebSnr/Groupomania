@@ -1,18 +1,13 @@
+$grid-columns: 36; //change Bootstrap Grid
 @import "~bootstrap/scss/bootstrap";
-// @import "~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss";
 @import "./settings";
-
-// pages
-@import "./pages/loginPage";
 
 // components
 @import "./components/navigation";
-@import "./components/footer";
 @import "./components/button-link";
 @import "./components/form-input";
 @import "./components/articleCard";
 @import "./components/errorPage";
 @import "./components/profilePicture";
-@import "./components/profileBar";
 
  
