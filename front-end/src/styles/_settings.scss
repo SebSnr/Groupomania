@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-// $grid-columns: 36 !default; ===> change in modules/boostrap/variables to get a grid with 36 columns (by default 12)
-
 $font-1: "poppins", sans-serif;
 
 $color-1: #fd2d01;
@@ -36,7 +34,6 @@ li {
 .card {
     border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.151);
-	// box-shadow: 0 2px 5px -2px gray;
 }
 
 .card-style {
@@ -45,7 +42,6 @@ li {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    // border: 1px solid rgba(0, 0, 0, 0.125);   //by default
     border: 1px solid rgba(0, 0, 0, 0.151);
 	box-shadow: 0 2px 5px 2px rgb(27, 27, 27);
     border-radius: 20px;

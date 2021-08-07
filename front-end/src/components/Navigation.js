@@ -11,9 +11,7 @@ import { alertSuccessMessage } from "../utils/alertMessage"
 export default function Navigation() {
 	
 	const {dispatchAuthState} = useContext(AuthContext) // dispatch action and state of authentication
-	
 	const history = useHistory() // use history hook
-	
 	const MySwal = withReactContent(Swal) // custom alert button
 
 	const handleDeconnect = () => {
@@ -66,6 +64,7 @@ export default function Navigation() {
 							<li className="nav-item">
 								<button
 									onClick={() => {
+										// ask confirmation
 										MySwal.fire({
 											title: "Se déconnecter ?",
 											timer: 5000,
@@ -83,7 +82,7 @@ export default function Navigation() {
 											if (result.isConfirmed) {
 												handleDeconnect()
 											} else return
-										})
+										}) 
 									}}
 									className="nav-btn-icon"
 									title="Se deconnecter"

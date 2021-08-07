@@ -9,15 +9,10 @@ import {ApiUrl} from "../utils/variables-config"
 import { alertErrorMessage } from "../utils/alertMessage"
 
 export default function SignUpForm(props) {
-	require('yup-password')(Yup) //update yup password librairie
-
-	const MySwal = withReactContent(Swal) // custom alert button
-
-	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState()
-
-	// set error message from server
-	const [errorMessage, setErrorMessage] = useState(null)
+	require('yup-password')(Yup)  //update yup password librairie
+	const MySwal = withReactContent(Swal)  // custom alert button
+	const [selectedFile, setSelectedFile] = useState()  // state of uploaded file
+	const [errorMessage, setErrorMessage] = useState(null)  // set error message from server
 
 	// validate input values
 	const SignupSchema = Yup.object().shape({
@@ -97,8 +92,7 @@ export default function SignUpForm(props) {
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values, {resetForm}) => {
-					console.log(values) //ASUPP
-
+					// error message if wrong file
 					if (selectedFile && selectedFile.size > 2000000 && ["image/jpg", "image/jpeg", "image/png"].notIncludes(selectedFile.type)) {
 						setErrorMessage("Erreur de fichier. Non obligatoire. Formats autorisés : .jpg .jpeg .png, max 3Mo")
 						return

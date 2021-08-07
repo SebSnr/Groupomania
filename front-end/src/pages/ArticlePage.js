@@ -5,10 +5,7 @@ import Navigation from "../components/Navigation"
 import ArticleCard from "../components/ArticleCard"
 
 export default function ArticlePage(props) {
-    // get article data from props
-	let article = props.location.state.article
-	// let setArticlesRefresh = props.location.state.setArticlesRefresh
-	// setArticlesRefresh={setArticlesRefresh}
+	let article = props.location.state.article  // get article data from props
 
 	// loader page if no article data
 if (!article) return <div className="d-flex justify-content-center align-items-center vh-100 bg-white"><Loader type="TailSpin" color="#036bfc" height={100} width={100} timeout={300000} /></div>

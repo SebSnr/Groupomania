@@ -18,9 +18,9 @@ export default function Members() {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
 	const MySwal = withReactContent(Swal) // custom alert button
 
-	const [users, setUsers] = useState([])
-	const [filteredUsers, setFilteredUsers] = useState(users)
-	const [loading, setLoading] = useState(true)
+	const [users, setUsers] = useState([])  // set users data state
+	const [filteredUsers, setFilteredUsers] = useState(users) // users data state in order to search in it
+	const [loading, setLoading] = useState(true)  // loading page state
 
 	const getUsers = useCallback(() => {
 		axios({
@@ -28,13 +28,13 @@ export default function Members() {
 			url: `${ApiUrl}/auth/`,
 			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		}).then((res) => {
-			console.log(res.data)
 			setUsers(res.data)
 			setFilteredUsers(res.data)
 			setLoading(false)
 		})
 	}, [AuthState.token])
 
+	// searched users render
 	const handleSearch = useCallback(
 		(value) => {
 			let result = users.filter((user) => {
@@ -91,6 +91,7 @@ export default function Members() {
 										type="button"
 										className="btn-sm btn--trash bg-white fs-5"
 										onClick={() => {
+											// ask confirmation
 											MySwal.fire({
 												title: "❌ Administrateur : Supprimer cet compte définitivement ?",
 												timer: 15000,
@@ -126,7 +127,7 @@ export default function Members() {
 	}, [AuthState.firstName, AuthState.isAdmin, filteredUsers, handleSearch])
 
 
-	const [membersRender, setMembersRender] = useState(initialMembersRender)
+	const [membersRender, setMembersRender] = useState(initialMembersRender)  // render member state
 
 	// event : get members render after get users
 	useEffect(() => {
@@ -148,6 +149,7 @@ export default function Members() {
 	else return membersRender
 }
 
+// member profil component
 function MemberProfile(props) {
 	return (
 		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center text-truncate">

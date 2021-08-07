@@ -12,8 +12,7 @@ import Members from "../components/Members"
 import {ApiUrl} from "../utils/variables-config"
 
 export default function HomePage() {
-	// use authentication globalstate
-	const {AuthState} = useContext(AuthContext)
+	const {AuthState} = useContext(AuthContext) // use authentication globalstate
 
 	// state articles data
 	const [articlesData, setArticlesData] = useState(false)
@@ -76,7 +75,6 @@ export default function HomePage() {
 							</main>
 						</div>
 					</div>
-					{/* )} */}
 				</div>
 			</React.Fragment>
 		)

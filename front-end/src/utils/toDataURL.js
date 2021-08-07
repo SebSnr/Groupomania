@@ -1,6 +1,6 @@
 // store profile picture in local storage from db
 export const toDataURL = (url) =>
-	fetch(url)
+	fetch(url) 
 		.then((response) => response.blob())
 		.then(
 			(blob) =>

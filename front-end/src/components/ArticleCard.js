@@ -17,9 +17,11 @@ import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 import { faTrashAlt  } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
+
 export default function ArticleCard(props) {
 
 	const history = useHistory() // use history hook
+	const {AuthState} = useContext(AuthContext) // use global state of authContext
 	
 	const MySwal = withReactContent(Swal) // custom alert button
 
@@ -27,13 +29,7 @@ export default function ArticleCard(props) {
 	toFormatedDate(props.article.createdAt)
 	let articleDate = toFormatedDate(props.article.createdAt)
 
-	// use global state of authContext
-	const {AuthState} = useContext(AuthContext)
-
 	const deleteArticle = () => {
-		console.log(`${ApiUrl}/articles/:${props.article.id}`)
-		console.log(`Bearer ${AuthState.token}`)
-
 		axios({
 			method: "delete",
 			url: `${ApiUrl}/articles/${props.article.id}`,
@@ -41,7 +37,7 @@ export default function ArticleCard(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					 //refresh all articles or, in article page, go back to home page
+					 //refresh all articles or in article page, go back to home page
 					if (props.setArticlesRefresh) props.setArticlesRefresh(true)
 					else history.push("/")
 					alertSuccessMessage("Post supprimé.", 1000)
@@ -49,9 +45,8 @@ export default function ArticleCard(props) {
 			})
 			.catch(() => alertErrorMessage("Erreur : impossible de supprimer ce post."))
 	}
-
-	// set article for state of article page
-	let article = props.article
+	
+	let article = props.article // set article for state of article page
 
 	// set text size css in function of media because text-overflow: ellipsis not working vertically
 	let cardBodyClass = ""
@@ -84,6 +79,7 @@ export default function ArticleCard(props) {
 								type="button"
 								className="btn-sm bg-white btn--trash fs-5"
 								onClick={() => {
+									// ask confirmation
 									MySwal.fire({
 										title: "❌ Supprimer ce post ?",
 										timer: 15000,
@@ -116,7 +112,6 @@ export default function ArticleCard(props) {
 						<p className={`card-text ${cardTextClass}`}>{props.article.text}</p>
 					</Link>
 				</div>
-
 				{article.youtube || article.picture ? (
 					<div className={`media-container ${mediaContainerClass} ${cardMediaNone}`}>
 						<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none`} title="Ouvrir le post">

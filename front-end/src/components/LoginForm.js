@@ -11,10 +11,11 @@ import {AuthContext} from "../App"
 
 export default function LoginForm() {
 	require("yup-password")(Yup) //update yup password librairie
-
 	let history = useHistory() //browser history
+	const {dispatchAuthState} = useContext(AuthContext)  // dispatch action and state of authentication
+	const [errorMessage, setErrorMessage] = useState(null)  // set error message from server
 
-	// Validate input
+	// validate input values
 	const LoginSchema = Yup.object().shape({
 		email: Yup.string()
 			.email("mail invalide*")
@@ -30,12 +31,6 @@ export default function LoginForm() {
 			.minSymbols(1, "minimum 1 symbole"),
 	})
 
-	// dispatch action and state of authentication
-	const {dispatchAuthState} = useContext(AuthContext)
-
-	// set error message from server
-	const [errorMessage, setErrorMessage] = useState(null)
-
 	// send form data
 	const handleFormSubmit = (values, resetForm) => {
 		axios({
@@ -44,10 +39,7 @@ export default function LoginForm() {
 			data: values,
 		})
 			.then((res) => {
-				console.log("Utilisateur trouvé") // A SUPP
-
 				if (res.status === 200) {
-					console.log(res.data) // A SUPP
 					dispatchAuthState({
 						type: "LOGIN",
 						payload: res.data,
@@ -73,7 +65,6 @@ export default function LoginForm() {
 				}}
 				validationSchema={LoginSchema}
 				onSubmit={(values, {resetForm}) => {
-					console.log(values)
 					handleFormSubmit(values, resetForm)
 				}}
 			>

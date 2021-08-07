@@ -5,12 +5,12 @@ import LoginForm from "./LoginForm"
 
 export default function Connexion() {
 	// state of connexion render
-	const [connexionContent, setConnexionContent] = useState()
+	const [connexionContent, setConnexionContent] = useState() 
 
 	return (
 		<div>
-			{(() => {
-				switch (connexionContent) {
+			{(() => { 
+				switch (connexionContent) { 
 					case "signUp":
 						return (
 							<div className="d-flex flex-column align-items-center mb-5">

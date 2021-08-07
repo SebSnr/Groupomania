@@ -1,13 +1,12 @@
 .profile-picture {
-	
 	position: relative;
 	overflow: hidden;
 	border-radius: 50%;
 	border: solid 3px $color-3;
 	height: 7rem;
 	width: 7rem;
-	padding-right: 0!important;
-	padding-left: 0!important;
+	padding-right: 0 !important;
+	padding-left: 0 !important;
 
 	img {
 		position: absolute;
@@ -16,7 +15,7 @@
 		transform: translate(-50%, -50%);
 		width: 7rem;
 	}
-	
+
 	&--mini {
 		margin-right: 15px;
 		height: 2.5rem;

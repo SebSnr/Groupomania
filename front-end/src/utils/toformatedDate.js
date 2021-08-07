@@ -1,5 +1,4 @@
 export const toFormatedDate = (date) => {
-
     // Format article date
 	let options = {year: "numeric", month: "long", day: "numeric"}
 	let dbDate = new Date(date)

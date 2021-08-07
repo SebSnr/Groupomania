@@ -15,7 +15,6 @@ export default function CommentForm(props) {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
 	const [errorMessage, setErrorMessage] = useState(null) // set error message
 
-
 	// submit the form and request
 	function handleFormSubmit(values, resetForm) {
 		axios({
@@ -26,10 +25,9 @@ export default function CommentForm(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					console.log("Commentaire créé") //ASUPP
 					resetForm()
 					props.setCommentsRefresh(true)
-					if (props.commentsRender % 2 === 0) props.setCommentsRender(1)
+					if (props.commentsRender % 2 === 0) props.setCommentsRender(1) //render all comments
 				} else {
 					return res.status(401)
 				}
@@ -40,6 +38,7 @@ export default function CommentForm(props) {
 			})
 	}
 
+	// validate input values
 	const validationSchema = Yup.object().shape({
 		text: Yup.string().min(2, "trop court, min 2 charactères*").max(400, "trop long, max 400 charactères*").required(""),
 	})
@@ -50,7 +49,6 @@ export default function CommentForm(props) {
 				initialValues={{text: ""}}
 				validationSchema={validationSchema}
 				onSubmit={(values, {resetForm}) => {
-					console.log(values) //ASUPP
 					handleFormSubmit(values, resetForm)
 				}}
 			>

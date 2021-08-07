@@ -13,7 +13,7 @@ export default function LoginPage() {
 		setLoading(false)
 	}, 1300)
 
-	return (
+	return ( 
 		<React.Fragment>
 			{loading ? (
 				<Lottie animationData={globalWorld} options={{loop: true, autoplay: true}} height={60} width={60} style={{"background": "none", "height": "100vh"}} />

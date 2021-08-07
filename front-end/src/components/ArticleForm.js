@@ -14,12 +14,11 @@ import {ApiUrl} from "../utils/variables-config"
 import { alertErrorMessage } from "../utils/alertMessage"
 
 export default function ArticleForm(props) {
-	// use global state of authContext
-	const {AuthState} = useContext(AuthContext)
-
-
-	// state of media input choice
-	const [media, setMedia] = useState(null)
+	
+	const {AuthState} = useContext(AuthContext)  // use global state of authContext
+	const [media, setMedia] = useState(null)  // state of media input choice
+	const [selectedFile, setSelectedFile] = useState()  // state of uploaded file
+	const [errorMessage, setErrorMessage] = useState(null) // set error message
 
 	// personalize the welcome message text input with user name
 	const [placeHolderText, setPlaceHolderText] = useState("Quoi de neuf ?")
@@ -27,14 +26,9 @@ export default function ArticleForm(props) {
 		setPlaceHolderText(`Quoi de neuf ${AuthState.firstName} ?`)
 	}, [AuthState])
 
-	const [errorMessage, setErrorMessage] = useState(null) // set error message
-
-	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState()
-
 	// submit the form and request
 	function handleFormSubmit(values, resetForm) {
-		// prepare data to send
+		// set data object to send
 		const formData = new FormData()
 		formData.append("author", AuthState.user)
 		if (values.text) formData.append("text", values.text)
@@ -48,19 +42,13 @@ export default function ArticleForm(props) {
 		} else {}
 		if (values.youtube && selectedFile) formData.delete("youtube") //security : send only one media
 
-		for (var pair of formData.entries()) {
-			// A SUPP
-			console.log(pair[0] + ", " + pair[1])
-		}
-
 		axios({
 			method: "post",
 			url: `${ApiUrl}/articles`,
 			data: formData,
 			headers: {"Content-Type": "multipart/form-data", "Authorization": `Bearer ${AuthState.token}`},
 		})
-			.then((res) => {
-				console.log("Post créé") //ASUPP
+			.then(() => {
 				resetForm()
 				setErrorMessage(null)
 				setSelectedFile()
@@ -73,6 +61,7 @@ export default function ArticleForm(props) {
 			})
 	}
 
+	// validate input values
 	const validationSchema = Yup.object().shape({
 		text: Yup.string(),
 		youtube: Yup.string(),
@@ -89,7 +78,6 @@ export default function ArticleForm(props) {
 						setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
 						return
 					}
-					console.log(values) //ASUPP
 					handleFormSubmit(values, resetForm)
 				}}
 			>
@@ -100,12 +88,11 @@ export default function ArticleForm(props) {
 						<ErrorMessage name="text" component="div" className="errorInput" />
 					</div>
 
-					{(() => {
+					{(() => { // 3 states : upload file, send youttube link or choice between 
 						switch (media) {
 							case "upload":
 								return (
 									<div className="d-flex justify-content-between align-items-center flex-wrap">
-										{/* <span className="mb-3">Joindre une photo : &nbsp;&nbsp;&nbsp;</span> */}
 										<div className="mx-auto">
 											<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png, .gif" className="mb-3 file-input" />
 										</div>

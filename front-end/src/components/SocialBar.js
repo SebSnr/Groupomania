@@ -15,4 +15,4 @@ export default function SocialBar() {
 			</button>
 		</div>
 	)
-}
+} 

@@ -57,8 +57,6 @@ export const AuthReducer = (authState, action) => {
 				localStorage.setItem("photo", JSON.stringify(dataUrl))
 			})
 
-			console.log("ca login dans la app") // a suppp
-
 			return {
 				...authState,
 				user: action.payload.user,
@@ -73,7 +71,6 @@ export const AuthReducer = (authState, action) => {
 		case "LOGOUT":
 			localStorage.clear()
 			return {
-				// ...authState,
 				isAuthenticated: false,
 				isAdmin: false,
 				user: null,

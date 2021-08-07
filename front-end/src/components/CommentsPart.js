@@ -19,7 +19,7 @@ export default function Comments(props) {
 
 	const [commentsRender, setCommentsRender] = useState(2) // set comments if no click, click or user post new comment
 
-	// state comments data
+	// state comments data and refresh
 	const [commentsData, setCommentsData] = useState([])
 	const [commentsRefresh, setCommentsRefresh] = useState(false)
 
@@ -29,11 +29,12 @@ export default function Comments(props) {
 			method: "get",
 			url: `${ApiUrl}/comments/${props.article.id}`,
 			headers: {"Authorization": `Bearer ${AuthState.token}`},
-		}).then((res) => {
-			setCommentsData(res.data)
-			setCommentsRefresh(false)
-		}).catch(() => alertErrorMessage("Erreur lors du chargement des commentaires."))
-
+		})
+			.then((res) => {
+				setCommentsData(res.data)
+				setCommentsRefresh(false)
+			})
+			.catch(() => alertErrorMessage("Erreur lors du chargement des commentaires."))
 	}, [AuthState.token, props.article.id])
 
 	// event: get articles and refresh
@@ -45,7 +46,6 @@ export default function Comments(props) {
 	return (
 		<div className="card-body pt-0">
 			<div className="d-flex justify-content-evenly border-bottom">
-				{/* <div>Like / dislike</div> */}
 				<div>
 					<button
 						onClick={(e) => {
@@ -66,9 +66,9 @@ export default function Comments(props) {
 	)
 }
 
+// commentary component
 function Commentary(props) {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
-
 	const MySwal = withReactContent(Swal) // custom alert button
 
 	const deleteComment = useCallback(
@@ -103,6 +103,7 @@ function Commentary(props) {
 							type="button"
 							className="btn-sm btn--trash bg-white fs-6"
 							onClick={() => {
+								// ask confirmation
 								MySwal.fire({
 									title: "❌ Supprimer ce commentaire ?",
 									timer: 15000,

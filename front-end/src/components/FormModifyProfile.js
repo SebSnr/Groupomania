@@ -12,16 +12,11 @@ import {AuthContext} from "../App"
 import PassWordForm from "./PassWordForm "
 
 export default function FormModifyProfile(props) {
-	// use authentication global state
-	const {AuthState, dispatchAuthState} = useContext(AuthContext)
-
-	const MySwal = withReactContent(Swal) // custom alert button
-
-	// state of uploaded file
-	const [selectedFile, setSelectedFile] = useState()
-
-	// set error message from server
-	const [errorMessage, setErrorMessage] = useState(null)
+	
+	const {AuthState, dispatchAuthState} = useContext(AuthContext)  // use authentication global state
+	const MySwal = withReactContent(Swal)  // custom alert button
+	const [selectedFile, setSelectedFile] = useState()  // state of uploaded file
+	const [errorMessage, setErrorMessage] = useState(null)  // set error message from server
 
 	// validate input values
 	const ValidationSchema = Yup.object().shape({
@@ -32,19 +27,14 @@ export default function FormModifyProfile(props) {
 
 	// send form data
 	const handleFormSubmit = (values, resetForm) => {
-		console.log(values) // A SUPP
-
-		if(!values.firstName && !values.lastName && !selectedFile){
-			setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
-			return
-		}
+		// need content
+		if (!values.firstName && !values.lastName && !selectedFile) return setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
 
 		// set data object to send
 		const formData = new FormData()
 		for (let i in values) {
 			if (!values[i]) {
-			} else if (i === "password") formData.append(i, values[i])
-			else if (i === "email") formData.append(i, values[i].toLowerCase())
+			} else if (i === "email") formData.append(i, values[i].toLowerCase())
 			else formData.append(i, values[i].charAt(0).toUpperCase() + values[i].slice(1).toLowerCase())
 		}
 
@@ -54,10 +44,7 @@ export default function FormModifyProfile(props) {
 		} else if (selectedFile) {
 			alertErrorMessage("Erreur de fichier. Non obligatoire. Sinon choisir un fichier au format .jpg .jpeg .png, max 3Mo")
 			return
-		} else {
-		}
-
-		console.log(formData) // A SUPP
+		} else {}
 
 		axios({
 			method: "put",
@@ -66,7 +53,6 @@ export default function FormModifyProfile(props) {
 			headers: {"Authorization": `Bearer ${AuthState.token}`, "Content-Type": "multipart/form-data"},
 		})
 			.then((res) => {
-				console.log("User has been modified") // A SUPP
 				// if user modification well done, login with response data
 				if (res.status === 200) {
 					console.log(res.data) // A SUPP
@@ -117,10 +103,7 @@ export default function FormModifyProfile(props) {
 				validationSchema={ValidationSchema}
 				onSubmit={(values, {resetForm}) => {
 
-					if(!values.firstName && !values.lastName && !selectedFile){
-						setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
-						return
-					}
+					if(!values.firstName && !values.lastName && !selectedFile) return setErrorMessage("Veuillez remplir au moins 1 champs du formulaire")
 
 					// show informations before confirm
 					let newFirstName = ""
@@ -157,9 +140,6 @@ export default function FormModifyProfile(props) {
 
 					<Field name="lastName" type="text" placeholder={`Nom actuel : ${AuthState.lastName}`} className="px-2" />
 					<ErrorMessage name="lastName" component="div" className="errorInput" />
-
-					{/* <Field name="password" type="password" placeholder="Nouveau mot de passe" />
-					<ErrorMessage name="password" component="div" className="errorInput" /> */}
 
 					<Field name="picture" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" accept=".jpg, .jpeg, .png," className="file-input" />
 					<ErrorMessage name="picture" component="div" className="errorInput" />

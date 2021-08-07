@@ -6,4 +6,4 @@ export default function ErrorPage() {
 			<span>😕 Veuillez vous connecter pour accéder à cette page</span>
 		</div>
 	)
-}
+} 

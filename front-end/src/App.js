@@ -16,13 +16,14 @@ export const AuthContext = React.createContext()
 
 function App() {
 
-	RemoveBtnFocusOutline()
+	RemoveBtnFocusOutline() // css function
 	
 	// dispatch authentication data and action
 	const [AuthState, dispatchAuthState] = React.useReducer(AuthReducer, initialAuth)
 
 	let routes
 
+	// accesss to different routes if logged or not
 	if (AuthState.isAuthenticated) {
 		routes = (
 			<BrowserRouter>

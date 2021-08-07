@@ -5,8 +5,7 @@ import {AuthContext} from "../App"
 import FormModifyProfile from "./FormModifyProfile"
 
 export default function ProfileBar() {
-	// use global state of authContext
-	const {AuthState} = useContext(AuthContext)
+	const {AuthState} = useContext(AuthContext) // use global state of authContext
 
 	const initialProfileRender = useMemo(() => {
 		// change render of profilBar : initial or modify
@@ -34,8 +33,6 @@ export default function ProfileBar() {
 					<div>
 						<div>{AuthState.firstName}</div>
 						<div>{AuthState.lastName}</div>
-						{/* <div className="mb-2 text-wrap text-break">{AuthState.email}</div>
-						<div className="mb-3 text-truncate text-wrap">{AuthState.firstName} {AuthState.lastName}</div> */}
 					</div>
 					<div className="d-flex align-items-center">
 						<button onClick={() => handleProfileRender()} className="btn btn-link">
@@ -47,9 +44,10 @@ export default function ProfileBar() {
 		)
 	}, [AuthState.firstName, AuthState.isAdmin, AuthState.lastName, AuthState.photo]) 
 
-	// state of profileRender
+	// set how profil render
 	const [profileRender, setProfileRender] = useState(initialProfileRender)
 
+	// event when profil render change
 	useEffect(() => {
 		setProfileRender(initialProfileRender)
 	}, [AuthState, initialProfileRender])
