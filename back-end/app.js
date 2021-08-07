@@ -2,6 +2,7 @@ const express = require("express")
 const path = require("path")
 const helmet = require("helmet")
 const cookieSession = require("cookie-session")
+const fakeData = require("./test")
 
 const app = express()
 
@@ -43,8 +44,6 @@ app.use((req, res, next) => {
 app.use(express.json({limit: "20mb"}))
 app.use(express.urlencoded({extended: true}))
 
-
-
 //file route
 app.use('/images', express.static(path.join(__dirname, 'uploads')))
 
@@ -56,6 +55,11 @@ require("./routes/article-routes")(app)
 
 // comment routes
 require("./routes/comment-routes")(app)
+
+// add fake datas
+fakeData.createFakeArticles()
+fakeData.createFakeUsers()
+fakeData.createFakeComments()
 
 module.exports = app 
 

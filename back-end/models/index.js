@@ -35,6 +35,13 @@ Object.keys(db).forEach((modelName) => {
 	}
 })
 
+// Object.keys(db).slice().reverse().forEach((modelName) => {
+// 	if (db[modelName].associate) {
+// 		db[modelName].associate(db)
+// 	}
+// })
+
+
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
