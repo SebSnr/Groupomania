@@ -10,14 +10,14 @@ You must to launch back and front-end servers to display this site
 🖥️ Front-end case :
 Technologies: ⚛️React, Bootstrap, Sass
 1) Install all librairies => npm install
-2) launch front-end-live server => npm start
+2) launch front live server => npm start
 => developpement server:  http://localhost:3000/ 
 
 
 🗃️ Back-end case :
 Technologies: Node, Express, Sequelize, SQL
-3) Installer all librairies => npm install
-4) Lancer le live serveur => nodemon server
+1) Install all librairies => npm install
+2) launch back live server => nodemon server
 => API: http://localhost:3200/
 
 
