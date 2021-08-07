@@ -102,8 +102,8 @@ export default function ArticleCard(props) {
 										} else return
 									})
 								}}
-								title="supprimer l'article"
-								aria-label="supprimer l'article"
+								title="supprimer le post"
+								aria-label="supprimer le post"
 							>
 								<FontAwesomeIcon icon={faTrashAlt} />
 							</button>
@@ -111,14 +111,14 @@ export default function ArticleCard(props) {
 					</div>
 					<div className={`d-flex justify-content-end mb-2 mx-1 text-muted fst-italic article__date`}>{articleDate}</div>
 
-					<Link to={{pathname: `/articles`, state: {article}}} className="text-decoration-none">
+					<Link to={{pathname: `/articles`, state: {article}}} className="text-decoration-none" title="Ouvrir le post">
 						<p className={`card-text ${cardTextClass}`}>{props.article.text}</p>
 					</Link>
 				</div>
 
 				{article.youtube || article.picture ? (
 					<div className={`media-container ${mediaContainerClass} ${cardMediaNone}`}>
-						<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none`}>
+						<Link to={{pathname: `/articles`, state: {article}}} className={`text-decoration-none`} title="Ouvrir le post">
 							{article.youtube ? (
 								<ReactPlayer url={props.article.youtube} width="100%" className="overflow-hidden" config={{youtube: {playerVars: {origin: "https://www.youtube.com"}}}} />
 							) : (

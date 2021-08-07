@@ -111,8 +111,8 @@ export default function Members() {
 											})
 
 										}}
-										title="Admin: Supprimer l'utilisateur'"
-										aria-label="Admin: Supprimer l'utilisateur"
+										title="Admin: supprimer l'utilisateur"
+										aria-label="Admin: supprimer l'utilisateur"
 									>
 									<FontAwesomeIcon icon={faTrashAlt} />
 									</button>

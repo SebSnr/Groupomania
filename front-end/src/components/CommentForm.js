@@ -60,7 +60,7 @@ export default function CommentForm(props) {
 							<ProfilePicture photo={AuthState.photo} class="profile-picture--mini" />
 							<div className="d-flex flex-grow-1">
 								<Field name="text" type="textarea" placeholder="Écrivez votre commentaire" className="textInput px-3 py-1" />
-								<button type="submit" className="btn-sm btn-primary mx-3" title="Envoyer les données" aria-label="Envoyer les données">
+								<button type="submit" className="btn-sm btn-primary mx-3" title="Commenter le post" aria-label="Commenter le post">
 									Commenter
 								</button>
 							</div>

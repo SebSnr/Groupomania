@@ -28,7 +28,7 @@ export default function Navigation() {
 		<header className="header shadow py-0">
 			<nav className="navbar navbar-expand-lg mb-4">
 				<div className="container">
-					<NavLink className="navbar-brand d-none d-lg-block" to="/">
+					<NavLink className="navbar-brand d-none d-lg-block" to="/" title="Retour accueil">
 						<img src="/img/icon.png" alt="Retour accueil" className="navbar-brand__logo" />
 					</NavLink>
 					<button className="nav-btn-icon d-lg-none my-2" onClick={() => history.goBack()} title="revenir en arrière">
