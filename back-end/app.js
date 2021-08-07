@@ -11,11 +11,10 @@ require("dotenv").config()
 cookieName = process.env.NAME_COOKIE
 secretCookie = process.env.SECRET_COOKIE
 
+// synchronise with database models
 const db = require("./models/index")
 db.sequelize.sync() 
 
-// drop the table if already exists
-// db.sequelize.sync({ force: true }).then(() => {console.log("Drop and re-sync db.");});
 
 // secure cookie http-only
 app.use(
@@ -29,8 +28,7 @@ app.use(
 	})
 )
 
-// secure app by various HTTP headers (like disable cache)
-app.use(helmet())
+app.use(helmet()) // secure app by various HTTP headers (like disable cache, protect against injection etc...)
 
 // allow different access control
 app.use((req, res, next) => {
@@ -44,7 +42,7 @@ app.use((req, res, next) => {
 app.use(express.json({limit: "20mb"}))
 app.use(express.urlencoded({extended: true}))
 
-//file route
+// file route
 app.use('/images', express.static(path.join(__dirname, 'uploads')))
 
 // user routes
@@ -54,12 +52,12 @@ require("./routes/user-routes")(app)
 require("./routes/article-routes")(app)
 
 // comment routes
-require("./routes/comment-routes")(app)
+require("./routes/comment-routes")(app) 
 
 // add fake datas
-fakeData.createFakeArticles()
-fakeData.createFakeUsers()
-fakeData.createFakeComments()
+fakeData.createFakeArticles(app)
+fakeData.createFakeUsers(app)
+fakeData.createFakeComments(app)
 
 module.exports = app 
 

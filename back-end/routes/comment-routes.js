@@ -6,7 +6,7 @@ module.exports = app => {
     
     app.use("/api/comments", router)
 
-    router.post("/:id", auth, commentsCtrl.create)
+    router.post("/:id", auth, commentsCtrl.create) 
     router.get("/:id", auth, commentsCtrl.getAll)
     router.delete("/:id", auth, commentsCtrl.delete)
 }

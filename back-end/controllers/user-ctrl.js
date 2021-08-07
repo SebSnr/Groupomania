@@ -59,25 +59,23 @@ exports.login = (req, res) => {
 	User.findOne({where: {email: req.body.email}})
 		.then((user) => {
 			if (!user) return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
-			
-			bcrypt
-				.compare(req.body.password, user.password)
-				.then((valid) => {
-					console.log(valid)
-					if (!valid) return res.status(403).send("Mot de passe incorrect")
 
-
-					res.status(200).send({
-						user: user.id,
-						token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
-						firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
-						lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
-						email: user.email.toLowerCase(),
-						photo: user.photo,
-						isAuthenticated: true,
-						isAdmin: user.isAdmin,
-					})
+			// user finded, compare passwords
+			bcrypt.compare(req.body.password, user.password).then((valid) => {
+				console.log(valid)
+				if (!valid) return res.status(403).send("Mot de passe incorrect")
+				// send user data
+				res.status(200).send({
+					user: user.id,
+					token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
+					firstName: user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase(),
+					lastName: user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase(),
+					email: user.email.toLowerCase(),
+					photo: user.photo,
+					isAuthenticated: true,
+					isAdmin: user.isAdmin,
 				})
+			})
 		})
 		.catch(() => res.status(401).send("Utilisateur non trouvé"))
 }
@@ -101,88 +99,71 @@ exports.getAll = (req, res) => {
 		.catch((error) => res.status(500).send({error}))
 }
 
+// admin request only
 exports.deleteOneUser = (req, res) => {
-	// get id
-	const decodedId = getTokenUserId(req)
-	
+	const decodedId = getTokenUserId(req) // get id
+
 	// find user to delete with email
 	User.findOne({where: {email: req.params.email}})
 		.then((user) => {
-			console.log("User found") //A SUPP
-			//check if good user id or is admin
+			//check if user is admin
 			if (checkAdmin(decodedId)) {
-				const filename = user.photo.split("/images/")[1]
+				const filename = user.photo.split("/images/")[1] //delete picture if not by default
 				if (!filename === "Unknow.jpg") {
 					fs.unlink(`./uploads/${filename}`, () => {})
 				}
-				console.log(decodedId) //A SUPP
-				console.log(user.id) //A SUPP
 				User.destroy({where: {id: user.id}})
 					.then(() => res.status(200).send("User Deleted"))
 					.catch((error) => res.status(403).send({error}))
 			} else {
 				res.status(403).send("Access authorization error")
 			}
-			console.log("User found but error authentication") // a supprimer
 		})
 		.catch((error) => res.status(403).send({error}))
 }
 
 exports.delete = (req, res) => {
-	// get id
-	const decodedId = getTokenUserId(req)
-	
-	// find user to delete with email
+	const decodedId = getTokenUserId(req) // get id
+
+	// find user to delete
 	User.findOne({where: {id: decodedId}})
 		.then((user) => {
-			console.log("User found") //A SUPP
-			//check if good user id or is admin
+			//check if good user id, admin can't delete his own account
 			if (user.id === decodedId && !checkAdmin(decodedId)) {
-				const filename = user.photo.split("/images/")[1]
+				const filename = user.photo.split("/images/")[1] //delete picture if not by default
 				if (!filename === "Unknow.jpg") {
 					fs.unlink(`./uploads/${filename}`, () => {})
 				}
-				console.log(decodedId) //A SUPP
-				console.log(user.id) //A SUPP
 				User.destroy({where: {id: user.id}})
 					.then(() => res.status(200).send("User Deleted"))
 					.catch((error) => res.status(403).send({error}))
 			} else {
 				res.status(403).send("Access authorization error")
 			}
-			console.log("User found but error authentication") // a supprimer
 		})
 		.catch((error) => res.status(403).send({error}))
 }
 
 exports.modify = (req, res) => {
+	// need content
 	if (!req.file && !req.body.firstName && !req.body.lastName) return res.status(401).send("All fields are required")
 
 	// get ID or is admin
 	const decodedId = getTokenUserId(req)
 	checkAdmin(decodedId)
-	console.log(decodedId) //A SUPP
 
-	console.log(req.body.firstName) //A SUPP
 	bcrypt.hash(req.body.password, 10, (err, hash) => {
-
 		User.findOne({where: {id: decodedId}})
 			.then((user) => {
+				// set data to modify
 				let newUser = {...req.body}
-				console.log(user.firstName)
-
-				if (req.body.password) {
-					newUser = {...newUser, password: hash}
-				}
 				if (req.file) {
 					// delete old picture
 					const oldFilename = user.photo.split("/images/")[1]
-					console.log(oldFilename) //ASUPP
-					if (oldFilename !== "Unknow.jpg") { 
+					if (oldFilename !== "Unknow.jpg") {
 						fs.unlink(`./uploads/${oldFilename}`, () => {})
 					}
 					newUser = {...newUser, photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`}
-					console.log(newUser)
 				}
 				return newUser
 			})
@@ -192,16 +173,13 @@ exports.modify = (req, res) => {
 						...newUser,
 					},
 					{where: {id: decodedId}}
-				)
-				.catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
-				// console.log(`newwwUser après update : ${User.firstName}`)
+				).catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
 			})
 			.then(() => {
 				return User.findOne({where: {id: decodedId}})
 			})
 			.then((user) => {
-				console.log("User found") //A SUPP
-				console.log(`le user dans la db : ${user.firstName}`)
+				// if success, send new informations
 				res.status(200).send({
 					user: user.id,
 					token: jwt.sign({userId: user.id}, secretTokenKey, {expiresIn: "2h"}),
@@ -218,44 +196,34 @@ exports.modify = (req, res) => {
 }
 
 exports.modifyPassword = (req, res) => {
-	if (!req.body.oldPassword || !req.body.password || !req.body.passwordConfirm) {
-		res.status(401).send("All fields are required")
-		return 
-	}
-
-	// get ID or is admin
-	const decodedId = getTokenUserId(req)
-	console.log(decodedId) //A SUPP
-
-	console.log(req.body.password) //A SUPP
-
-	console.log(req.body.passwordConfirm) //A SUPP
+	// need content
+	if (!req.body.oldPassword || !req.body.password || !req.body.passwordConfirm) return res.status(401).send("All fields are required")
+	
+	const decodedId = getTokenUserId(req) // get ID or is admin
 
 	User.findOne({where: {id: decodedId}})
 		.then((user) => {
 			if (!user) return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
-			console.log(user.firstName)
-			
+
+			// confirm old password before update
 			bcrypt
 				.compare(req.body.oldPassword, user.password)
 				.then((valid) => {
 					if (!valid) return res.status(403).send("Ancien mot de passe incorrect")
-					console.log(valid) //ASUPP
-
 					bcrypt.hash(req.body.passwordConfirm, 10, (err, hash) => {
 						User.update(
-									{
-										password: hash
-									},
-									{where: {id: decodedId}}
-								)
-								.then(() => {
-									return res.status(200).send("Mot de passe modifié")
-								})
-								.catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
+							{
+								password: hash,
+							},
+							{where: {id: decodedId}}
+						)
+							.then(() => {
+								return res.status(200).send("Mot de passe modifié")
+							})
+							.catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
 					})
 				})
 				.catch(() => res.status(401).send("Erreur lors du décryptage des mots de passe"))
 		})
 		.catch(() => res.status(500).send("Erreur de la base de données"))
-	}
+}

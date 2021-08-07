@@ -1,6 +1,8 @@
 "use strict"
 const {Model} = require("sequelize")
 
+//>>> work in progress
+
 module.exports = (sequelize, DataTypes) => {
 	class Like extends Model {
 		static associate(models) {
@@ -21,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
 	} 
 	Like.init(
 		{
-			like: {type: DataTypes.INTEGER, allowNull: true},   
-			disLike: {type: DataTypes.INTEGER, allowNull: true},  
+			// like: {type: DataTypes.INTEGER, allowNull: true},   
+			// disLike: {type: DataTypes.INTEGER, allowNull: true},  
 			// usersLiked:{type: DataTypes.ARRAY(DataTypes.DECIMAL), allowNull: true},
 			// usersDisLiked:{type: DataTypes.ARRAY(DataTypes.DECIMAL), allowNull: true}  
 		},

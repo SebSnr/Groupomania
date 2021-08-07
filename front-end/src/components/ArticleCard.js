@@ -41,8 +41,9 @@ export default function ArticleCard(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
+					 //refresh all articles or, in article page, go back to home page
 					if (props.setArticlesRefresh) props.setArticlesRefresh(true)
-					if (!props.setArticlesRefresh) history.push("/")
+					else history.push("/")
 					alertSuccessMessage("Post supprimé.", 1000)
 				}
 			})

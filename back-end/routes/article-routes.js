@@ -4,7 +4,6 @@ module.exports = app => {
     const articlesCtrl = require("../controllers/article-ctrl")
     const multer = require('../middleware/multer-config')
     const auth = require('../middleware/auth');
-
     
     app.use("/api/articles", router)
 

@@ -26,14 +26,10 @@ const checkAdmin = (decodedId) => {
 
 // Create a new Article
 exports.create = (req, res) => {
-	// Validate request
-	if (!req) {
-		res.status(403).send("Content can not be empty!")
-		return
-	}
-
-	// get ID
-	const decodedId = getTokenUserId(req)
+	
+	if (!req) return res.status(403).send("Content can not be empty!") // need content
+	
+	const decodedId = getTokenUserId(req) // get ID
 
 	// if picture
 	let pictureUrl = ""
@@ -41,7 +37,7 @@ exports.create = (req, res) => {
 		pictureUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
 	}
 
-	// Create a article
+	// Create article
 	const article = {
 		text: req.body.text,
 		author: decodedId,
@@ -50,9 +46,7 @@ exports.create = (req, res) => {
 		UserId: decodedId,
 	}
 
-	// console.log(article)
-
-	// Save article in the database
+	// Save article in db
 	Article.create(article)
 		.then((data) => {
 			res.send(data)
@@ -62,9 +56,10 @@ exports.create = (req, res) => {
 
 // Get all articles
 exports.getAll = (req, res) => {
+	// find and send article, author informations
 	Article.findAll({
 		order: [["createdAt", "DESC"]],
-		include: [{model: db.User, attributes: ["firstName", "lastName", "photo"]}],
+		include: [{model: User, attributes: ["firstName", "lastName", "photo"]}],
 	})
 		.then((articles) => {
 			res.send(articles)
@@ -74,10 +69,9 @@ exports.getAll = (req, res) => {
 
 // Get one article
 exports.getOne = (req, res) => {
-	console.log(req.params.id) // A SUPP
 	Article.findOne({
 		where: {id: req.params.id},
-		include: [{model: db.User, attributes: ["firstName", "lastName", "photo"]}],
+		include: [{model: User, attributes: ["firstName", "lastName", "photo"]}],
 	})
 		.then((article) => {
 			res.send(article)
@@ -87,17 +81,13 @@ exports.getOne = (req, res) => {
 
 // Delete one article
 exports.delete = (req, res) => {
-	// get ID
-	const decodedId = getTokenUserId(req)
+	const decodedId = getTokenUserId(req) // get ID
 
 	Article.findOne({where: {id: req.params.id}})
 		.then((article) => {
-			console.log("Article found") //A SUPP
-
 			//check if user is the author of the article or is admin
 			if (article.UserId === decodedId || checkAdmin(decodedId)) {
-				const filename = article.picture.split("/images/")[1] 
-				// delete picture then delete article
+				const filename = article.picture.split("/images/")[1]  // delete picture then delete article
 				fs.unlink(`./uploads/${filename}`, () => {
 					Article.destroy({where: {id: req.params.id}})
 						.then(() => res.status(200).send("Article deleted"))
@@ -106,8 +96,6 @@ exports.delete = (req, res) => {
 			} else {
 				res.status(403).send("Access authorization error")
 			}
-
-			console.log("post find but error authentication") // a supprimer
 		})
 		.catch((error) => res.status(403).send({error}))
 }

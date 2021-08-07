@@ -3,9 +3,6 @@ const User = db.User
 const Article = db.Article
 const Comment = db.Comment
 
-
-
-
 exports.createFakeUsers = () => {
 	// create test users
 	const fakeUsers = [
@@ -100,11 +97,11 @@ exports.createFakeUsers = () => {
 			isAdmin: 0,
 		},
 	]
- 
+
 	return fakeUsers.forEach((user) => {
-		User.findOrCreate({where: {id: user.id}, default: user})
+		User.create(user)
 			.then(() => console.log("fake user created"))
-			.catch((err) => console.log(err))
+			.catch(() => console.log("fake user already created"))
 	})
 }
 
@@ -138,13 +135,13 @@ exports.createFakeArticles = () => {
 	] 
 
 	return fakeArticles.forEach((article) => {
-		Article.findOrCreate({where: {id: article.id}, default: article})
+		Article.create(article)
 			.then(() => console.log("fake article created"))
-			.catch((err) => console.log(err))
+			.catch(() => console.log("fake article already created"))
 	})
 }
 
-exports.createFakeComments = () => { 
+exports.createFakeComments = () => {
 	// create test comments
 	const fakeComments = [
 		{
@@ -174,9 +171,8 @@ exports.createFakeComments = () => {
 	] 
 
 	return fakeComments.forEach((comment) => {
-		Comment.findOrCreate({where: {id: comment.id}, default: comment})
+		Comment.create(comment)
 			.then(() => console.log("fake article created"))
-			.catch((err) => console.log(err))
+			.catch(() => console.log("fake article already created"))
 	})
 }
-

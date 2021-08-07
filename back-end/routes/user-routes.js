@@ -7,7 +7,6 @@ module.exports = (app) => {
 	const pwCtrl = require("../middleware/verifyPassword")
 	const limiter = require('../middleware/rate-limiter')
 
-
 	app.use("/api/auth", router)
 
 	router.post("/signup", multer, verifyMail, pwCtrl.verifyPassword, pwCtrl.verifySamePasswords, userCtrl.signup)
