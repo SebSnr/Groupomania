@@ -1,4 +1,4 @@
-const db = require("./models")
+const db = require("../models")
 const User = db.User
 const Article = db.Article
 const Comment = db.Comment

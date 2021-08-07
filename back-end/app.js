@@ -2,7 +2,7 @@ const express = require("express")
 const path = require("path")
 const helmet = require("helmet")
 const cookieSession = require("cookie-session")
-const fakeData = require("./test")
+const fakeData = require("./config/fakeData")
 
 const app = express()
 
