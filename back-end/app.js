@@ -2,7 +2,6 @@ const express = require("express")
 const path = require("path")
 const helmet = require("helmet")
 const cookieSession = require("cookie-session")
-const fakeData = require("./config/fakeData")
 
 const app = express()
 
@@ -11,14 +10,9 @@ require("dotenv").config()
 cookieName = process.env.NAME_COOKIE
 secretCookie = process.env.SECRET_COOKIE
 
-// synchronise with database models
+// synchronise Sequelize with database & insert testData
 const db = require("./models/index")
-// db.sequelize.sync() 
-
-db.sequelize.sync().then(
-	()=> require("./config/testData")
- )
-
+db.sequelize.sync().then(() => require("./config/testData"))
 
 // secure cookie http-only
 app.use(
@@ -36,7 +30,7 @@ app.use(helmet()) // secure app by various HTTP headers (like disable cache, pro
 
 // allow different access control
 app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "*") 
+	res.setHeader("Access-Control-Allow-Origin", "*")
 	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization")
 	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS")
 	next()
@@ -47,21 +41,15 @@ app.use(express.json({limit: "20mb"}))
 app.use(express.urlencoded({extended: true}))
 
 // file route
-app.use('/images', express.static(path.join(__dirname, 'uploads')))
+app.use("/images", express.static(path.join(__dirname, "uploads")))
 
 // user routes
-require("./routes/user-routes")(app) 
+require("./routes/user-routes")(app)
 
 // article routes
 require("./routes/article-routes")(app)
 
 // comment routes
-require("./routes/comment-routes")(app) 
+require("./routes/comment-routes")(app)
 
-// add fake datas
-// fakeData.createFakeArticles(app)
-// fakeData.createFakeUsers(app)
-// fakeData.createFakeComments(app)
-
-module.exports = app 
-
+module.exports = app
