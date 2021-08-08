@@ -45,7 +45,8 @@ export default function Members() {
 		},
 		[users]
 	)
-
+	
+	// delete user request
 	const deleteUser = useCallback(
 		(email) => {
 			axios({
@@ -153,7 +154,6 @@ export default function Members() {
 function MemberProfile(props) {
 	return (
 		<div className="card shadow p-3 mb-4 h-100 overflow-hidden d-flex flex-column align-items-center text-truncate">
-			{/* <h3 className="text-center mb-3">Collègue</h3> */}
 			<ProfilePicture photo={props.user.photo} />
 			<div className="mt-3 mb-2 text-wrap text-break">{props.user.email}</div>
 			<div className="mb-3 text-truncate text-wrap">

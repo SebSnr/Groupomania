@@ -47,7 +47,7 @@ export default function ProfileBar() {
 	// set how profil render
 	const [profileRender, setProfileRender] = useState(initialProfileRender)
 
-	// event when profil render change
+	// event, change profil rend at loading page
 	useEffect(() => {
 		setProfileRender(initialProfileRender)
 	}, [AuthState, initialProfileRender])

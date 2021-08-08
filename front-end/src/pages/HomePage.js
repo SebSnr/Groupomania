@@ -14,7 +14,7 @@ import {ApiUrl} from "../utils/variables-config"
 export default function HomePage() {
 	const {AuthState} = useContext(AuthContext) // use authentication globalstate
 
-	// state articles data
+	// set and refresh articles data
 	const [articlesData, setArticlesData] = useState(false)
 	const [articlesRefresh, setArticlesRefresh] = useState(false)
 
@@ -26,16 +26,16 @@ export default function HomePage() {
 			headers: {"Authorization": `Bearer ${AuthState.token}`},
 		}).then((res) => {
 			setArticlesData(res.data)
-			console.log(res.data)
 		})
 	}, [AuthState.token])
 
-	// event: get articles and refresh
+	// event: get  and refresh articles
 	useEffect(() => {
 		getArticles()
 		setArticlesRefresh(false)
 	}, [articlesRefresh, AuthState, getArticles])
 
+	//loader page
 	if (articlesData === false)
 		return (
 			<div className="d-flex justify-content-center align-items-center vh-100 bg-white">

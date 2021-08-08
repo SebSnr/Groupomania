@@ -26,9 +26,8 @@ export default function SignUpForm(props) {
 		passwordConfirm: Yup.string().required("obligatoire*").min(6, "trop court, 6 minimum*").max(50, "trop long, 50 maximum*").minLowercase(1, "minimum 1 lettre minuscule").minUppercase(1, "minimum 1 lettre majuscule").minNumbers(1, "minimum 1 chiffre").minSymbols(1, "minimum 1 symbole"),
 	})
 
-	// send form data
+	// send form data then alert success
 	const handleFormSubmit = (values, resetForm) => {
-		console.log(values) // A SUPP
 
 		// set data object to send
 		const formData = new FormData()
@@ -52,7 +51,6 @@ export default function SignUpForm(props) {
 			data: formData,
 		})
 			.then((res) => {
-				// if user creation well done
 				if (res.status === 200) {
 					setErrorMessage(null)
 					resetForm()
@@ -92,7 +90,7 @@ export default function SignUpForm(props) {
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values, {resetForm}) => {
-					// error message if wrong file
+					// set error message if wrong file
 					if (selectedFile && selectedFile.size > 2000000 && ["image/jpg", "image/jpeg", "image/png"].notIncludes(selectedFile.type)) {
 						setErrorMessage("Erreur de fichier. Non obligatoire. Formats autorisés : .jpg .jpeg .png, max 3Mo")
 						return

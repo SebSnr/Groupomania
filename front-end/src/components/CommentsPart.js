@@ -71,6 +71,7 @@ function Commentary(props) {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
 	const MySwal = withReactContent(Swal) // custom alert button
 
+	// delete comment request
 	const deleteComment = useCallback(
 		(id) => {
 			axios({

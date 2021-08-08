@@ -15,7 +15,7 @@ export default function CommentForm(props) {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
 	const [errorMessage, setErrorMessage] = useState(null) // set error message
 
-	// submit the form and request
+	// send data form
 	function handleFormSubmit(values, resetForm) {
 		axios({
 			method: "post",

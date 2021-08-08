@@ -31,7 +31,7 @@ export default function LoginForm() {
 			.minSymbols(1, "minimum 1 symbole"),
 	})
 
-	// send form data
+	// send form data then login
 	const handleFormSubmit = (values, resetForm) => {
 		axios({
 			method: "post",
@@ -39,6 +39,7 @@ export default function LoginForm() {
 			data: values,
 		})
 			.then((res) => {
+				// launch authentication action
 				if (res.status === 200) {
 					dispatchAuthState({
 						type: "LOGIN",

@@ -34,8 +34,6 @@ export default function PassWordForm(props) {
 
 	// send form data
 	const handleFormSubmit = (values, resetForm) => {
-		console.log(values) // A SUPP
-
 		axios({
 			method: "put",
 			url: `${ApiUrl}/auth/password`,

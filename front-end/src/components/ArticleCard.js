@@ -29,6 +29,7 @@ export default function ArticleCard(props) {
 	toFormatedDate(props.article.createdAt)
 	let articleDate = toFormatedDate(props.article.createdAt)
 
+	// delete article request
 	const deleteArticle = () => {
 		axios({
 			method: "delete",
@@ -37,7 +38,7 @@ export default function ArticleCard(props) {
 		})
 			.then((res) => {
 				if (res.status === 200) {
-					 //refresh all articles or in article page, go back to home page
+					 //refresh all articles. Or in article page, go back to home page
 					if (props.setArticlesRefresh) props.setArticlesRefresh(true)
 					else history.push("/")
 					alertSuccessMessage("Post supprimé.", 1000)
@@ -48,7 +49,8 @@ export default function ArticleCard(props) {
 	
 	let article = props.article // set article for state of article page
 
-	// set text size css in function of media because text-overflow: ellipsis not working vertically
+	// set text size css in function of media(or not). Because text-overflow: ellipsis not working vertically
+	// 3 case : text on 0 lines, 2 lines or 13 lines
 	let cardBodyClass = ""
 	let cardTextClass = ""
 	let mediaContainerClass = ""

@@ -14,6 +14,7 @@ export default function Navigation() {
 	const history = useHistory() // use history hook
 	const MySwal = withReactContent(Swal) // custom alert button
 
+	// launch Disconnect action
 	const handleDeconnect = () => {
 		dispatchAuthState({
 			type: "LOGOUT",
