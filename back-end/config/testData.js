@@ -73,7 +73,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Yves",
 					email: "patrick@groupomania.com",
 					password: "$2b$10$AKUtP970W5aJPisGnLpRHetp4tyvG7lvqJp1pSAI/wmx65D7Oq/16",
-					photo: "http://localhost:3200/images/Pierre_Niney.jpg1628174238842.jpg",
+					photo: "http://localhost:3200/images/Pierre_Niney.jpg1628174238842.jpg", 
 					isAdmin: 0,
 				},
 				{
@@ -82,7 +82,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Burli",
 					email: "burli.mel@groupomania.com",
 					password: "$2b$10$5/di2IUzMGLHuqC8KJJ5eeDo/Bbu3FKbmc5LpvSCeX3wTaLaPZKyy",
-					photo: "http://localhost:3200/images/Laura_Laune.jpg1628176491741.jpg",
+					photo: "http://localhost:3200/images/Melo.jpg",
 					isAdmin: 0,
 				},
 				{
