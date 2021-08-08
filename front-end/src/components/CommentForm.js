@@ -29,7 +29,7 @@ export default function CommentForm(props) {
 					props.setCommentsRefresh(true)
 					if (props.commentsRender % 2 === 0) props.setCommentsRender(1) //render all comments
 				} else {
-					return res.status(401)
+					return res.status(403)
 				}
 			})
 			.catch((error) => {

@@ -27,7 +27,7 @@ const checkAdmin = (decodedId) => {
 // Create a new Article
 exports.create = (req, res) => {
 	
-	if (!req) return res.status(403).send("Content can not be empty!") // need content
+	if (!req.body) return res.status(403).send("Erreur, la requête doit contenir des informations") // need content
 	
 	const decodedId = getTokenUserId(req) // get ID
 
@@ -51,7 +51,7 @@ exports.create = (req, res) => {
 		.then((data) => {
 			res.send(data)
 		})
-		.catch((error) => res.status(400).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }
 
 // Get all articles
@@ -62,9 +62,9 @@ exports.getAll = (req, res) => {
 		include: [{model: User, attributes: ["firstName", "lastName", "photo"]}],
 	})
 		.then((articles) => {
-			res.send(articles)
+			res.status(200).send(articles)
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }
 
 // Get one article
@@ -76,7 +76,7 @@ exports.getOne = (req, res) => {
 		.then((article) => {
 			res.send(article)
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }
 
 // Delete one article
@@ -90,12 +90,13 @@ exports.delete = (req, res) => {
 				const filename = article.picture.split("/images/")[1]  // delete picture then delete article
 				fs.unlink(`./uploads/${filename}`, () => {
 					Article.destroy({where: {id: req.params.id}})
-						.then(() => res.status(200).send("Article deleted"))
+						.then(() => res.status(200).send("Article supprimé"))
 						.catch((error) => res.status(403).send({error}))
 				})
 			} else {
-				res.status(403).send("Access authorization error")
+				res.status(403).send("Erreur d'authenfication")
 			}
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
+
 }

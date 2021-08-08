@@ -26,7 +26,7 @@ const checkAdmin = (decodedId) => {
 
 // Create a new comment
 exports.create = (req, res) => {
-	if (!req) return res.status(403).send("Content can not be empty!") // need content
+	if (!req.body) return res.status(403).send("Erreur, la requête doit contenir des informations") // need content
 
 	const decodedId = getTokenUserId(req) // get ID
 
@@ -41,7 +41,7 @@ exports.create = (req, res) => {
 		.then(() => {
 			res.send("Comment created") 
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }
 
 // Get all comments
@@ -53,9 +53,9 @@ exports.getAll = (req, res) => {
 		include: [{model: User, attributes: ["firstName", "lastName", "photo"]}],
 	})
 		.then((comment) => {
-			res.send(comment)
+			res.status(200).send(comment)
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 
 }
 
@@ -68,11 +68,11 @@ exports.delete = (req, res) => {
 			//check if user is the author of the article or is admin
 			if (comment.UserId === decodedId || checkAdmin(decodedId)) {
 					Comment.destroy({where: {id: req.params.id}})
-						.then(() => res.status(200).send("comment deleted"))
-						.catch((error) => res.status(403).send({error}))
+						.then(() => res.status(200).send("Commentaire supprimé"))
+						.catch((error) => res.status(500).send({error}))
 			} else {
-				res.status(403).send("Erreur d'authentication")
+				res.status(403).send("Erreur d'authentification")
 			}
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }

@@ -49,7 +49,7 @@ exports.signup = (req, res) => {
 				if (!valid) {
 					return res.status(500).send("Problème lors de la création de votre profil. veuillez réessayer plus tard")
 				}
-				res.status(200).send("account created")
+				res.status(200).send("Compte créé")
 			})
 			.catch(() => res.status(403).send("Cet utilisateur existe déjà."))
 	})
@@ -58,11 +58,10 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
 	User.findOne({where: {email: req.body.email}})
 		.then((user) => {
-			if (!user) return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
+			if (!user) return res.status(403).send("Désolé, cet utilisateur n'a pas été trouvé. ")
 
 			// user finded, compare passwords
 			bcrypt.compare(req.body.password, user.password).then((valid) => {
-				console.log(valid)
 				if (!valid) return res.status(403).send("Mot de passe incorrect")
 				// send user data
 				res.status(200).send({
@@ -77,7 +76,7 @@ exports.login = (req, res) => {
 				})
 			})
 		})
-		.catch(() => res.status(401).send("Utilisateur non trouvé"))
+		.catch(() => res.status(500).send({error}))
 }
 
 exports.getAll = (req, res) => {
@@ -85,7 +84,6 @@ exports.getAll = (req, res) => {
 		order: [["firstName", "ASC"]],
 	})
 		.then((users) => {
-			console.log(users[2].firstName)
 			let result = []
 			for (i in users) {
 				let firstName = users[i].firstName
@@ -113,13 +111,13 @@ exports.deleteOneUser = (req, res) => {
 					fs.unlink(`./uploads/${filename}`, () => {})
 				}
 				User.destroy({where: {id: user.id}})
-					.then(() => res.status(200).send("User Deleted"))
-					.catch((error) => res.status(403).send({error}))
+					.then(() => res.status(200).send("Utilisateur supprimé"))
+					.catch((error) => res.status(500).send({error}))
 			} else {
-				res.status(403).send("Access authorization error")
+				res.status(403).send("Erreur d'authentification")
 			}
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }
 
 exports.delete = (req, res) => {
@@ -136,17 +134,17 @@ exports.delete = (req, res) => {
 				}
 				User.destroy({where: {id: user.id}})
 					.then(() => res.status(200).send("User Deleted"))
-					.catch((error) => res.status(403).send({error}))
+					.catch((error) => res.status(500).send({error}))
 			} else {
-				res.status(403).send("Access authorization error")
+				res.status(403).send("Erreur d'authentification")
 			}
 		})
-		.catch((error) => res.status(403).send({error}))
+		.catch((error) => res.status(500).send({error}))
 }
 
 exports.modify = (req, res) => {
 	// need content
-	if (!req.file && !req.body.firstName && !req.body.lastName) return res.status(401).send("All fields are required")
+	if (!req.file && !req.body.firstName && !req.body.lastName) return res.status(403).send("Tous les champs sont obligatoires.")
 
 	// get ID or is admin
 	const decodedId = getTokenUserId(req)
@@ -173,7 +171,7 @@ exports.modify = (req, res) => {
 						...newUser,
 					},
 					{where: {id: decodedId}}
-				).catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
+				).catch((error) => res.status(500).send({error}))
 			})
 			.then(() => {
 				return User.findOne({where: {id: decodedId}})
@@ -191,19 +189,19 @@ exports.modify = (req, res) => {
 					isAdmin: user.isAdmin,
 				})
 			})
-			.catch(() => res.status(500).send("utilisateur non trouvé"))
+			.catch((error) => res.status(500).send({error}))
 	})
 }
 
 exports.modifyPassword = (req, res) => {
 	// need content
-	if (!req.body.oldPassword || !req.body.password || !req.body.passwordConfirm) return res.status(401).send("All fields are required")
+	if (!req.body.oldPassword || !req.body.password || !req.body.passwordConfirm) return res.status(403).send("Tous les champs sont obligatoires.")
 	
 	const decodedId = getTokenUserId(req) // get ID or is admin
 
 	User.findOne({where: {id: decodedId}})
 		.then((user) => {
-			if (!user) return res.status(401).send("Désolé, cet utilisateur n'a pas été trouvé. ")
+			if (!user) return res.status(403).send("Désolé, cet utilisateur n'a pas été trouvé. ")
 
 			// confirm old password before update
 			bcrypt
@@ -220,10 +218,10 @@ exports.modifyPassword = (req, res) => {
 							.then(() => {
 								return res.status(200).send("Mot de passe modifié")
 							})
-							.catch(() => res.status(403).send("Impossible de modifier les informations dans le serveur"))
+							.catch(() => res.status(500).send("Impossible de modifier les informations dans le serveur"))
 					})
 				})
-				.catch(() => res.status(401).send("Erreur lors du décryptage des mots de passe"))
+				.catch(() => res.status(500).send("Erreur lors du décryptage des mots de passe"))
 		})
-		.catch(() => res.status(500).send("Erreur de la base de données"))
+		.catch((error) => res.status(500).send(error))
 }
