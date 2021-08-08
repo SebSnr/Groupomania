@@ -13,7 +13,11 @@ secretCookie = process.env.SECRET_COOKIE
 
 // synchronise with database models
 const db = require("./models/index")
-db.sequelize.sync() 
+// db.sequelize.sync() 
+
+db.sequelize.sync().then(
+	()=> require("./config/testData")
+ )
 
 
 // secure cookie http-only
@@ -55,9 +59,9 @@ require("./routes/article-routes")(app)
 require("./routes/comment-routes")(app) 
 
 // add fake datas
-fakeData.createFakeArticles(app)
-fakeData.createFakeUsers(app)
-fakeData.createFakeComments(app)
+// fakeData.createFakeArticles(app)
+// fakeData.createFakeUsers(app)
+// fakeData.createFakeComments(app)
 
 module.exports = app 
 
