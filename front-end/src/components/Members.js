@@ -77,7 +77,7 @@ export default function Members() {
 						<div key={index}>
 							<li className="d-flex align-items-center justify-content-between mb-4 w-100 text-left">
 								<button
-									className="d-flex align-items-center justify-content-start flex-grow-1 bg-transparent text-start text-truncate "
+									className="d-flex align-items-center justify-content-start flex-grow-1 bg-transparent btn--members text-start text-truncate "
 									onClick={() => setMembersRender(<MemberProfile user={user} setMembersRender={setMembersRender} initialMembersRender={initialMembersRender} />)}
 								>
 									<ProfilePicture photo={user.photo} class="profile-picture--mini" />
