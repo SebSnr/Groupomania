@@ -9,7 +9,7 @@ import {ApiUrl} from "../utils/variables-config"
 import { alertErrorMessage, alertSuccessMessage } from "../utils/alertMessage"
 // import components
 import {AuthContext} from "../App"
-import PassWordForm from "./PassWordForm "
+import PasswordsForm from "./PasswordsForm"
 
 export default function FormModifyProfile(props) {
 	
@@ -167,7 +167,7 @@ export default function FormModifyProfile(props) {
 						Fermer
 					</button>
 					<button
-						onClick={() => props.setProfileRender(<PassWordForm setProfileRender={props.setProfileRender} initialProfileRender={props.initialProfileRender} />)}
+						onClick={() => props.setProfileRender(<PasswordsForm setProfileRender={props.setProfileRender} initialProfileRender={props.initialProfileRender} />)}
 						className="btn btn-link"
 					>
 						Modifier le mot de passe ?

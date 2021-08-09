@@ -10,7 +10,7 @@ import {ApiUrl} from "../utils/variables-config"
 import {AuthContext} from "../App"
 import { alertSuccessMessage } from "../utils/alertMessage"
 
-export default function PassWordForm(props) {
+export default function PasswordForm(props) {
 	require("yup-password")(Yup) //update yup password librairie
 	const {AuthState} = useContext(AuthContext) // use authentication global state
 	const MySwal = withReactContent(Swal) // custom alert button

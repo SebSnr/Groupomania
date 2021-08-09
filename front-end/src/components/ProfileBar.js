@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect, useMemo} from "react"
 
 import ProfilePicture from "./ProfilePicture"
 import {AuthContext} from "../App"
-import FormModifyProfile from "./FormModifyProfile"
+import ProfileForm from "./ProfileForm"
 
 export default function ProfileBar() {
 	const {AuthState} = useContext(AuthContext) // use global state of authContext
@@ -10,7 +10,7 @@ export default function ProfileBar() {
 	const initialProfileRender = useMemo(() => {
 		// change render of profilBar : initial or modify
 		const handleProfileRender = () => {
-			setProfileRender(<FormModifyProfile setProfileRender={setProfileRender} initialProfileRender={initialProfileRender} />)
+			setProfileRender(<ProfileForm setProfileRender={setProfileRender} initialProfileRender={initialProfileRender} />)
 		}
 
 		return (

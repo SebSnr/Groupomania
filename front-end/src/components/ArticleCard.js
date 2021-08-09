@@ -8,7 +8,7 @@ import {useHistory} from "react-router"
 // components
 import {AuthContext} from "../App"
 import ProfilePicture from "./ProfilePicture"
-import CommentsPart from "./CommentsPart"
+import Comments from "./Comments"
 // Utils
 import {ApiUrl} from "../utils/variables-config"
 import {toFormatedDate} from "../utils/toformatedDate"
@@ -126,7 +126,7 @@ export default function ArticleCard(props) {
 					</div>
 				) : null}
 			</div>
-			<CommentsPart article={props.article} setArticlesRefresh={props.setArticlesRefresh} />
+			<Comments article={props.article} setArticlesRefresh={props.setArticlesRefresh} />
 		</div>
 	)
 }
