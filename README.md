@@ -8,8 +8,7 @@
 
 🎓 Detailed exam powerpoint : [Groupomania-soutenance.pptx](https://github.com/SebSnr/Groupomania/files/6967354/Groupomania-soutenance.pptx)
 
-![Login page Groupomania](https://user-images.githubusercontent.com/78140833/128604955-1fd3ba1c-664e-4827-b73c-9622206976dd.png =250x250)
-![Groupomania home](https://user-images.githubusercontent.com/78140833/129012898-6128d2f7-67e5-4a17-b2a9-48c52871ea07.png =250x250)
+![Groupomania home](https://user-images.githubusercontent.com/78140833/129012898-6128d2f7-67e5-4a17-b2a9-48c52871ea07.png)
 
 🎯 The objective  is to build an intra-enterprise social-network for Groupomania's employees (front & back-end). The purpose of this tool is to facilitate interactions between colleagues. The web deveopper is free to imagine how to display the different functionnalities. 
 
@@ -47,3 +46,5 @@ For example :
 
 Node version 14.17.0
 React version 17.0.2
+
+![Login page Groupomania](https://user-images.githubusercontent.com/78140833/128604955-1fd3ba1c-664e-4827-b73c-9622206976dd.png)
