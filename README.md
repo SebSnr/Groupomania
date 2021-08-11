@@ -14,6 +14,8 @@
 
 🎯 The objective  is to build an intra-enterprise social-network for Groupomania's employees (front & back-end). The purpose of this tool is to facilitate interactions between colleagues. The web deveopper is free to imagine how to display the different functionnalities. 
 
+📝 https://openclassrooms.com/fr/paths/185/projects/677/assignment
+
 !! Important !!
 You must to launch back and front-end servers to display this site
 
