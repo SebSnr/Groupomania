@@ -8,9 +8,8 @@
 
 🎓 Detailed exam powerpoint : [Groupomania-soutenance.pptx](https://github.com/SebSnr/Groupomania/files/6967354/Groupomania-soutenance.pptx)
 
-![Groupomania home](https://user-images.githubusercontent.com/78140833/129012898-6128d2f7-67e5-4a17-b2a9-48c52871ea07.png)
 
-![Test home](https://user-images.githubusercontent.com/78140833/129014754-43c9bac8-a0d4-406b-b97e-55f6c4333a9f.png)
+![Groupomania home](https://user-images.githubusercontent.com/78140833/129014924-27af34cb-c598-4161-9279-9b4dc865ba74.png)
 
 
 🎯 The objective  is to build an intra-enterprise social-network for Groupomania's employees (front & back-end). The purpose of this tool is to facilitate interactions between colleagues. The web deveopper is free to imagine how to display the different functionnalities. 
