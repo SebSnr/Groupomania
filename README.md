@@ -38,9 +38,10 @@ Technologies: NodeJs, Express, Sequelize, MySQL, SQL
 
 
 📂 Database SQL : all connexion informations => back-end/config/db.config.js
+
 🔑 All sensitive informations => back-end/.env
 
-🙍 Test data pre-installed => back-end/config/fakedata.js
+🙍 Test data pre-installed => back-end/config/testData.js
 For example : 
   1) id: jeremy.roh@groupomania.com
      password: 12fedSDSD& 
