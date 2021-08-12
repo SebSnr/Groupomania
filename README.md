@@ -1,5 +1,5 @@
-#### Projet final 7 du parcours Développeur web chez OpenClassrooms
-### Créez un réseau social d’entreprise
+#### Final project n°7 of OpenClassRooms 's Web Developer certification
+### Create a corporate social network
 
 
 🔨 Skills : HTML / CSS / SASS / BOOTSTRAP / NodeJs / Express / Sequelize / MySQL / SQL 
@@ -12,7 +12,7 @@
 ![Groupomania home](https://user-images.githubusercontent.com/78140833/129014924-27af34cb-c598-4161-9279-9b4dc865ba74.png)
 
 
-🎯 The objective  is to build an intra-enterprise social-network for Groupomania's employees (front & back-end). The purpose of this tool is to facilitate interactions between colleagues. The web deveopper is free to imagine how to display the different functionnalities. 
+🎯 The objective  is to build an intra-enterprise social network for Groupomania's employees (front & back-end). The web developer is free to imagine this web app and how to display the different functionalities. 
 
 📝 https://openclassrooms.com/fr/paths/185/projects/677/assignment
 
@@ -24,8 +24,7 @@ You must to launch back and front-end servers to display this site
 Technologies: React, Bootstrap, Sass
 
   1) Install all librairies => npm install
-  2) launch front live server => npm start
- 
+  2) launch front live server => npm start 
 => developpement server:  http://localhost:3000/ 
 
 
