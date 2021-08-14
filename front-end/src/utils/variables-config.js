@@ -1,1 +1,1 @@
- export const ApiUrl = "http://localhost:3200/api" 
+ export const ApiUrl = "http://www.sebsnr.fr/api" 

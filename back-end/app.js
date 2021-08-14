@@ -17,12 +17,12 @@ db.sequelize.sync().then(() => require("./config/testData"))
 // secure cookie http-only
 app.use(
 	cookieSession({
-		name: "notadefaultname4e84fesZ7dzsdhgVD",
-		secret: "frdgsvyu68411dfvd451csNVd",
+		name: cookieName,
+		secret: secretCookie,
 		maxAge: 86400000, //24h
 		secure: true,
 		httpOnly: true,
-		domain: "http://localhost:3000",
+		domain: "http://www.sebsnr.fr",
 	})
 )
 
