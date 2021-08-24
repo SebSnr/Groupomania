@@ -22,7 +22,7 @@ app.use(
 		maxAge: 86400000, //24h
 		secure: true,
 		httpOnly: true,
-		domain: "http://www.sebsnr.fr",
+		domain: "http://sebsnr.fr",
 	})
 )
 
@@ -41,7 +41,7 @@ app.use(express.json({limit: "20mb"}))
 app.use(express.urlencoded({extended: true}))
 
 // file route
-app.use("/images", express.static(path.join(__dirname, "uploads")))
+app.use("/SuperApi/images", express.static(path.join(__dirname, "uploads")))
 
 // user routes
 require("./routes/user-routes")(app)
@@ -51,5 +51,6 @@ require("./routes/article-routes")(app)
 
 // comment routes
 require("./routes/comment-routes")(app)
+
 
 module.exports = app

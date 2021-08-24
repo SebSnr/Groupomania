@@ -1,1 +1,2 @@
- export const ApiUrl = "http://www.sebsnr.fr/api" 
+export const ApiUrl = "http://www.sebsnr.fr/SuperApi/" 
+

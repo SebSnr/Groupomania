@@ -1,8 +1,8 @@
-const db = require("../models")
-const User = db.User
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
-const fs = require("fs")
+const db = require("../models");
+const User = db.User;
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 // separate sensitive connect data
 require("dotenv").config()
@@ -29,9 +29,9 @@ exports.signup = (req, res) => {
 		return res.status(403).send("All fields (except photo) are required")
 	}
 
-	let photo = `${req.protocol}://${req.get("host")}/images/Unknow.jpg` //default profile picture
+	let photo = `http://sebsnr.fr/SuperApi/images/Unknow.jpg` //default profile picture
 	if (req.file) {
-		photo = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+		photo = `http://sebsnr.fr/SuperApi/images/${req.file.filename}`
 	}
 
 	// crypt password
@@ -161,7 +161,7 @@ exports.modify = (req, res) => {
 					if (oldFilename !== "Unknow.jpg") {
 						fs.unlink(`./uploads/${oldFilename}`, () => {})
 					}
-					newUser = {...newUser, photo: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`}
+					newUser = {...newUser, photo: `http://sebsnr.fr/SuperApi/images/${req.file.filename}`}
 				}
 				return newUser
 			})

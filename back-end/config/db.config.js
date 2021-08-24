@@ -1,8 +1,8 @@
 module.exports = {
-    HOST : "db5004194840.hosting-data.io",
-    USER: "dbu1501812",
-    PASSWORD: "sdEr&4Cm45@op",
-    DB: "dbs3469693",
+    HOST : "localhost",
+    USER: "#",
+    PASSWORD: "#",
+    DB: "#",
     dialect: "mysql",
     pool: { 
         max:5, 

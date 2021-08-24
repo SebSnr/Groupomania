@@ -10,7 +10,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Admin",
 					email: "admin@groupomania.com",
 					password: "$2b$10$OizGcgyBbX9tEYf/NDiSe.hxNz1olaH8llq0wORgKYU2scBmCdWsG",
-					photo: "http://localhost:3200/images/admin.jpg1628173738281.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/admin.jpg1628173738281.jpg", 
 					isAdmin: 1,
 				},
 				{
@@ -19,7 +19,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Gamair",
 					email: "amandine.gameir@groupomania.com",
 					password: "$2b$10$HEpd0v/PA9XA2Ly4vQNLDOWZW.dJ/pheVO2fcugaUY1ju2J5KdXSm",
-					photo: "http://localhost:3200/images/LauraB.jpg1628185874399.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/LauraB.jpg1628185874399.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -28,7 +28,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Roh",
 					email: "jeremy.roh@groupomania.com",
 					password: "$2b$10$98NOwc.CGWK16rlT0ev3VuZyKV0hLJ1qwlK.ZK.VEFJK9eKA1UlM.",
-					photo: "http://localhost:3200/images/WillSmith.jpg1628173865144.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/WillSmith.jpg1628173865144.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -37,7 +37,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Sophie",
 					email: "laura.sophie@groupomania.com",
 					password: "$2b$10$A8F0c5.KeXNLH79sHX1SKu1kpA2RQmNHuA22lcMgGC6rg0C9nY0YS",
-					photo: "http://localhost:3200/images/GeorgesLaura.jpg1628176445869.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/GeorgesLaura.jpg1628176445869.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -46,7 +46,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Armor",
 					email: "armor@groupomania.com",
 					password: "$2b$10$u76oxD09MgBWuNA6mpEvoeSYrg9t96QvYRgtjzornwhcr99I0tL4.",
-					photo: "http://localhost:3200/images/patrice.jpeg1628176417762.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/patrice.jpeg1628176417762.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -55,7 +55,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Super",
 					email: "didier.super@groupomania.com",
 					password: "$2b$10$AKUtP970W5aJPisGnLpRHetp4tyvG7lvqJp1pSAI/wmx65D7Oq/16",
-					photo: "http://localhost:3200/images/Unknow.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/Unknow.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -64,7 +64,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Henri",
 					email: "bernard@groupomania.com",
 					password: "$2b$10$AKUtP970W5aJPisGnLpRHetp4tyvG7lvqJp1pSAI/wmx65D7Oq/16",
-					photo: "http://localhost:3200/images/Unknow.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/Unknow.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -73,7 +73,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Yves",
 					email: "patrick@groupomania.com",
 					password: "$2b$10$AKUtP970W5aJPisGnLpRHetp4tyvG7lvqJp1pSAI/wmx65D7Oq/16",
-					photo: "http://localhost:3200/images/Pierre_Niney.jpg1628174238842.jpg", 
+					photo: "http://sebsnr.fr/SuperApi/images/Pierre_Niney.jpg1628174238842.jpg", 
 					isAdmin: 0,
 				},
 				{
@@ -82,7 +82,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Burli",
 					email: "burli.mel@groupomania.com",
 					password: "$2b$10$5/di2IUzMGLHuqC8KJJ5eeDo/Bbu3FKbmc5LpvSCeX3wTaLaPZKyy",
-					photo: "http://localhost:3200/images/Melo.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/Melo.jpg",
 					isAdmin: 0,
 				},
 				{
@@ -91,7 +91,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 					lastName: "Marie",
 					email: "georgette.marie@groupomania.com",
 					password: "$2b$10$PpiJrEXdBlLDvZ4IZ.aiTOkrhqaWkS9TzFQ7o/W03GYtBX/.hzKPS",
-					photo: "http://localhost:3200/images/Nemo.jpg1628160065909.jpg",
+					photo: "http://sebsnr.fr/SuperApi/images/Nemo.jpg1628160065909.jpg",
 					isAdmin: 0,
 				},
 			])
@@ -102,7 +102,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 						{
 							id: 1,
 							text: "Je vous souhaite à tous une belle semaine la team Groupomania !",
-							picture: "http://localhost:3200/images/bonjour_130.gif1628331269324.gif",
+							picture: "http://sebsnr.fr/SuperApi/images/bonjour_130.gif1628331269324.gif",
 							createdAt: "2021-08-07 10:14:29",
 							updatedAt: "2021-08-07 10:14:29",
 							UserId: 1,
@@ -117,7 +117,7 @@ db["User"].findOne({where: {email: "admin@groupomania.com"}}).then((user) => {
 						{
 							id: 3,
 							text: "La relaxation au travail aide à diminuer l’impact du stress sur la santé au quotidien. Lara Histel-Barontini, auteure de La Boîte à Outils de la relaxion, vous propose ces 9 exercices peuvent être pratiqués en fonction de vos besoins et apportent leurs bienfaits au niveau physique, mental et émotionnel tout en améliorant votre productivité et votre performance.",
-							picture: "http://localhost:3200/images/Pass-Zen-.jpg1628331633409.jpg",
+							picture: "http://sebsnr.fr/SuperApi/images/Pass-Zen-.jpg1628331633409.jpg",
 							createdAt: "2021-08-07 10:20:33",
 							updatedAt: "2021-08-07 10:20:33",
 							UserId: 3,
