@@ -1,8 +1,13 @@
 #### Final project n°7 of OpenClassRooms 's Web Developer certification
-### Create a corporate social network
+### Create a corporate social network 
 
 
-🔨 Skills : HTML / CSS / SASS / BOOTSTRAP / NodeJs / Express / Sequelize / MySQL / SQL 
+<br /> =>>> 🌐 http://sebsnr.fr 🌐 <<<= 
+ 
+
+
+
+<br /> 🔨 Skills : HTML / CSS / SASS / BOOTSTRAP / NodeJs / Express / Sequelize / MySQL / SQL 
 
 🔧 Framework : REACT ⚛️ 
 
