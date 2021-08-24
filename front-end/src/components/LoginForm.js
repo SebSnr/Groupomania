@@ -77,6 +77,17 @@ export default function LoginForm() {
 						<Field name="password" type="password" placeholder="Mot de passe" className="input--login px-2" />
 						<ErrorMessage name="password" component="div" className="errorInput align-self-start" />
 
+						<div className="d-flex align-items-center mt-5">
+							<div className="text-secondary px-3 text-decoration-underline">
+								Démo :
+							</div>
+							<div className="text-secondary">
+								jeremy.roh@groupomania.com
+								<br />
+								12fedSDSD&
+							</div>
+						</div>
+
 						<button type="submit" className="btn-lg btn-primary" title="Se connecter" aria-label="Se connecter">
 							Se connecter
 						</button>
