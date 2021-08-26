@@ -14,14 +14,14 @@
 🎓 Detailed exam powerpoint : [Groupomania-soutenance.pptx](https://github.com/SebSnr/Groupomania/files/6967354/Groupomania-soutenance.pptx)
 
 
-![Groupomania home](https://user-images.githubusercontent.com/78140833/129014924-27af34cb-c598-4161-9279-9b4dc865ba74.png)
+https://user-images.githubusercontent.com/78140833/130923335-26eab725-3af4-4852-b4df-e05dd13622a1.mp4
 
 
-🎯 The objective  is to build an intra-enterprise social network for Groupomania's employees (front & back-end). The web developer is free to imagine this web app and how to display the different functionalities. 
+<br/> 🎯 The objective  is to develop an intra-enterprise social network for Groupomania's employees (front & back-end). The web developer is free to imagine this web app and how to display the different functionalities. 
 
 📝 https://openclassrooms.com/fr/paths/185/projects/677/assignment
 
-!! Important !!
+<br/> !! Important !!
 You must to launch back and front-end servers to display this site
 
 
@@ -46,14 +46,14 @@ Technologies: NodeJs, Express, Sequelize, MySQL, SQL
 🔑 All sensitive informations => back-end/.env
 
 🙍 Test data pre-installed => back-end/config/testData.js
-For example : 
-  1) id: jeremy.roh@groupomania.com
+Demo:
+     id: jeremy.roh@groupomania.com
      password: 12fedSDSD& 
-  2) admin id : admin@groupomania.com
-     password : 4512deSDS&é
 
 
 Node version 14.17.0
 React version 17.0.2
+
+<br/> ![Groupomania home](https://user-images.githubusercontent.com/78140833/129014924-27af34cb-c598-4161-9279-9b4dc865ba74.png)
 
 ![Login page Groupomania](https://user-images.githubusercontent.com/78140833/128604955-1fd3ba1c-664e-4827-b73c-9622206976dd.png)
